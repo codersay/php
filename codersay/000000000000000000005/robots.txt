@@ -1,9 +1,0 @@
-#
-# robots.txt for EWAYCMS 
-#
-User-agent: * 
-Disallow: /Admin
-Disallow: /ThinkPHP
-Disallow: /data
-Disallow: /tourl/*
-Disallow: /admin.php
