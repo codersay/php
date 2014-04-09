@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>{:C('SITE_TITLE')}</title>
+<link rel="icon" href="http://www.w3schools.com/favicon.ico" type="image/x-icon">
+<meta name="keywords" content="{:C('SITE_KEYWORDS')}" />
+<meta name="description" content="{:C('SITE_DESCRIPTION')}" />
+<meta name="robots" content="all" />
+<meta name="author" content="{:C('SITE_DP_AUTHOR')}" />
+<meta name="viewport" content="width=device-width"> 
+<link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/style/basic.css" />
+<link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/js/UEDTinkerShare.js" />
+ </head>
+ <body>
+  <div id="top"><div id="top_left"><a href="__SITE_URL__"><img width="280" height="32" style="border:0;" alt="W3Schools.com" src="__STATIC_URL__/images/w3logotest2.png"></a></div>
+  <div id="top_right">  
+  <volist name="category" id="level1">
+
+    		<if condition="( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )">
+            
+                <if condition="( $level1['type'] == 'url' ) && ( $level1['level'] != '' )">
+                <a href="{$level1.url}" target="_blank">{$level1.name}</a>
+                <else />
+                <a href="{:URL($level1['id'],$level1['channel'],'category')}">{$level1.name}</a>
+                </if>
+    		</if>
+</volist> 
+  </div>
+</div>

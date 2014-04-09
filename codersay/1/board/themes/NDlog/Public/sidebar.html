@@ -1,0 +1,29 @@
+<div id="sidebar">
+					<div id="user_info">
+						<div class="avatar"><img src="{$_SESSION['AUTH']['id']|getUserAvatar}" width="45" /></div>
+						<dl class="info">
+							<dt>{$_SESSION['AUTH']['nickname']}<dt>
+							<dd>{$_SESSION['AUTH']['remark']}</dd>
+						</dl>
+						<div class="clear"></div>
+					</div>
+					<?php if( $sidebar ){ ?>
+					<ol class="action_list">
+						<volist name="sidebar" id="sidebar">
+						<?php
+							if ( !empty( $sidebar['type_name'] ) ){
+								$json = json_decode($sidebar['type_name'],true);
+							}else{
+								$json = array();
+							}
+							$node['node'] = $sidebar['pid'];
+							$node['tag'] = $sidebar['id'];
+							$param = array_merge( $json, $node );
+						?>
+						<li rel="{$sidebar.module}_{$sidebar.action}" tag="{$sidebar.id}"><a href="{:U($sidebar['module'].'/'.$sidebar['action'],$param)}">{$sidebar.name}</a></li>
+						</volist>
+					</ol>
+					<?php }else{ ?>
+					<div id="a_list"></div>
+					<?php } ?>
+				</div>

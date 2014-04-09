@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit(); if(is_array($cate)): $i = 0; $__LIST__ = $cate;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cat): $mod = ($i % 2 );++$i;?><li><a href="<?php echo U('/cat/'.$cat['colId']);?>"><?php echo ($cat['colTitle']); ?>「<?php echo ($cat['total']); ?>」</a></li><?php endforeach; endif; else: echo "" ;endif; ?>

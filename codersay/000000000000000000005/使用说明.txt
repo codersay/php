@@ -1,0 +1,14 @@
+原创共享，大道至简，开发由我！
+欢迎使用WBlog博客程序！
+安装前须知：WBlog博客程序采用thinkphp3.1.2为框架核心。安装时最好选用最新的PHP和MYSQL版本，PHP需要PHP5.2.0以上版本支持。
+安装过程：使用360软件解压下载的压缩文件，把解压所得文件包WBlog放到服务器根目下，然后运行http://域名/install/,按照相关要求填写好安装信息提交即可。
+          
+使用说明：
+1、httpd.conf配置文件中加载了mod_rewrite.so模块
+     在httpd.conf配置文件搜索 LoadModule rewrite_module modules/mod_rewrite.so (Apache2是这个)去掉前面的#
+2、AllowOverride None 将None改为 All
+     在httpd.conf配置文件找到“AllowOverride None”将None改为 All。这点值得注意的是，“AllowOverride None”在文件中能找到几处，但要改的却只有一处。更详细见http://www.w3note.com
+
+在学习和使用过程中如发现问题，欢迎到网志博客(http://www.w3note.com)留言。^_^
+WBlog前台演示：http://www.w3note.com
+源码首发：http://www.w3note.com/wblog

@@ -1,0 +1,84 @@
+<include file="Public:header"/>
+<div class="container"><!--container-begin -->
+  <div class="pagebody">
+    <!--pagebody-begin -->
+    <div class="leftpage">
+      <!--leftpage-begin -->
+      <div class="ance"> <!-- anoun-begin -->      
+        <if condition="$ance.url neq  ''">
+        <a title="{$ance['title']}" href="{$ance['url']}">{$ance['title']}</a> 
+        <else />
+         {$ance['title']} 
+        </if>      
+        </div>
+      <!-- anoun-end -->
+	  <volist name="info" id="info">
+      <div class="info">
+        <!-- info-begin -->
+        <div class="postinfo">
+          <div class="date">
+            <!-- date-begin -->
+            <div class="t">{$info['inputtime']|date="m",###}月</div>
+            <div class="d"><strong>{$info['inputtime']|date="d",###}</strong></div>
+          </div>
+          <!-- date-end -->
+          <div class="title"><strong><a title="{$info.title}" href="{:U('/blog/'.$info['id'])}">{$info['title']}</a></strong></div>
+		  <div class="tinfo">
+          <div class="author">作者:w3note</div>
+          <div class="cat">分类:<a title="{$info['colTitle']}" href="{:U('/cat/'.$info['catid'])}">{$info['colTitle']}</a></div>
+          <div class="brownum">浏览{$info['hits']}</div>
+          <div class="comnum"><a href="#">{$info['Comment']|count}人评论</a></div>
+		  </div><!--tinfo end-->
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+        <div class="post">{$info['description']}...</div>
+        <div class="tag">标签:<a href="{$Think.config.rooturl}blog/tag/name/{$info['keywords']|urlencode}">{$info['keywords']|blogTags}</a></div>
+        <div class"comnum">评论人数{$info.Comment|count}<a href="{:U('/blog/'.$info['id'])}#comment">【我来说两句】</a></div>
+      </div>
+      <!-- info-end -->
+	  </volist>
+      <div class="pages"><div class="page">{$page}</div></div>
+    </div>
+    <!--leftpage-end -->
+    <div class="rightpage">
+      <div class="search">
+        <include file="Public:search"/>
+       </div>
+	   <div class="l_tit">微博分类</div>
+      <div class="catlist">
+        <ul>
+		<volist name="Catlist" id="cat">
+          <li><a title="{$cat['colTitle']}" href="{:U('/cat/'.$cat['colId'])}">{$cat['colTitle']}「{$cat['total']}」</a></li>
+		   </volist>
+        </ul>
+      </div>
+      <div class="l_tit">主博客最新文章</div>
+      <div class="month">
+        <ul>
+        <volist name="newslist" id="news">
+          <li>  <a title="{$news['title']}" href="{:U('/read/'.$news['id'])}">{$news['title']|msubstr=0,17,'utf-8'}</a></li>
+         </volist>
+        </ul>
+      </div>
+      <div class="l_tit">随机推荐</div>
+      <div class="rand">
+        <ul>
+		<volist name="randlist" id="rand">
+          <li>  <a title="{$rand['title']}" href="{:U('/blog/'.$rand['id'])}">{$rand['title']|msubstr=0,17,'utf-8'}</a></li>
+         </volist>
+        </ul>
+      </div>
+	  <div class="l_tit">分类标签【<a title="更多分类标签" href="{:U('/blog','tag=name')}">更多</a>】</div>
+      <div class="tags">
+        <ul>
+         <volist id="vo" name="tags" >
+          <li><a href="{$Think.config.rooturl}blog/tag/name/{$vo['name']|urlencode}"><span style="font-size:{16|getTitleSize};color:{$vo['id']|rand_color}">  {$vo['name']}[{$vo['count']}]</span></a></li>
+           </volist>
+        </ul>
+      </div>
+    </div><!--rightpage-end -->
+  </div> <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+</div><!--container-end -->
+ <include file="Public:footer"/>

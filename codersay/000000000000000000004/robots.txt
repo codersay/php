@@ -1,0 +1,10 @@
+#
+# robots.txt
+#
+User-agent: * 
+Disallow: /admin.php
+Disallow:/Admin/
+Disallow:/ThinkPHP/
+Disallow:/Public/
+Disallow:/Home/Tpl/
+Disallow:/backupdata/

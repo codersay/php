@@ -1,0 +1,28 @@
+一、前台增加了Widget工具包(W3note\Lib\Widget)，如DateWidget文章归档工具、HotWidget热点文章工具、NewscommentsWidget最新评论工具、LinkWidget友情链接工具、RandWidget随机文章工具等，使前台的模块功能调用更加方便，例如在没有引入Widget工具之前，在前台首页调用最新评论我们使用如下模板标签：
+<div class="l_tit">最新评论及回复</div>
+    <volist name="newscoments" id="ctlist">
+          <ul>
+          <li>
+          <if condition="$ctlist.nid eq 0">
+          <a  href="{:U('/blog/'.$ctlist['bid'])}#cmt{$ctlist.id}">
+          <else />
+          <a  href="{:U('/read/'.$ctlist['nid'])}#cmt{$ctlist.id}">
+           </if>
+           <span>????</span>??{$ctlist.content|msubstr=0,50}</a>
+           <li style="text-align:right">--{$ctlist.username}</li>
+          </li>
+           </ul>
+         </volist>
+
+而添加NewscommentsWidget最新评论工具后，只需这样：
+<div class="l_tit">最新评论及回复</div>
+{:W('Newscomments')}
+
+
+
+二、优化了文章归档的URL，如由原来过长的URL
+
+http://localhost/wblog/date/index/t/2013-03.html
+
+优化为简短的的URL
+http://localhost/wblog/date/2013-03

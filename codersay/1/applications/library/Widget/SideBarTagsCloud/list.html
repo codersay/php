@@ -1,0 +1,31 @@
+<?php if ( !empty( $list ) ) { $color = array('blue','green','red','black','gray'); ?>
+	<style type="text/css">
+		#tags_cloud { height: 200px; }
+		#tags_cloud ul{ padding: 0; margin:0; list-style: none; border: 0; }
+		#tags_cloud ul li{ border: 0; }
+		#tags_cloud a { text-decoration:none; padding: 3px 6px; }
+		#tags_cloud a:hover {border: 1px solid #eee; background: #FFF; }
+		#tags_cloud .blue {color:blue;}
+		#tags_cloud .red {color:red;}
+		#tags_cloud .green {color:green;}
+		#tags_cloud .black {color:black;}
+		#tags_cloud .gray {color:gray;}
+	</style>
+	<script type="text/javascript">
+		window.jQuery || document.write('<script type="text/javascript" src="__JS__/jQuery/jquery.js"><\/script>');
+	</script>
+	<script type="text/javascript" src="__ROOT__/applications/library/Widget/SideBarTagsCloud/mousewheel.js"></script>
+	<script type="text/javascript" src="__ROOT__/applications/library/Widget/SideBarTagsCloud/tag_cloud.js"></script>
+	<div class="panel_content" id="tags_cloud">
+		<ul>
+		<volist name="list" id="tags">
+		<li><a href="{:U('/tags/'.$tags['name'])}" rel="{$tags.count}" class="<?php echo $color[rand(0,4)]; ?>">{$tags.name}[{$tags.count}]</a></li>
+		</volist>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+	    	$('#tags_cloud').tagcloud({centrex:120, centrey:100, init_motion_x:10, init_motion_y:10});
+	    });
+	</script>
+<?php } ?>

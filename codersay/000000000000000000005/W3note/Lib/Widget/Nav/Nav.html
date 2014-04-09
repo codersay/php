@@ -1,0 +1,8 @@
+ <li><span><strong><a href="{$Think.config.rooturl}">首页</a></strong></span></li>
+ <li><a href="{$Think.config.rooturl}blog">微博客</a></li>
+ <volist name="nav" id="menu">
+   <li><a href="{:U('/cat/'.$menu['colId'])}">{$menu['colTitle']}</a></li>
+  </volist>
+  <li> <a href="{$Think.config.rooturl}guestbook" title="给我留言，有问必答">给我留言</a></li>
+  
+      

@@ -1,0 +1,136 @@
+<php>
+        import("@.ORG.Dbbackup");
+		import("@.ORG.Msg");
+		
+	   $dbbackup = new Dbbackup(C('DB_HOST'), C('DB_USER'), C('DB_PWD'), C('DB_NAME'));
+	   $msg = new Msg();
+	   $bakfile = $dbbackup->get_backup();							//获取备份文件
+	  if($_GET['fn']){
+		if($dbbackup->import($_GET['fn'])){						//导入数据
+			$str = "恭喜您<br>备份数据已经成功导入！";			//提示信息
+			$msg->show_msg($str);	//提示导入成功
+	  }
+	  }
+	//删除备份文件
+	if($_POST['sub']){
+		echo $dbbackup->del($_POST['choice'])? $msg->show_msg("恭喜您<br>备份文件已删除成功!") : $msg->show_msg("删除失败!");
+	}
+    </php>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>数据库还原</title>
+<link href="__PUBLIC__/admin/style.css" rel="stylesheet" type="text/css" />
+<link href="__PUBLIC__/admin/system.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.js"></script>
+</head>
+
+<script language="JavaScript">
+ <!--
+$(document).ready(function(){   
+   $("#CheckedRev").click(function(){
+		  $("[name='id[]']:checkbox").each(function(){
+			this.checked=!this.checked;
+		  });
+	 });
+  
+});
+ //-->
+ </script>
+<style type="text/css"> 
+<!-- 
+.subnav{
+	 /*padding:10px;*/
+	 border-style: solid;
+     border-bottom-width: 3px;
+	 border-bottom-color:#EEEEEE;  
+}.subnav h2{ margin-bottom:6px}
+--> 
+</style> 
+
+<body>
+<div style="border:1px solid #C8DAA3;">
+ <div>
+    <div style="background:#EEF5DE;height:20px;padding-top: 5px;">
+   <span style="margin-right:5px;margin-left:5px;font-size:12px;">当前位置:数据库&nbsp;>&nbsp;数据库还原</span>
+    </div>
+   
+</div>
+<div style="border:1px solid #C8DAA3;">
+ <div>
+    <div style="background:#FFFFFF;height:25px;">
+   <span style="margin-right:5px;margin-left:10px;font-size:12px;"><a href="__URL__/index"  target="main" title="数据库备份">数据库备份</a></span>|
+   <span style="margin-right:5px;margin-left:5px;font-size:12px;"><a href="__URL__/import"  target="main" title="数据库还原">数据库还原</a></span>
+    </div>
+   <hr style="margin-right:10px;margin-left:10px;color:#EEEEEE;"/>
+</div>
+
+<div class="table-list">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+			<th align="center">ID</th>
+			<th align="center">文件名</th>	
+            <th align="center">备份时间</th>    
+             <th align="center">卷号</th>       
+			<th align="center">导入</th>			
+            </tr>
+        </thead>
+    <tbody> 
+      <form name="myform" method="post" action="__URL__/del">
+       <php>
+	       $i = 1;
+	       foreach($bakfile as $tb){
+       </php>
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="<php> echo $tb; </php>" /></td>	
+	<td align="center"><php> echo $i; $i++; </php></td>
+	<td align="center"><php> echo $tb; </php></td>
+    <td align="center">
+       <php>
+	    //取得备份时间
+	       if(!preg_match("/_part/", $tb)){            
+		      $str = explode(".", $tb);         
+		         $time = substr($str[0],-10);      
+		           //设置用在脚本中所有日期/时间函数的默认时区。   
+		            Date_default_timezone_set("PRC");   
+		            echo date("Y-m-d h:i",$time);   
+	          }else{       
+		          //分卷   
+		        $str = explode("_part", $tb);     
+		           $time = substr($str[0],-10);  
+		          //设置用在脚本中所有日期/时间函数的默认   时区。
+		          Date_default_timezone_set("PRC");   
+		         echo date("Y-m-d h:i",$time);   
+	           }    
+         </php>                        
+    </td>
+    <td align="center">
+      <php>
+	      //取分卷号                    
+	     if(!preg_match("/_part/", $tb)){                 
+		     echo "1";             
+	       }else{             
+		   $str = explode(".", $tb);               
+		     echo substr($str[0],-1);            
+	          }         
+       </php>              
+    </td>
+    <td align="center"><a href="__URL__/import/fn/<php> echo $tb; </php>" onClick="return confirm('确定要还原数据?')"">导入</a></td>
+	</tr>
+	  <php> } </php>
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+    <label for="check_box" id ="CheckedRev">全选/取消</label> &nbsp;&nbsp;     
+      <input class="btn2" type="submit" name="sub" value="删除备份" onClick="return confirm('确定删除该备份吗?')")" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>
+

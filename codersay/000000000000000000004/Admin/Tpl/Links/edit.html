@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="/www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__PUBLIC__/admin/style/base.css" type="text/css" />
+<link href='__PUBLIC__/editor/themes/default/default.css' rel='stylesheet' type='text/css' />
+<script type="text/javascript" language="javascript" src="__PUBLIC__/common/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/common/jquery/jquery.form.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/admin/js/common.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="__PUBLIC__/editor/kindeditor.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="__PUBLIC__/editor/lang/zh_CN.js"></script>
+<script language="javascript" type="text/javascript">
+	$(document).ready(function(){
+		$("#linktype").change(function(){
+			if($(this).val() == "writing")
+			{
+				$("#logotr").hide();
+				$("#remarktr").attr("bgcolor","#F9FAF3");
+			}
+			else
+			{
+				$("#logotr").show();
+				$("#remarktr").attr("bgcolor","#FFFFFF");
+			}
+		});
+	$('#form1').ajaxForm({
+	  beforeSubmit:function(){
+	  	if($('#linkname').val() == ""){
+			//$('#result').html("<strong><font color='red'>请填写名称！</font></strong>").show();
+			//setTimeout(function(){$('#result').html('').hide();},3000);
+			alert("请填写名称！");
+			return false;
+			}
+		if($('#url').val() == "http://"){
+			alert("请填写网址！");
+			return false;
+		}
+		if($('#email').val() == ""){
+			alert("请填写站长Email！");
+			return false;
+		}
+		if($('#linktype').val() == "logo"){
+			if($('#picid').val() == ""){
+				alert("请上传Logo！");
+				return false;
+			}
+		}
+			
+	  },
+	  success:function(data){
+		  var s = "";
+		  if(data.status == 1){
+			 s = "<strong><font color='green'>"+data.info+"</font></strong>";
+			 }else{
+				 s = "<strong><font color='red'>"+data.info+"</font></strong>";
+				 }
+		  $('#result').html(s).show();
+		  setTimeout(function(){$('#result').html('').hide();},3000);
+		  },
+	  dataType:'json'
+	  }); 
+	});
+	KindEditor.ready(function(K) {
+		var editor = K.editor({
+					allowFileManager : true
+				});
+		K('#uploadid').click(function() {
+			editor.loadPlugin('image', function() {
+				editor.plugin.imageDialog({
+					imageUrl : K('#picid').val(),
+					clickFn : function(url, title, width, height, border, align) {
+						K('#picid').val(url);
+						$('#picshow').attr({src:url});
+						editor.hideDialog();
+							}
+						});
+					});
+				});
+	});
+</script>
+</head>
+<body style="background-image: url('__PUBLIC__/admin/images/allbg.gif');">
+<table width="98%"  border="0" align="center" cellspacing="1" cellpadding="1" bgcolor="#cfcfcf">
+  <tr>
+    <td width="100%" height="24" background="__PUBLIC__/admin/images/tbg.gif" style="padding-left:10px;"><strong><a href="__GROUP__/Links/index"><u>链接管理</u></a> &gt;&gt; 编辑链接：</strong>
+    </td>
+  </tr>
+  <tr>
+    <td height="187" align="center" bgcolor="#FFFFFF">
+	<form name="form1" method="post" action="__URL__/update" id="form1">
+    <input type="hidden" name="id" value="{$data.id}"/>
+        <table width="100%" border="0" cellspacing="1" style="text-align:left;">
+          
+          <tr> 
+            <td width="120" height="24" align="center">链接类型：</td>
+            <td> 
+              <select name="linktype" id="linktype">
+            <option value='writing' <php>if($data['linktype'] === 'writing') echo "selected";</php>>文字链接</option>
+            <option value='logo' <php>if($data['linktype'] === 'logo') echo "selected";</php>>图片链接</option>
+			</select>
+            </td>
+          </tr>
+          <tr bgcolor="#F9FAF3"> 
+            <td height="24" align="center">名称：</td>
+            <td> 
+             <input type="text" name="linkname" size="30" id="linkname" value="{$data.linkname}"/>
+            </td>
+          </tr>
+          <tr > 
+            <td height="24" align="center">网址：</td>
+            <td>           
+               <input type="text"  name="url" size="30" id="url" value="{$data.url}"/>
+            </td>
+          </tr>
+          <tr bgcolor="#F9FAF3"> 
+            <td height="24" align="center">站长Email：</td>
+            <td> 
+              <input type="text" name="email" size="30" id="email" value="{$data.email}"/>
+            </td>
+          </tr>
+          <tr> 
+            <td height="24" align="center">排序：</td>
+            <td> 
+              <input type="text" name="ord" size="10" id="linkorder" value="{$data.ord}"/>
+            </td>
+          </tr>
+          
+          <tr bgcolor="#F9FAF3" id="logotr" <php>if($data['linktype'] === 'writing') echo "style='display:none'";</php>> 
+            <td height="24" align="center">上传LOGO：</td>
+            <td> 
+              <input name="logo" type="text" id="picid" style="width:240px" value="{$data.logo}"/>
+              <input type="button"  value="上传LOGO" style="width:70px;cursor:pointer;" id="uploadid"/>
+              <img src="{$data.logo}" id="picshow"/>
+            </td>
+          </tr>
+          
+          <tr bgcolor="#F9FAF3" id="remarktr"> 
+            <td height="24" align="center">备注：</td>
+            <td height="24"> 
+              <textarea name="remark" cols="60" rows="5" id="remark">{$data.remark}</textarea></td>
+          </tr>
+          <tr> 
+          <td height="24">&nbsp;</td>
+            <td height="24" width='600' align="left"> 
+              <input type="submit" name="Submit1" class='coolbg np' value="保存"  />
+              &nbsp; 
+              <input type="button" name="Submit2" class='coolbg np' value="返回" onClick="location='__GROUP__/Links/index';" />
+              &nbsp;
+              <span id="result" style="display:none;"></span>
+            </td>
+          </tr>
+        </table>
+	  </form>
+	  </td>
+  </tr>
+</table>
+</body>
+</html>

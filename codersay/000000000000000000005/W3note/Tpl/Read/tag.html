@@ -1,0 +1,83 @@
+<include file="Public:header"/>
+<div class="container"><!--container-begin -->
+  <div class="pagebody">
+    <!--pagebody-begin -->
+    <div class="leftpage">
+      <!--leftpage-begin -->
+	  <empty name="tag">
+	 <div class="ance">
+        <!-- anoun-begin -->
+        【标签云集】</div>
+      <!-- anoun-end -->
+      <div class="info">
+        <!-- info-begin -->
+        <div class="taglist">
+         <volist id="tags" name="tags" ><a href="{$Think.config.rooturl}read/tag/name/{$tags['name']|urlencode}"><span style="font-size:12px;color:{$vo['id']|rand_color}"><b>{$tags['name']}</b></span></a> </volist>        
+        </div>
+        <!-- postinfo-end -->
+        <div class="post"></div>    
+      </div>
+      <!-- info-end -->
+	  <else /> 
+      <div class="ance">
+        <!-- anoun-begin -->
+        和标签【<a href="{$Think.config.rooturl}tag/name/{$tag|urlencode}">{$tag} </a>】相关的文章
+      </div>
+      <!-- anoun-end -->
+	 <volist id="vo" name="list" >
+      <div class="info">
+        <!-- info-begin -->
+        <div class="postinfo">
+          <div class="date">
+            <!-- date-begin -->
+            <div class="t">{$vo['inputtime']|date="m",###}月</div>
+            <div class="d"><strong>{$vo['inputtime']|date="d",###}</strong></div>
+          </div>
+          <!-- date-end -->
+          <div class="title"><strong><a href="{:U('/read/'.$vo['id'])}">{$vo['title']}</a></strong></div>
+          <div class="author">作者:{$vo['username']}</div>
+          <div class="cat">分类:【<a href="{:U('/cat/'.$vo['catid'])}">{$vo['category']} </a>】</div>
+          <div class="brownum">浏览{$vo['hits']}</div>
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+       <!-- postinfo-end -->
+        <div class="post">{$vo['description']}</div>
+        <div class="tag">标签:{$vo['keywords']|webTags}</div>
+        <div class"comnum">评论人数{$vo['Comment']|count}<a href="{:U('/read/'.$vo['id'])}#comment">【我来说两句】</a></div>
+      </div>
+      <!-- info-end -->
+	  </volist>
+      <div class="pages"><div class="page">{$page}</div></div>
+	  </empty>
+    </div>
+    <!--leftpage-end -->
+    <div class="rightpage">
+      <div class="search">
+        <include file="Public:search"/>
+        </div>
+        <div class="l_tit">分类标签【<a title="更多分类标签" href="{:U('/read','tag=name')}">更多</a>】</div>
+      <div class="tags">
+        <ul>
+         {:W('Tags')}
+        </ul>
+      </div><!--tags-end -->
+      <!--search-end -->
+	   <div class="l_tit">文章归类</div>
+      <div class="catlist">
+        <ul>
+		{:W('Cate')}
+        </ul>
+      </div>
+	  <div class="l_tit">最受欢迎的文章</div>
+      <div class="rand">
+        <ul>
+          {:W('Hot')}
+        </ul>
+      </div>  
+    </div><!--rightpage-end -->
+  </div> <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+  
+</div><!--container-end -->
+  <include file="Public:footer"/>

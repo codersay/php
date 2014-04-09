@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="__JS__/NDlogpublic.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<include file="Public:editor" />
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				editor = KindEditor.create("#textarea",{
+					uploadJson:'{:U("uploadfile/uploadeditor")}',
+					fileManagerJson:'{:U("filemanage/viewlist")}',
+					allowFileManager : true,
+					sessionid : '<?php echo $_COOKIE["PHPSESSID"];?>',
+					afterUpload:function(data){ }
+				});
+				
+				$('#video').bind({
+					blur : function(){
+						var value = $.trim( $(this).val() );
+						if( value != '' ) {
+							var _url = value;
+							var _self = $(this);
+							var exp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+							var objExp = new RegExp(exp);
+							if( objExp.test(_url) === false ){
+								NDlog._showErrorInfo(_self,'无效的链接地址，请正确填写！');
+								return false;
+							}else{
+								$.ajax({
+									url : "{:U('getVideoUrl')}",
+									type : 'POST',
+									data : 'url=' + _url,
+									success : function(e){
+										if ( e.status == 1 ){
+											_self.next('.remark').text('正在查找视频...');
+											var _swf = e.data;
+											var _html = '<embed src="'+_swf+'" type="application/x-shockwave-flash" width="550" height="350" wmode="transparent"></embed>';
+											_html += '<input type="hidden" name="video" value="'+_swf+'" />';
+											$('#video_box').show().children('td').html( _html );
+										}
+									},
+									dataType : 'json',
+									complete : function(){
+										_self.next('.remark').text('已完成，如需更改视频请直接粘贴视频页面URL放于此处即可。');
+									},
+									cache : false
+								});
+							}
+						}else{
+							$('#video_box').hide().children('td').html('');
+							$(this).next('.remark').text('请将视频页面URL放在此处即可。(支持：土豆，56，酷6，优酷，163视频)。');
+						}
+					},
+					click : function(){
+						//if ( $(this).val() == $(this).attr('title') ) $(this).val('');
+					}
+				});
+
+				$('.more_title').click(function(){
+					if ( $(this).hasClass('more_open') === false ){
+						$(this).addClass('more_open').next('#more_option').slideDown();
+					}else{
+						$(this).removeClass('more_open').next('#more_option').slideUp();
+					}
+				});
+
+				$('form').submit(function(){
+                    var _title = $('input[name="title"]');
+                    var _tit_val = $.trim( _title.val() );
+                    
+                    if ( _tit_val == '' ){
+                        NDlog._showErrorInfo( _title, '文档标题必须填写！' );
+                        return false;
+                    }
+                    
+                    if ( $('#video_box').children('td').html() == '' ){
+                        NDlog._showErrorInfo( $('#video'), '没有添加视频！' );
+                        return false;
+                    }
+                });
+
+                NDlog._checkErrorInput($('.error_input'));
+			});
+		</script>
+		<style type="text/css">
+			.t_input				{ padding: 6px; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+						<form action="{:U('update')}" method="post">
+            			<input type="hidden" name="id" value="{$vo.id}" />
+            			<input type="hidden" name="type" value="{$vo.type}" />
+						<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td><input type="text" name="title" id="title" class="t_input w480" value="{$vo.title}" /><p class="remark">文档标题，必须填写</p></td>
+                            </tr>
+                            <if condition="$vo['video'] neq ''">
+                            <tr id="video_box">
+                            	<td style="position:relative;"><embed src="{$vo.video}" type="application/x-shockwave-flash" width="550" height="350" wmode="transparent"></embed></td>
+                            </tr>
+                            <else />
+                            <tr id="video_box" style="display:none;">
+                            	<td style="position:relative;"></td>
+                            </tr>
+                            </if>
+                            <tr>
+                            	<td>
+                            		<input type="text" id="video" class="t_input w480" />
+									<p class="remark">请将视频页面URL放在此处即可。(支持：土豆，56，酷6，优酷，163视频)。</p>
+                            	</td>
+                            </tr>
+                            <tr>
+                            	<td><textarea name="content" class="input_text" id="textarea" style="width:100%; height: 260px;">{$vo.content}</textarea></td>
+                            </tr>
+                    	</table>
+                    	<h4 class="more_title">更多选项</h4>
+                    	<div id="more_option">
+                    	<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    		<tr>
+                                <td>
+									<select name="cid" class="t_input">
+										{$option}
+									</select><p class="remark">选择分类，不选择将默认记录文档类型，而不归类。</p>
+                                </td>
+                            </tr>
+							<tr>
+                                <td>
+									<lable class="option_lable"><input type="checkbox" class="checkbox" class="checkbox" id="set_top" name="set_top" value="1"<?php if( $vo['set_top'] == 1 ){ echo ' checked="checked"'; } ?> /> 置顶</lable>
+									<lable class="option_lable"><input type="checkbox" class="checkbox" id="recommend" name="recommend" value="1"<?php if( $vo['recommend'] == 1 ){ echo ' checked="checked"'; } ?> /> 推荐</lable>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+									<input type="text" name="tags" class="t_input w480" value="{$vo.tags}" /><p class="remark">tags，多个可用空格分开。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+									<input type="text" name="url_name" class="t_input w480" value="{$vo.url_name}" /><p class="remark">自定义文档的URL名称，用于URL优化，可不填写。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="keyword" id="keyword" class="t_input w480" value="{$vo.keyword}"><p class="remark">分类关键字，SEO相关，用于页面的 meta keywords，非必填。</p></td>
+                            </tr>
+                            <tr>
+                                <td><textarea name="description" id="description" class="t_input w480" style="height:160px;">{$vo.description}</textarea><p class="remark">分类说明，SEO相关，用于页面的 meta description，非必填。</p></td>
+                            </tr>
+                    	</table>
+                    	</div>
+                    	<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    		<tr>
+                                <td>
+                                	<input type="submit" class="submit" value="提交表单" />
+				                	&nbsp;&nbsp;&nbsp;
+				                	<input type="button" class="submit" value="返回" onclick="window.location.href='{:U('index',array('node'=>$_GET['node']))}';" />
+                                </td>
+                            </tr>
+                    	</table>
+						</form>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

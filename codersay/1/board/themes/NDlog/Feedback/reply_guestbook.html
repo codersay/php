@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{:C('SITE_TITLE')}</title>
+        <meta charset="utf-8" />
+        <include file="Public:commonjs" />
+        <link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+        <script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+        <script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+        <script type="text/javascript" src="../Public/js/common.js"></script>
+        <include file="Public:editor" />
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                editor = KindEditor.create("#reply_content",{
+                    items : [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'link']
+                });
+            });
+        </script>
+        <style type="text/css">
+            .t_input{ padding: 5px; }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <include file="Public:header" />
+            <div id="container">
+                <div id="sidebar_switch"></div>
+                <div id="content">
+                    <div id="c_warp">
+                        <form action="{:U('insert')}" method="post" id="insert_guestbook">
+                            <input type="hidden" name="pid" value="{$_GET['id']}" />
+                            <input type="hidden" name="model" value="Guestbook" />
+                            <textarea name="content" id="reply_content" style="width:450px; height:260px;"></textarea>
+                            <br />
+                            <input type="submit" id="submit_guestbook" value="提交" class="submit" />
+                        </form>
+                    </div>
+                </div>
+                <include file="Public:sidebar" />
+            </div>
+        </div>
+    </body>
+</html>

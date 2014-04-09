@@ -1,0 +1,98 @@
+<include file="Public:common_head" />    
+    <!-- Title -->
+	<title><{$Think.config.CFG_WEBNAME}></title>
+    <meta name="description" content="<{$Think.config.CFG_DESCRIPTION}>" />
+	<meta name="keywords" content="<{$Think.config.CFG_KEYWORDS}>" />
+    <link rel="canonical" href="/" />
+<!-- END head -->
+</head>
+
+<!-- BEGIN body -->
+<body class="home blog ie layout-2cl">
+
+	<!-- BEGIN #container -->
+	<div id="container">
+		
+		<include file="Public:head" />
+        
+		<!--BEGIN #content -->
+		<div id="content" class="clearfix">
+					
+			<!-- BEGIN #content-wrap -->
+			<div id="content-wrap" class="clearfix">
+			
+				<div id="content-top">&nbsp;</div>
+				
+                <script language="JavaScript">
+					$(document).ready(function(){
+						var i = 0;
+						$(window).scroll(function(){
+							if ($(document).height()-$(document).scrollTop()-$(window).height()<100){
+								if($('#rui-prompt').text() == ''){
+									loadArticle('__URL__/getArticle','<{$flag}>',++i);
+								}
+							}
+						});
+					});
+		
+	</script>
+				<!--BEGIN #primary .hfeed-->
+				<div id="primary" class="hfeed">
+				
+                		<!--Position-->
+						<div class="clearfix" style="margin-bottom:5px"><img src="__IMG__/home.png" width='18' height='16' alt='RUI个人博客' />&nbsp;<{$position}></div>
+		
+					                    	
+											
+						<volist name='arclist' id='data'>
+						<div>				
+							<h2 class="entry-title"><a href="<{$data.arcurl}>" title="<{$data.title}>"><{$data.title}></a></h2>
+											
+							<!--BEGIN .entry-meta .entry-header-->
+							<div class="entry-meta entry-header">
+								<span class="contentinfo_time"><{$data.createtime}></span> <span class="contentinfo_category"><a href="<{$data.colurl}>" title="查看 <{$data.colname}> 中的全部文章"><{$data.colname}></a></span> <span class="contentinfo_view"><{$data.click}>次点击</span> <span class="contentinfo_comment"><{$data.commentnum}>条评论</span>    							<!--END .entry-meta entry-header -->
+							</div>
+							
+							<div class="post-thumb post-lead">
+                                   <if condition="$data.pic neq ''">
+								<a title="<{$data.title}>" href="<{$data.arcurl}>"><img width="570" height="140" src="<{$data.pic}>" class="attachment-archive-thumb wp-post-image" alt="<{$data.title}>" /></a></if>
+							</div>
+									
+							<!--BEGIN .entry-content -->
+							<div class="entry-content">
+                            	<p><{$data.description}>...</p>
+								 <p><a href="<{$data.arcurl}>" class="more-link">阅读全文 »</a></p>
+							<!--END .entry-content -->
+							</div>
+		                
+						<!--END .hentry-->  
+						</div>
+					</volist>
+										
+				<!--END #primary .hfeed-->
+				</div>
+				<div id="content-btm">&nbsp;</div>
+                <div class="page-navigation" style="font-size:20px;display:none" id="rui-prompt"></div>
+			
+			<!-- END #content-wrap -->
+			</div>
+
+		<include file="Public:left" />
+		
+		<!-- END #content -->
+		</div>
+        
+		<include file="Public:footer" />
+		
+		
+	<!-- END #container -->
+	</div> 
+		
+	<!-- Theme Hook -->
+	<div style="display:none;"></div>
+			
+<!--END body-->
+
+</body>
+<!--END html-->
+</html>

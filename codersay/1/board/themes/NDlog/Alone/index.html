@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="__JS__/NDlogpublic.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				NDlog._setTableStyle( 'input[name="all"]', 'input[name="ids[]"]', '.rows_style' );
+			})
+		</script>
+		<style type="text/css">
+			input 			{ vertical-align: middle; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="table_list">
+							<tr>
+								<th align="center" width="40">ID</th>
+								<th>页面名称(分类名称)</th>
+								<th width="60" align="center">状态</th>
+								<th width="90" align="center">操作</th>
+							</tr>
+							<volist id="vo" name="list">
+							<tr rel="{$vo['id']}" class="rows_style"<?php if( ( $i % 2 ) == 0 ){ ?> bgcolor="#f9f9f9"<?php }else{ ?> bgcolor="#ffffff"<?php } ?>>
+								<td align="center">{$vo['id']}</td>
+								<td><a href="{:U('edit',array('id' => $vo['id'], 'mod' => 'alone', 'node' => $_GET['node']))}" class="edit_links">{$vo['name']}</a></td>
+								<td align="center">{$vo['status']|getStatus}</td>
+								<td align="center"><a href="{:U('edit',array('id' => $vo['id'], 'mod' => 'alone', 'node' => $_GET['node']))}" class="edit_links">编辑页面内容</a></td>
+							</tr>
+							</volist>
+						</table>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='Refresh' content='{$waitSecond};URL={$jumpUrl}'>
+<link rel="stylesheet" href="/Tpl/default/Admin/css/common.css" type="text/css" />
+<title>页面提示</title>
+</head>
+
+<body>
+<form action="/Admin/Login/login" method="post">
+<div id="man_zone" style="border:0; margin-top:20px; padding-top: 0px;">
+  <table width="50%" border="0" align="center"  cellpadding="3" cellspacing="1" class="table_style">
+    <caption></caption>
+	<tr>
+		<td class="left_title_1" style="text-align:center;color:#000000;">{$msgTitle}</td>
+	</tr>
+    <tr>
+      <td width="100%" class="left_title_2" style="text-align:left;">
+	  <present name="message" >
+	  <font style="color:blue;">{$message}</font>
+	  </present>
+	  <present name="error" >
+	  <font style="color:red;">{$error}</font>
+	  </present>
+	  </td>
+    </tr>
+    <tr>
+      <td class="left_title_2" style="text-align:left;">
+	  <present name="closeWin" >
+	  系统将在 <span style="color:blue;font-weight:bold">{$waitSecond}</span> 秒后自动关闭，如果不想等待,直接点击 <a href="{$jumpUrl}" style="color:blue;">这里</a> 关闭
+	  </present>
+	  <notpresent name="closeWin" >
+	  系统将在 <span style="color:blue;font-weight:bold">{$waitSecond}</span> 秒后自动跳转,如果页面没有自动跳转或不想等待,直接点击 <a href="{$jumpUrl}" style="color:blue;">这里</a> 跳转
+	  </notpresent>
+	  </td>
+    </tr>
+  </table>
+</div>
+</form>
+</body>
+</html>
+

@@ -1,0 +1,4 @@
+ <volist id="vo" name="tags" >
+    <a href="{$Think.config.rooturl}read/tag/name/{$vo['name']|urlencode}"><span style="float:left;font-size:{$vo['id']|getTitleSize};color:{$$vo['id']|rand_color};margin:2px">  <b>{$vo['name']}<!--[{$vo.count}]--></b></span></a>
+ </volist>
+      

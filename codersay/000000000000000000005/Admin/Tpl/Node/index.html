@@ -1,0 +1,93 @@
+<include file="Public:indexheader" />
+ <script language="Javascript">
+function delet()
+{
+  if(confirm("确定删除该记录吗?")){
+    return document.myform.action='?m=Node&a=act&action=delete';
+	
+  }else{
+   return false;
+  }
+} 
+</script>
+<style type="text/css"> 
+<!-- 
+.subnav{
+	 /*padding:10px;*/
+	 border-style: solid;
+     border-bottom-width: 3px;
+	 border-bottom-color:#EEEEEE;  
+}.subnav h2{ margin-bottom:6px}
+--> 
+</style> 
+
+<body>
+<div class="location">
+      <span>当前位置:用户管理&nbsp;>&nbsp;节点管理</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" class="main_select"><span>管理列表</span></a>|
+   <a href="__URL__/insert" target="main" title="添加节点">添加节点</a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+    <form name="myform"  id="myform" method="POST">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+            <th align="center">排序</th>
+			<th align="center">显示名称</th>
+            <th align="center">应用名</th>
+             <th align="center">上级节点</th>
+             <th align="center">类型</th>
+			<th align="center">状态</th>
+            <th align="center">备注</th>
+			<th align="center">管理操作</th>
+					
+			
+            </tr>
+        </thead>
+    <tbody> 
+     <volist name="Nodelist" id="vo">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" id="id"></td>	
+    <td align="center"><input type=hidden name="ids[]" value="{$vo['id']}"><input type="text" name="ord[]" size="1" value="{$vo['ord']}"></td>
+	<td align="center">{$vo['title']}</td>
+    <td align="center">{$vo['name']} </td>
+    <td align="center">{$vo['class']} </td>
+    <td align="center">
+    <if condition="$vo['level'] eq 1">项目
+    <elseif condition="$vo['level'] eq 2" />模块
+    <else />操作
+    </if>
+     </td>
+    <td align="center"><if condition="($vo['status'] eq 1)"><span style="color:green;font-weight:bold;">√</span><else />ㄨ</if></td>
+	
+    <td align="center">{$vo['remark']}</td>
+	<td align="center">
+      <a href="__URL__/edit/id/{$vo['id']}">修改</a>
+    </td>
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+   <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label> &nbsp;&nbsp;
+        
+         
+       <input type="submit" name="act" value="排序" class="coolbg" onClick="document.myform.action='?m=Node&a=act&action=order';"/>&nbsp;
+        <input type="submit" name="act" value="删除" class="coolbg" onClick="delet()"/>
+        &nbsp;&nbsp;
+	   </div>
+</form>
+</div>
+<div id="pages"> {$page}</div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+<include file="Public:indexheader" />
+<body>
+<div class="location">
+   <span>当前位置:用户管理&nbsp;>&nbsp;角色管理</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理角色" >管理角色</a>|
+   <a href="__URL__/insert" target="main" title="添加角色" class="main_select">添加角色</a>|
+   <a href="#" target="main" title="授权角色" class="main_select"><span>授权角色</span></a>
+   <div class="line"/></div>
+</div>
+
+<div class="table-list">
+    <form name="myform" id="myform" action="__URL__/saverole" method="POST">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+            <th align="center">ID</th>
+			<th align="center">角色</th>
+			<th align="center">状态</th>
+			
+					
+			
+            </tr>
+        </thead>
+    <tbody> 
+     <volist name="rolelist" id="vo">
+	<tr>
+	<if condition="($vo['checked'] eq 1)">
+	<td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" checked></td>	
+    <else />
+    <td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" id="id" ></td>
+    </if>
+    <td align="center">{$vo['id']}</td>
+	<td align="center">{$vo['name']}</td>
+	 <td align="center"><if condition="($vo['status'] eq 1)"><span style="color:green;font-weight:bold;">√</span><else />ㄨ</if></td>
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+    <input type=hidden name="user_id" value="{$user_id}">
+      <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label> &nbsp;&nbsp;     
+	<input type="submit" name="dosubmit" value="授权" class="button" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>
+

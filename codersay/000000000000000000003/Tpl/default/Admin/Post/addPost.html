@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="/Tpl/default/Admin/css/common.css" type="text/css" />
+<script src="__PUBLIC__/js/jquery.js"></script>
+<title>管理区域</title>
+<script>
+function addCheck() {
+	if( $("#title").val() == "" ) {
+		$("#titleTip").css("color", "#ff0000");
+		$("#titleTip").html("标题不能为空！");
+		$("#title").focus();
+		return false;
+	}else{
+		$("#titleTip").html("");
+	}
+
+	return true;
+}
+</script>
+</head>
+
+<body>
+<div id="man_zone2">
+<form id="form1" action="/Admin/Post/addPostAction" method="post" onsubmit="return addCheck();">
+  <table width="99%" border="0" align="center"  cellpadding="3" cellspacing="1" class="table_style">
+	<caption>添加日志</caption>
+	<tr>
+      <td width="18%" class="left_title_2"><span class="left-title">日志分类</span></td>
+      <td width="82%">
+		<select id="ctg" name="ctg">
+		<volist name="postCtglist" id="category">
+			<option value="{$category.id}">{$category.name}</option>
+		</volist>
+		</select>
+		&nbsp;<font color="red">*</font>&nbsp;<span id="ctgTip"></span>
+	  </td>
+    </tr>
+	<tr>
+      <td width="18%" class="left_title_2"><span class="left-title">标题</span></td>
+      <td width="82%">
+		<input type="text" name="title" id="title" style="width:300px;" value="" />&nbsp;<font color="red">*</font>&nbsp;<span id="titleTip"></span>
+	  </td>
+    </tr>
+    <tr>
+      <td width="18%" class="left_title_2"><span class="left-title">内容</span></td>
+      <td width="82%">
+		{$editor}
+	  </td>
+    </tr>
+     <tr>
+      <td width="18%" class="left_title_2"><span class="left-title">置顶显示</span></td>
+      <td width="82%">
+		<input type="checkbox" name="showtop" id="showtop" value="1" />&nbsp;&nbsp;<span id="showTip">如果要置顶显示该贴，请勾选该选项！</span>
+	  </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+      <td class="left_title_2">&nbsp;</td>
+      <td><input type="submit" name="submit" value="确定" />&nbsp;</td>
+    </tr>
+  </table>
+</form>
+</div>
+</body>
+</html>

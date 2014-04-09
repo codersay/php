@@ -1,0 +1,95 @@
+<include file="Public:header"/>
+<div class="container"><!--container-begin -->
+  <div class="pagebody">
+    <!--pagebody-begin -->
+    <div class="leftpage">
+      <!--leftpage-begin -->
+      <div class="updow">
+        <!-- updow-begin -->
+        <div class="up">{$pagedown}</div>
+		<div class="down">{$pageup}</div>
+		</div>
+      <!-- updow-end -->
+     <div class="info">
+        <!-- info-begin -->
+        <div class="postinfo">
+          <div class="date">
+            <!-- date-begin -->
+            <div class="t"><strong>{$vo.inputtime|date="m",###}月</strong></div>
+            <div class="d"><strong>29</strong></div>
+          </div>
+          <!-- date-end -->
+          <div class="title"><strong>{$vo.title}</strong></div>
+		  <div class="tinfo">
+          <!--<div class="author">作者</div>-->
+          <div class="cat"></div>
+          <div class="brownum">浏览:{$vo.hits}</div>
+          <div class="comnum">
+           <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <span class="bds_more">分享到：</span>
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+		<a class="shareCount"></a>
+    </div>
+     <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1" ></script>
+     <script type="text/javascript" id="bdshell_js"></script>
+     <script type="text/javascript">
+	    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+     </script>
+   <!-- Baidu Button END -->
+          </div>
+		  </div>
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+        <div class="post">{$vo.content}</div>
+        <div class="tag"></div>
+        <div class"comnum"><!--<a href="#comment">【已有人发表了看法，你呢？】</a>--></div>
+      </div>
+      <!-- info-end -->
+   <div class="line10"></div>
+    </div><!--leftpage-end -->
+    <div class="rightpage">
+      <div class="search">
+        <input type="text" name="yourname" size="30"  value="" />
+        <strong>搜索</strong></div>
+      <!--search-end -->
+      <div class="barnner"> 
+	  <li>
+	  
+	  </li> 
+	  </div><!--barnner-end -->
+      <div class="l_tit">RSS订阅w3网记博客</div>
+      <div class="about"><a title="RSS订阅w3网记博客" href="{$Think.config.rooturl}Feed/index"><img src="{$Think.config.rooturl}Public/Images/RSS.gif" title="RSS" alt="RSS" width="163" height="48" border="0"/></a></div>
+      <!--about-end -->
+      <div class="l_tit">热点文章</div>
+      <div class="rand">
+        <ul>
+          {:W('Hot')}
+        </ul>
+      </div>
+      
+      <div class="l_tit">站点分类</div>
+      <div class="catlist">
+        <ul>
+		{:W('Cate')}
+        </ul>
+      </div>
+    <div class="l_tit">分类标签【<a title="更分类标签多" href="{$Think.config.rooturl}web/tag/name/">更多</a>】</div>
+      <div class="tags">
+        <ul>
+         {:W('Tags')}
+        </ul>
+      </div><!--tags-end -->
+  </div>
+  <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+</div><!--container-end -->
+ <include file="Public:footer"/>
+
+
+ 
+

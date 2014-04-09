@@ -1,0 +1,127 @@
+<include file="Public:header" />
+<script language="Javascript">
+function delet()
+{
+  if(confirm("确定删除该记录吗?")){
+    return document.myform.action='?m=News&a=act&action=delete';
+	
+  }else{
+   return false;
+  }
+} 
+</script>
+<body>
+    <div class="location">
+   <span>当前位置:常用操作&nbsp;>&nbsp;文章管理</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" class="main_select"><span>管理列表</span></a>|
+   <a href="__URL__/insert" target="main" title="添加内容">添加内容</a>
+   <div class="line"/></div>
+</div>
+<div  id="search">
+   <table width="98%" cellspacing="0" >
+    <tbody>
+	  <tr>
+		<td>
+		<div class="search">
+		<form action="__URL__/index" method="POST">
+             所属栏目:
+            <select name="catid" onChange="document.all.dosubmit.click()">
+			<option value="0">请选择栏目</option>
+			<volist name="catlist" id="cat">
+			<if condition="$catid eq $cat['colId']"> 
+			<option value="{$cat['colId']}" selected>
+				{$cat['space']}{$cat['colTitle']}
+			</option>
+			<else />
+			
+            <option value="{$cat['colId']}">
+				{$cat['space']}{$cat['colTitle']}
+			</option>
+			</if>
+			</volist>
+		  </select>	
+		
+          <input  type="submit"  name='dosubmit' class="button" value="搜索" />
+           </form>
+		</div>
+		</td>
+	 </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-list">
+    <form name="myform"  id="myform" method="POST">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+			<th align="center">排序</th>
+			<th align="center">ID</th>
+			<th align="center">标题</th>
+			<th  align="center">审核状态</th>	
+			<th  align="center">点击量</th>												
+			<th align="center">发布人</th>
+			<th  align="center">更新时间</th>
+			<th  align="center">管理操作</th>			
+			
+            </tr>
+        </thead>
+    <tbody> 
+     <volist name="lists" id="vo">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" id="id"></td>	
+	<td align="center"><input type=hidden name="ids[]" value="{$vo['id']}"><input type="text" name="ord[]" size="1" value="{$vo['ord']}"></td>
+	<td align="center">{$vo['id']}</td>
+	<td align="center"><a title="{$vo['title']}" href="{$Think.config.rooturl}web/{$vo['id']}.html" target="blank"><if condition="($vo['posid'] eq 1)">{$vo['title']} <img src="__PUBLIC__/admin/images/small_elite.gif" border="0" alt="推荐" style="cursor : pointer;width:17px;height:16px;" /><else />{$vo['title']}</if></a></td>
+	<td align="center"><if condition="($vo['status'] eq 1)"><span style="color:green">√</span><else />ㄨ</if></td>
+	<td align="center">{$vo['hits']}</td>		
+	<td align="center">{$vo['username']}</td>
+	<td align="center">{$vo['inputtime']|date="Y-m-d H:i:s",###}</td>
+	<td align="center"> <a href="__URL__/edit/id/{$vo['id']}">修改</a>| 
+    <if condition="$vo['picnum'] neq 0"> 
+              <a href="__APP__/Attach/index/module/News/id/{$vo['id']}">管理图片</a>
+            <else/> 
+              <a href="__APP__/Attach/add/module/News/id/{$vo['id']}">添加图片</a>
+            </if> 
+    <a href="__APP__/Comment/index/nid/{$vo['id']}">评论[{$vo['total']}]</a>
+    </td>	
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+    <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label> &nbsp;&nbsp;
+    
+    
+        
+          移动到：<select name="catid"">
+			<option value="0">请选择栏目</option>
+			<volist name="catlist" id="cat">
+			<if condition="$catid eq $cat['colId']"> 
+			  <option value="{$cat['colId']}" selected>{$cat['space']}{$cat['colTitle']}</option>							
+			<else />			
+              <option value="{$cat['colId']}">{$cat['space']}{$cat['colTitle']}</option>			
+			</if>
+			</volist>
+		  </select>&nbsp;
+        <input type="submit" name="act" value="移动" class="coolbg" onClick="document.myform.action='?m=News&a=act&action=move';"/>&nbsp;
+        <input type="submit" name="act" value="推荐" class="coolbg" onClick="document.myform.action='?m=News&a=act&action=posid';"/>&nbsp;
+		<input type="submit" name="act" value="审核" class="coolbg" onClick="document.myform.action='?m=News&a=act&action=check';"/>&nbsp;
+		<input type="submit" name="act" value="排序" class="coolbg" onClick="document.myform.action='?m=News&a=act&action=order';"/>&nbsp;
+        <input type="submit" name="act" value="删除" class="coolbg" onClick="delet()"/>
+        &nbsp;
+        
+	   </div><!--btn end-->
+</form>
+</div><!--table-list end-->
+&nbsp;&nbsp;<div id="pages"> {$page}</div>
+</div>
+</body>
+</html>

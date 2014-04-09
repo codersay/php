@@ -1,0 +1,103 @@
+<include file="Public:indexheader" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/formvalidator.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#username").formValidator({onshow:"帐号不能为空",onfocus:"帐号不能为空"}).inputValidator({min:1,max:50,onerror:"帐号不能为空"});
+	$("#nickname").formValidator({onshow:"昵称不能为空",onfocus:"昵称不能为空"}).inputValidator({min:1,max:50,onerror:"昵称不能为空"});
+});
+</script>
+<body>
+<div class="location">
+   <span>当前位置:用户管理&nbsp;>&nbsp;修改用户</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" >管理列表</a>|
+   <a href="__URL__/insert" target="main" title="添加用户" class="main_select">添加用户</a>|
+   <a href="#" target="main" title="修改用户" class="main_select"><span>修改用户</span></a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+     <form action="__URL__/update" method="POST" id="myform">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+       <tbody>
+            
+            <tr>
+            <td width="400" align="right">用户帐号：</td>
+            <td align="left">
+          <input type="text" name="username" id="username" value="{$vo.username}">
+            </td>	
+            </tr>
+            <tr>
+            <td width="50" align="right">最后登录时间：</td>
+            <td align="left">
+          {$vo.lastlogintime|date="Y-m-d H:i:s",###}
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">昵称：</td>
+            <td align="left">
+           <input type="text" name="nickname" id="nickname" value="{$vo.nickname}">
+            </td>	
+            </tr>
+            <tr>
+            <td width="50" align="right">状态：</td>
+            <td align="left">
+             
+             <if condition="$vo['status'] eq 1"> 
+             <input type="radio" name="status" value="1" checked>启用
+             <input type="radio" name="status" value="0">禁用
+             <elseif condition="$vo['status'] eq 0"/>
+             <input type="radio" name="status" value="1" >启用
+             <input type="radio" name="status" value="0" checked>禁用
+             <else />
+             <input type="radio" name="status" value="1" >启用
+             <input type="radio" name="status" value="0">禁用
+             </if>
+
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">是否是超级管理员：</td>
+            <td align="left">
+             
+             <if condition="$vo['isadministrator'] eq 1"> 
+             <input type="radio" name="isadministrator" value="1" checked>是
+             <input type="radio" name="isadministrator" value="0">否
+             <elseif condition="$vo['isadministrator'] eq 0"/>
+             <input type="radio" name="isadministrator" value="1" >是
+             <input type="radio" name="isadministrator" value="0" checked>否
+             <else />
+             <input type="radio" name="isadministrator" value="1" >是
+             <input type="radio" name="isadministrator" value="0">否
+             </if>
+
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">E-mail：</td>
+            <td align="left">
+           <input type="text" name="email" id="email" value="{$vo.email}">
+            </td>	
+            </tr>
+             
+       </tbody>
+    
+ </table>
+	<div class="btn" style="font-size:12px;">
+         <input type=hidden name="id" value="{$vo.id}">
+		 <input type="hidden" name="act" value="act_edit"/>
+		 
+          <input type="submit" value="提交" id="send" class="button" style="margin-left: 450px;">&nbsp;&nbsp;
+		 <input  type="button" onClick="history.back()" class="button" value="取 消" alt="取消" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>
+

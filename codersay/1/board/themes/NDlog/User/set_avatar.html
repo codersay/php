@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{:C('SITE_TITLE')}</title>
+        <meta charset="utf-8" />
+        <include file="Public:commonjs" />
+        <link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+        <script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+        <script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+        <script type="text/javascript" src="__JS__/jQuery/plugin/ajaxUpload.js"></script>
+        <script type="text/javascript" src="__JS__/jQuery/plugin/jcrop/jquery.color.js"></script>
+        <script type="text/javascript" src="__JS__/jQuery/plugin/jcrop/jquery.jcrop.js"></script>
+        <script type="text/javascript" src="../Public/js/common.js"></script>
+        <script type="text/javascript">
+            var jcrop_api, boundx, boundy;
+            jQuery(document).ready(function($){
+                $('.hv_img').load(function(){ 
+                    //checkImgSize( $(this) ); 
+                    $(this).Jcrop({
+                        bgFade:     true,
+                        bgOpacity: .3,
+                        setSelect : [ 20, 20, parseInt( {:C('PIC_THUMB_WIDTH')} ) + 20, parseInt( {:C('PIC_THUMB_HEIGHT')} ) + 20 ],
+                        onChange : updatePreview,
+                        onSelect : updatePreview,
+                        onSelect : updateCoords,
+                        aspectRatio : 1
+                    },function(){
+                        var bounds = this.getBounds();
+                        boundx = bounds[0];
+                        boundy = bounds[1];
+                        jcrop_api = this;
+                    });
+                });
+            });
+
+            function ajaxFileUpload(){
+                if ($("#filedata").val() == ''){
+                    alert('请选择要上传的文件！');
+                    return false;
+                }
+                //starting setting some animation when the ajax starts and completes
+                $("#loading").ajaxStart(function(){ $(this).show(); }).ajaxComplete(function(){ $(this).hide(); });
+        
+                $.ajaxFileUpload({
+                    url:'{:U("Uploadfile/uploadAvatar")}', 
+                    secureuri:false,
+                    fileElementId:'filedata',
+                    dataType: 'json',
+                    success: function (data, status){
+                        //alert(data.msg.url);
+                        if(typeof(data.error) != 'undefined'){
+                            if(data.error != ''){
+                                alert(data.error);
+                                return false;
+                            }else{
+                                alert(data.msg);
+                            }
+                        }
+                        $("#upimg").after("<div id='img_display' class='mt'>"+
+                            "<div id=\"preview_avatar\" style=\"width:{:C('PIC_THUMB_WIDTH')}px;height:{:C('PIC_THUMB_HEIGHT')}px;overflow:hidden;float:right;\">"+
+                                "<img src=\""+data.msg.url+"\" id=\"preview\" alt=\"Preview\" class=\"jcrop-preview\" />"+
+                            "</div>"+
+                            "<p><img id='img__change' src='"+data.msg.url+"' /></p>"+
+                            "</div>");
+                        $('#img__change').load(function(){ 
+                            //checkImgSize( $(this) );
+                            $(this).Jcrop({
+                                bgFade:     true,
+                                bgOpacity: .3,
+                                setSelect : [ 20, 20, parseInt( {:C('PIC_THUMB_WIDTH')} ) + 20, parseInt( {:C('PIC_THUMB_HEIGHT')} ) + 20 ],
+                                onChange : updatePreview,
+                                onSelect : updatePreview,
+                                onSelect : updateCoords,
+                                aspectRatio : 1
+                            },function(){
+                                var bounds = this.getBounds();
+                                boundx = bounds[0];
+                                boundy = bounds[1];
+                                jcrop_api = this;
+                            });
+                        });
+                        $("#buttonUpload").attr("disabled","disabled");
+                        $("#filedata").attr("disabled","disabled");
+                        $("#buttonUpload").after(" &nbsp;&nbsp;&nbsp; <input type=\"button\" class='GButton submit' id='removebanner' onclick=\"return removeFile();\" value=\"删除\" />");
+                    },
+                    error: function (data, status, e){
+                        alert(e);
+                    }
+                });
+                return false;
+            };
+
+            function removeFile(){
+                $.post("{:U('Uploadfile/removeAvatar')}",function(data){
+                    if ( data.status == 1 ){
+                        $("#buttonUpload").removeAttr("disabled");
+                        $("#filedata").removeAttr("disabled");
+                        $("#img_display").remove();
+                        $("#removebanner").remove();
+                    }
+                },'json');
+                return false;
+            };
+
+            function updatePreview(c){
+                if (parseInt(c.w) > 0){
+                    var rx = parseInt( {:C('PIC_THUMB_WIDTH')} ) / c.w;
+                    var ry = parseInt( {:C('PIC_THUMB_HEIGHT')} ) / c.h;
+                    $('#preview').css({
+                        width: Math.round(rx * boundx) + 'px',
+                        height: Math.round(ry * boundy) + 'px',
+                        marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                        marginTop: '-' + Math.round(ry * c.y) + 'px'
+                    });
+                }
+            };
+
+            function updateCoords(c)
+            {
+                $('#x').val(c.x);
+                $('#y').val(c.y);
+                $('#w').val(c.w);
+                $('#h').val(c.h);
+            };
+
+            function checkCoords()
+            {
+                if (parseInt($('#w').val())) return true;
+                alert('Please select a crop region then press submit.');
+                return false;
+            };
+        </script>
+        <style type="text/css">
+            .t_input{ padding:6px; }
+            div.button{ margin:10px 0px 20px 10px; }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <include file="Public:header" />
+            <div id="container">
+                <div id="sidebar_switch"></div>
+                <div id="content">
+                    <div id="c_warp">
+                        <h2>设置头像</h2>
+                        <p style="color:#999;">不设置头像系统默认为 gravatar.com 头像，请自行登录Gravatar.com设置。</p>
+                        <?php
+                            if ( !empty( $avatar ) ){
+                        ?>
+                        <p style="margin:10px 0px;">当前头像</p>
+                        <img src="__ATTACH__/{$avatar}" />
+                        <input name="o_avatar" value="__ATTACH__/{$avatar}" type="hidden" />
+                        <?php
+                            }
+                            $userID = '';
+                            if ( $_SESSION['AUTH'] ){
+                                $userID = '_' . $_SESSION['AUTH']['id'];
+                            }
+                            if( $_SESSION["avatar_upload_manager".$userID] ){
+                        ?>
+                        <br />
+                        <br />
+                        <div class="img" id="upimg">
+                            <span class="file_d_Upload">
+                                <input id="filedata" type="file" class="attText t_input" style="padding:2px;" name="filedata" disabled="disabled" /> &nbsp;&nbsp;&nbsp; 
+                                <input type="button" class="GButton submit" id="buttonUpload" onclick="return ajaxFileUpload();" disabled="disabled" value="上传图片" /> &nbsp;&nbsp;&nbsp; 
+                                <input type="button" class='GButton submit' id='removebanner' onclick="return removeFile();" value="删除" />
+                            </span>
+                        </div>
+                        <div id='img_display' class='mt'>
+                            <?php
+                                foreach ( $_SESSION["avatar_upload_manager".$userID] as $key => $value ){
+                                    $arr = explode('/', $value['savepath']);
+                                    $folder = $arr[count($arr)-2];
+                            ?>
+                            <div id="preview_avatar" style="width:{:C('PIC_THUMB_WIDTH')}px;height:{:C('PIC_THUMB_HEIGHT')}px;overflow:hidden;float:right;">
+                                <img src="__ATTACH__/{$folder}/{$value['savename']}" id="preview" alt="Preview" class="jcrop-preview" />
+                            </div>
+                            <p><img src='__ATTACH__/{$folder}/{$value["savename"]}' id="img__change" class="hv_img" /></p>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                        <?php
+                            }else{
+                        ?>
+                        <br />
+                        <br />
+                        <div class="img" id="upimg">
+                            <span class="file_d_Upload">
+                                <input id="filedata" type="file" class="attText t_input" style="padding:2px;" name="filedata" /> &nbsp;&nbsp;&nbsp; 
+                                <input type="button" class="GButton submit" id="buttonUpload" onclick="return ajaxFileUpload();" value="上传图片" />
+                            </span>
+                        </div>
+                        <?php
+                            }
+                        ?>
+                        <div id="loading" style="display:none;">Loading...</div>
+                        <br />
+                        <br />
+                        <form action="{:U('cropAvatar')}" method="post" onsubmit="return checkCoords();">
+                            <input type="hidden" id="x" name="x" />
+                            <input type="hidden" id="y" name="y" />
+                            <input type="hidden" id="w" name="w" />
+                            <input type="hidden" id="h" name="h" />
+                            <input type="submit" value="提交" id="cropAvatarSubmit" class="submit" />
+                        </form>
+                    </div>
+                </div>
+                <include file="Public:sidebar" />
+            </div>
+        </div>
+    </body>
+</html>

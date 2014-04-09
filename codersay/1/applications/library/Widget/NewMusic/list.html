@@ -1,0 +1,12 @@
+
+<ul class="panel sidebar_music">
+	<h4>{$title}</h4>
+	<volist name="data" id="value">
+	<li>
+		<dl>
+			<dt><cite>{:toDate($value['create_time'],C('DEFAULT_DATE_FORMAT'))}</cite><a href="<?php if (!empty($value['url_name'])) { echo U('/'.$value['url_name']); } else { echo U('/views/'.$value['id']); } ?>">{:ndsubstr($value['title'],0,$len)}</a></dt>
+			<dd><embed src="{$value.music}" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed></dd>
+		</dl>
+	</li>
+	</volist>
+</ul>

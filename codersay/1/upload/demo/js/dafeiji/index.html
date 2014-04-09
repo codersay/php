@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>打飞机 - 多途</title>
+<script type="text/javascript" src="./jquery.min.1.7.1.js"></script>
+<style>
+body{padding:0; margin:0; text-align:center}
+.content{border:1px #000 solid; width:480px; margin:0 auto; height:800px; display:block; font-size:72px;}
+.info,.blog{border:1px #000 solid; position:fixed; top:5px; right:5px; width:150px; text-align:left}
+.blog{ left:10px; background:#000; text-align:center; width:100px}
+.blog a{ color: #FFF; text-decoration:none; font-size:15px; }
+</style>
+</head>
+<body>
+<div class="content"><canvas id="dotu" width="480" height="800"></canvas></div>
+<div class="blog"><a href="/">回到博客首页</a></div>
+<div class="info">
+	鼠标X：<span id="sbX"></span><br>鼠标Y：<span id="sbY"></span><br>小飞机数:<span id="fjs"></span><br>子弹数:<span id="zds"></span><br>打中:<span id="isdz"></span><br>生成飞机时间:<span id="scfj"></span>
+
+</div>
+<script type="text/javascript" src="./dotu_game.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$class['name']} > {:C('SITE_TITLE')}</title>
+        <meta name="keywords" content="<if condition="$class['keyword'] neq ''">{$class.keyword}<else />{:C('SITE_KEYWORDS')}</if>" />
+        <meta name="description" content="<if condition="$class['description'] neq ''">{$class.description}<else />{:C('SITE_DESCRIPTION')}</if>" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="{:C('SITE_DP_AUTHOR')}" />
+        <link href="../Public/style/views.css" type="text/css" rel="stylesheet" />
+        <script src="__JS__/NDlogshare.js"></script>
+    </head>
+    <body id="views">
+        
+        <include file="Public:header" />
+        
+        <div id="position">{$position}</div>
+        
+        <div id="body">
+            <div id="content">
+                <h1 class="itilte">
+                    <if condition="$vo['title'] == ''">
+                    {$vo.name}
+                    <else />
+                    {$vo.title}
+                    </if>
+                </h1>
+                <p class="tinfo">
+                    <span class="time" title="更新日期">{$vo.update_time|date=C('DEFAULT_DATE_FORMAT'),###}</span>
+                    <span class="d_line">/</span>
+                    <span class="author" title="作者">{$vo.author|getAuthorName}</span>
+                    <span class="d_line">/</span>
+                    <span class="click" title="围观">{$vo.click}</span>
+                    <span class="d_line">/</span>
+                    <span class="comment" title="评论">{$vo.count}</span>
+                    <span class="d_line">/</span>
+                    <span class="category" title="目录类别">{$vo.cat_id|getCategoryName}</span>
+                </p>
+                <p class="share">
+                    <a href="javascript:;" onClick="share.doShare('t_sina');" id="weibo" title="分享到新浪微博"></a>
+                    <a href="javascript:;" onClick="share.doShare('qzone');" id="QQ_space" title="分享到QQ空间"></a>
+                    <a href="javascript:;" onClick="share.doShare('t_qq');" id="QQ_weibo" title="分享到腾讯微博"></a>
+                    <a href="javascript:;" onClick="share.doShare('renren');" id="renren" title="分享到人人网"></a>
+                    <a href="javascript:;" onClick="share.doShare('msn');" id="msn" title="分享到MSN"></a>
+                    <a href="javascript:;" onClick="share.doShare('douban');" id="douban" title="分享到豆瓣"></a>
+                    <a href="javascript:;" onClick="share.doShare('twitter');" id="twitter" title="分享到Twitter"></a>
+                    <a href="javascript:;" onClick="share.doShare('digg');" id="digg" title="分享到Digg"></a>
+                    <a href="javascript:;" onClick="share.doShare('vimeo');" id="vimeo" title="分享到Vimeo"></a>
+                    <a href="javascript:;" onClick="share.doShare('skype');" id="skyp" title="分享到Skype"></a>
+                    <a href="javascript:;" onClick="share.doShare('facebook');" id="facebook" title="分享到Facebook"></a>
+                    <a href="javascript:;" onClick="share.doShare('neteasy_weibo');" id="wy_weibo" title="分享到网易微博"></a>
+                    <a href="javascript:;" onClick="share.doShare('rss');" id="rss" title="RSS"></a>
+                    <a href="javascript:;" onClick="share.doShare('kaixin');" id="kaixin" title="分享到开心网"></a>
+                </p>
+                <div class="content">
+                    {$vo.content}
+                </div>
+                <?php if( $vo['is_comment'] == 0 ){ ?>
+                <include file="Public:comment" />
+                <?php } ?>
+            </div>
+            
+            <div id="slidebar">
+                <include file="Public:slidebar" />
+            </div>
+            
+            <div class="clear"></div>
+        </div>
+        
+        <include file="Public:footer" />
+        
+    </body>
+</html>

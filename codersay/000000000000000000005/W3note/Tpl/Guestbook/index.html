@@ -1,0 +1,180 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="{$Think.config.jsurl}jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="{$Think.config.jsurl}jquery.form.js"></script>
+<script language="javascript" type="text/javascript" src="{$Think.config.jsurl}chekform.js" charset="UTF-8"></script>
+<div class="container"><!--container-begin -->
+  <div class="pagebody"> <!--pagebody-begin -->
+   
+    <div class="leftpage">  <!--leftpage-begin -->
+    
+      <div class="updow">  <!-- updow-begin -->
+      
+        <div class="up"></div>
+		<div class="down"></div>
+		</div>
+      <!-- updow-end -->
+      <div class="info">
+        <!-- info-begin -->
+        <div class="postinfo">
+         
+          <!-- date-end -->
+          <div class="title"><strong>留言本</strong></div>
+		  <div class="tinfo">
+          <div class="cat">欢迎给我留言^_^</div>
+          <div class="brownum"></div>
+          <div class="comnum"></div>
+		  </div>
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+        <div class="post"></div>
+        <div class="tag"></div>
+        <div class"comnum">
+        </div>
+      </div>
+      <!-- info-end -->
+	 <volist name="Gklist" id="gk">
+      
+	  <if condition="$gk['tousername'] eq ''">
+ <div class="comment">
+	   <div class="line10"></div>
+           <div class="cominfo">
+           
+            <span style="font-size:30px;color:#D64700;"><img src="{$Think.config.rooturl}Public/Images/visitor.png" title="visitor" alt="wblog" width="32" height="32" border="0"/></span>
+        <if condition="$gk.url neq  ''"> <a href="{$Think.config.rooturl}guestbook/tourl/id/{$gk['id']}/url/{$gk['url']|tourl}"> <else /> <a href="{$Think.config.rooturl}guestbook/index/id/{$gk['id']}"> </if>{$gk['id']}楼&nbsp;&nbsp;{$gk['username']} </a>
+       
+       <span class="ly"><a href='#postComment' onclick='getPid({$gk['id']})' title='回复'>回复该留言</a></span>
+       
+      </div>
+	  <div class="cominfo">
+        Post:{$gk['inputtime']|date="Y-m-d H:i:s",###}
+      </div>
+	  <div class="cominfo">
+        {$gk['content']}
+      </div>
+       <div class="cominfo">
+     
+      </div>
+      <div class="line10"></div>
+	  </div><!-- comment-end -->
+<else />
+<div class="rcomment">
+	   <div class="line10"></div>
+           <div class="cominfo">
+           
+            <span class="reply"></span>
+        <if condition="$gk['url'] neq  ''"> <a href="{$Think.config.rooturl}tourl/id/{$gk['id']}/url/{$gk['url']|tourl}"> <else /> <a href="{$Think.config.rooturl}index/id/{$gk['id']}"> </if>&nbsp;&nbsp;{$gk['username']} </a><span style="margin-left: 5px;margin-right: 5px;">于</span>{$gk['inputtime']|date="Y-m-d H:i:s",###}<span style="margin-left: 5px;margin-right: 5px;">回复</span>{$gk['tousername']}
+       
+       
+      </div>
+	  <div class="cominfo">
+       
+      </div>
+	  <div class="rcominfo">
+        {$gk['content']}
+      </div>
+       <div class="cominfo">
+     
+      </div>
+      <div class="line10"></div>
+	  </div><!-- comment-end -->
+</if>
+	  
+	  </volist>
+      <div class="pages"><div class="page">{$page}</div></div>
+	   <div class="comment">
+        <div id="form">
+
+     <a name="postComment"></a>
+	<form method="post" action="{:U('/Guestbook/add')}" id="form1" name="form1" onsubmit="return regs('click')">
+		<p>&nbsp;</p>
+		<div class="fieldset">
+			<span class="legend">发表评论</span>
+            <div id="result" class="none result" style="font-family:微软雅黑,Tahoma;margin-bottom: 10px;font-size:18px;color:green;text-align:center"></div>
+			<table style="vertical-align:top;">
+				<tr>
+					<td><label for="lastname">昵称(必填项):</label></td>
+					<td><input name="username" value="" id="username" type="text" style="width: 250px" /></td>
+				</tr>
+				<tr>
+					<td><label for="firstname">Emial:</label></td>
+					<td><input name="email" value="" id="email" type="text" style="width: 250px" /></td>
+				</tr>	
+                <tr>
+					<td><label for="firstname">个人主页:</label></td>
+					<td><input name="url" value="" id="url" type="text" style="width: 250px" /></td>
+				</tr>	
+                 <tr>
+					<td><label for="references">评论内容:</label></td>
+					<td><textarea name="content" id="content" cols="0" rows="0" style="width: 450px; height: 100px;"></textarea></td>
+				</tr>
+			</table>
+			<br />
+            <input type="hidden" name="pid" value="" id="pid">
+			<input type="submit" name="dosubmit" id="dosubmit" value="提交留言"  />
+		</div>
+	</form>
+</div>
+	   </div>
+      
+   <div class="line10"></div>
+    </div><!--leftpage-end -->
+    <div class="rightpage">
+      <div class="search">
+       <include file="Public:search"/>
+       </div>
+      <!--search-end -->
+      <div class="barnner"> 
+	  <li>
+	  
+	  </li> 
+	  </div><!--barnner-end -->
+     
+      
+      <div class="l_tit">最近大家喜欢看的</div>
+      <div class="rand">
+        <ul>
+          <volist name="hotlist" id="hot">
+          <li>&nbsp;&nbsp;<a title="{$hot.title}" href="{:U('/read/'.$hot['id'])}">{$hot['title']|msubstr=0,30,'utf-8'}</a></li>
+         </volist>
+        </ul>
+      </div>
+     <div class="l_tit">主博客最新文章</div>
+      <div class="month">
+        <ul>
+        <volist name="newslist" id="news">
+          <li>&nbsp;&nbsp;<a title="{$news['title']}" href="{:U('/read/'.$news['id'])}">{$news['title']|msubstr=0,30,'utf-8'}</a></li>
+         </volist>
+        </ul>
+      </div>
+      <div class="l_tit">微博客最新文章</div>
+      <div class="month">
+        <ul>
+        <volist name="bloglist" id="blog">
+          <li>&nbsp;&nbsp;<a title="{$blog['title']}" href="{:U('/blog/'.$blog['id'])}">{$blog['title']|msubstr=0,30,'utf-8'}</a></li>
+         </volist>
+        </ul>
+      </div>
+      <p>
+        <!--rightpage-begin -->
+      </p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp; </p>
+    </div>
+    <!--rightpage-end -->
+  </div>
+  <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+</div><!--container-end -->
+<include file="Public:footer"/>
+ <script>
+function getPid(i){
+	pid=document.getElementById('pid');
+	pid.value=i;
+}
+</script>

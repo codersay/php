@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<style type="text/css">
+			.plugin					{ border-bottom:1px solid #ccc; padding-bottom:20px; margin-bottom: 20px; }
+			.plugin dl				{ border-top:1px dotted #ddd; padding-top:10px; margin-top:10px; line-height: 24px; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+						<volist name="settings" id="setting">
+						<h3>{$setting.name}</h3>
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="table_list mt" style="margin-bottom:20px;">
+							<tr>
+								<th width="210">部件名称</th>
+								<th>说明</th>
+								<th align="center" width="160">状态</th>
+							</tr>
+							<?php
+							foreach( $setting['value'] as $keys => $value ){
+							?>
+							<tr rel="{$vo['id']}" class="rows_style"<?php if( ( $i % 2 ) == 0 ){ ?> bgcolor="#f9f9f9"<?php }else{ ?> bgcolor="#ffffff"<?php } ?>>
+								<td align="center">{$value.title}</td>
+								<td>{$value.remark}</td>
+								<td align="center">状态：{$value.status|getPluginStatus=$value,$keys,$key,$themeName}</td>
+							</tr>
+							<?php
+							}
+							?>
+						</table>
+						</volist>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

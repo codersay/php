@@ -1,0 +1,14 @@
+<volist name="newscomments" id="ct">
+          <ul>
+          <li>
+          <if condition="$ct['nid'] eq 0">
+          <a  href="{:U('/blog/'.$ct['bid'])}#cmt{$ct['id']}">
+          <else />
+          <a  href="{:U('/read/'.$ct['nid'])}#cmt{$ct['id']}">
+           </if>
+           <span>    </span>  {$ct['content']|msubstr=0,50}</a>
+           <li style="text-align:right">--{$ct['username']}</li>
+          </li>
+           </ul>
+ </volist>
+      

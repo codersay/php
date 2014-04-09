@@ -1,0 +1,167 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en-us"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title><?php echo C('SITE_TITLE');?></title>
+<link rel="icon" href="http://www.w3schools.com/favicon.ico" type="image/x-icon">
+<meta name="keywords" content="<?php echo C('SITE_KEYWORDS');?>" />
+<meta name="description" content="<?php echo C('SITE_DESCRIPTION');?>" />
+<meta name="robots" content="all" />
+<meta name="author" content="<?php echo C('SITE_DP_AUTHOR');?>" />
+<meta name="viewport" content="width=device-width"> 
+<link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/style/basic.css" />
+<link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/js/UEDTinkerShare.js" />
+ </head>
+ <body>
+  <div id="top"><div id="top_left"><a href="__SITE_URL__"><img width="280" height="32" style="border:0;" alt="W3Schools.com" src="__STATIC_URL__/images/w3logotest2.png"></a></div>
+  <div id="top_right">  
+  <?php if(is_array($category)): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$level1): $mod = ($i % 2 );++$i; if(( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )): if(( $level1['type'] == 'url' ) && ( $level1['level'] != '' )): ?><a href="<?php echo ($level1["url"]); ?>" target="_blank"><?php echo ($level1["name"]); ?></a>
+                <?php else: ?>
+                <a href="<?php echo URL($level1['id'],$level1['channel'],'category');?>"><?php echo ($level1["name"]); ?></a><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?> 
+  </div>
+</div>
+<div id="page">
+	<div id="leftcol">
+		<h3 style="margin-top:0px;">HTML/CSS</h3>
+		<a href="http://www.w3schools.com/html/default.asp" target="_top">Learn HTML</a><br>
+		<a href="http://www.w3schools.com/html/html5_intro.asp" target="_top">Learn HTML5</a><br>				
+		<a href="http://www.w3schools.com/css/default.asp" target="_top">Learn CSS</a><br>
+		<a href="http://www.w3schools.com/css/css3_intro.asp" target="_top">Learn CSS3</a><br>
+		<h3>JavaScript</h3>
+		<a href="http://www.w3schools.com/js/default.asp" target="_top">Learn JavaScript</a><br>
+		<a href="http://www.w3schools.com/jquery/default.asp" target="_top">Learn jQuery</a><br>
+		<a href="http://www.w3schools.com/jquerymobile/default.asp" target="_top">Learn jQueryMobile</a><br>				
+		<a href="http://www.w3schools.com/ajax/default.asp" target="_top">Learn Ajax</a><br>
+		<a href="http://www.w3schools.com/json/default.asp" target="_top">Learn JSON</a><br>
+		<a href="http://www.w3schools.com/googleAPI/default.asp" target="_top">Learn Google Maps</a><br>
+		<h3>Server Side</h3>
+		<a href="http://www.w3schools.com/sql/default.asp" target="_top">Learn SQL</a><br>
+		<a href="http://www.w3schools.com/php/default.asp" target="_top">Learn PHP</a><br>
+		<a href="http://www.w3schools.com/asp/default.asp" target="_top">Learn ASP</a><br>
+		<a href="http://www.w3schools.com/ado/default.asp" target="_top">Learn ADO</a><br>					
+		<a href="http://www.w3schools.com/aspnet/default.asp" target="_top">Learn ASP.NET</a><br>
+		<a href="http://www.w3schools.com/vbscript/default.asp" target="_top">Learn VBScript</a><br>
+		<a href="http://www.w3schools.com/appml/default.asp" target="_top">Learn AppML</a><br>					
+		<h3>XML Tutorials</h3>
+		<a href="http://www.w3schools.com/xml/default.asp" target="_top">Learn XML</a><br>					
+		<a href="http://www.w3schools.com/dom/default.asp" target="_top">Learn XML DOM</a><br>
+		<a href="http://www.w3schools.com/dtd/default.asp" target="_top">Learn DTD</a><br>					
+		<a href="http://www.w3schools.com/xsl/default.asp" target="_top">Learn XSLT</a><br>					
+		<a href="http://www.w3schools.com/xpath/default.asp" target="_top">Learn XPath</a><br>
+		<a href="http://www.w3schools.com/xquery/default.asp" target="_top">Learn XQuery</a><br>					
+		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XLink</a><br>										
+		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XPointer</a><br>														
+		<a href="http://www.w3schools.com/xslfo/default.asp" target="_top">Learn XSL-FO</a><br>															
+		<a href="http://www.w3schools.com/schema/default.asp" target="_top">Learn Schema</a><br>
+		<a href="http://www.w3schools.com/svg/default.asp" target="_top">Learn SVG</a><br>					
+		<a href="http://www.w3schools.com/rss/default.asp" target="_top">Learn RSS</a><br>										
+		<a href="http://www.w3schools.com/webservices/default.asp" target="_top">Learn WSDL</a><br>
+		<h3>WEB Building</h3>
+		<a href="http://www.w3schools.com/web/default.asp" target="_top">Web Primer</a><br>					
+		<a href="http://www.w3schools.com/website/default.asp" target="_top">Web Building</a><br>
+		<a href="http://www.w3schools.com/browsers/default.asp" target="_top">Web Statistics</a><br>					
+		<a href="http://www.w3schools.com/website/web_validate.asp" target="_top">Web Validation</a><br>							
+		<a href="http://www.w3schools.com/cert/default.asp" target="_top">Web Certificates</a><br>							
+	</div>
+	<div id="maincol">
+		        <div id="content">
+                <ul class="list">
+					<?php if($list != ''): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="li<?php if(($i%2) == 0){ ?> even<?php } ?>">
+                        <dl class="dl">
+                            <dt class="dt">
+                            	<div class="avatar"><img src="<?php echo (getauthoravatar($vo["author"])); ?>" /></div>
+                            	<div class="title_i">
+	                            	<a href="<?php if(!empty($vo['url_name'])){ echo U('/'.$vo['url_name']); } elseif(!empty($vo['outurl'])){echo $vo['outurl'];} else{ echo U('/views/'.$vo['id']); } ?>" class="title" target="_blank"><?php echo ($vo["title"]); ?></a>
+	                            	<p class="info">
+	                            		<span class="time" title="发布日期"><?php echo (date(C('DEFAULT_DATE_FORMAT'),$vo["create_time"])); ?></span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="author" title="作者"><?php echo (getauthorname($vo["author"])); ?></span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="click" title="围观"><?php echo ($vo["click"]); ?></span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="comment" title="评论"><?php echo ($vo["count"]); ?></span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="category" title="目录类别"><?php echo (getcategoryname($vo["cid"])); ?></span>
+	                            	</p>
+	                            </div>
+	                            <div class="clear"></div>
+                            </dt>
+                            <dd class="dd"><?php echo ($vo["summary"]); ?></dd>
+                            <?php if($vo['tags'] != ''): ?><dd class="dd tags">TAG: <?php echo (getgeneraltags($vo["tags"])); ?></dd><?php endif; ?>
+                        </dl>
+                    </li><?php endforeach; endif; else: echo "" ;endif; ?>
+					<?php else: ?>
+					<li>该分类下暂无内容</li><?php endif; ?>
+                </ul>
+                <div class="page"><?php echo ($page); ?></div>
+            </div>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<div class="footer">
+  <br>
+  <table id="bottomlinks"><tbody><tr>
+  <td style="vertical-align:top;">
+  <h3>Top 10 基础教程</h3>
+  <a href="http://www.w3schools.com/html/default.asp"><span class="bottomlinksraquo">»</span> HTML Tutorial</a><br>
+  <a href="http://www.w3schools.com/html/html5_intro.asp"><span class="bottomlinksraquo">»</span> HTML5 Tutorial</a><br>
+  <a href="http://www.w3schools.com/css/default.asp"><span class="bottomlinksraquo">»</span> CSS Tutorial</a><br>
+  <a href="http://www.w3schools.com/css/css3_intro.asp"><span class="bottomlinksraquo">»</span> CSS3 Tutorial</a><br>
+  <a href="http://www.w3schools.com/js/default.asp"><span class="bottomlinksraquo">»</span> JavaScript Tutorial</a><br>
+  <a href="http://www.w3schools.com/jquery/default.asp"><span class="bottomlinksraquo">»</span> jQuery Tutorial</a><br>
+  <a href="http://www.w3schools.com/sql/default.asp"><span class="bottomlinksraquo">»</span> SQL Tutorial</a><br>
+  <a href="http://www.w3schools.com/php/default.asp"><span class="bottomlinksraquo">»</span> PHP Tutorial</a><br>
+  <a href="http://www.w3schools.com/aspnet/default.asp"><span class="bottomlinksraquo">»</span> ASP.NET Tutorial</a><br>
+  <a href="http://www.w3schools.com/xml/default.asp"><span class="bottomlinksraquo">»</span> XML Tutorial</a><br>
+  </td>
+  <td style="vertical-align:top;">
+  <h3>Top 10 进级实例</h3>
+  <a href="http://www.w3schools.com/tags/default.asp"><span class="bottomlinksraquo">»</span> HTML/HTML5 Reference</a><br>
+  <a href="http://www.w3schools.com/cssref/default.asp"><span class="bottomlinksraquo">»</span> CSS 1,2,3 Reference</a><br>
+  <a href="http://www.w3schools.com/cssref/css3_browsersupport.asp"><span class="bottomlinksraquo">»</span> CSS 3 Browser Support</a><br>
+  <a href="http://www.w3schools.com/jsref/default.asp"><span class="bottomlinksraquo">»</span> JavaScript</a><br>
+  <a href="http://www.w3schools.com/jsref/default.asp"><span class="bottomlinksraquo">»</span> HTML DOM</a><br>
+  <a href="http://www.w3schools.com/dom/dom_nodetype.asp"><span class="bottomlinksraquo">»</span> XML DOM</a><br>
+  <a href="http://www.w3schools.com/php/php_ref_array.asp"><span class="bottomlinksraquo">»</span> PHP Reference</a><br>
+  <a href="http://www.w3schools.com/jquery/jquery_ref_selectors.asp"><span class="bottomlinksraquo">»</span> jQuery Reference</a><br>
+  <a href="http://www.w3schools.com/aspnet/webpages_ref_classes.asp"><span class="bottomlinksraquo">»</span> ASP.NET Reference</a><br>
+  <a href="http://www.w3schools.com/tags/ref_colornames.asp"><span class="bottomlinksraquo">»</span> HTML Colors</a><br>
+  </td>
+  <td style="vertical-align:top;">
+  <h3>Top 10 参考文档</h3>
+  <a href="http://www.w3schools.com/html/html_examples.asp"><span class="bottomlinksraquo">»</span> HTML Examples</a><br>
+  <a href="http://www.w3schools.com/css/css_examples.asp"><span class="bottomlinksraquo">»</span> CSS Examples</a><br>
+  <a href="http://www.w3schools.com/xml/xml_examples.asp"><span class="bottomlinksraquo">»</span> XML Examples</a><br>
+  <a href="http://www.w3schools.com/js/js_examples.asp"><span class="bottomlinksraquo">»</span> JavaScript Examples</a><br>
+  <a href="http://www.w3schools.com/js/js_dom_examples.asp"><span class="bottomlinksraquo">»</span> HTML DOM Examples</a><br>
+  <a href="http://www.w3schools.com/jquery/jquery_examples.asp"><span class="bottomlinksraquo">»</span> jQuery Examples</a><br>
+  <a href="http://www.w3schools.com/dom/dom_examples.asp"><span class="bottomlinksraquo">»</span> XML DOM Examples</a><br>
+  <a href="http://www.w3schools.com/ajax/ajax_examples.asp"><span class="bottomlinksraquo">»</span> AJAX Examples</a><br>
+  <a href="http://www.w3schools.com/asp/asp_examples.asp"><span class="bottomlinksraquo">»</span> ASP Examples</a><br>
+  <a href="http://www.w3schools.com/svg/svg_examples.asp"><span class="bottomlinksraquo">»</span> SVG Examples</a>
+  </td>
+  <td style="vertical-align:top;">
+  <h3>Top 10 开源程序</h3>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> HTML Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> HTML5 Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> CSS Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> JavaScript Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> jQuery Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> XML Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> ASP Certificate</a><br>
+  <a href="http://www.w3schools.com/cert/default.asp"><span class="bottomlinksraquo">»</span> PHP Certificate</a><br>
+  </td>
+  <td style="vertical-align:top;">
+  <h3>Color Picker</h3>
+  <a href="http://www.w3schools.com/tags/ref_colorpicker.asp">
+  <img src="__STATIC_URL__/images/colormap_80.gif" alt="colorpicker" style="width:80px;height:68px;"></a>
+  </td>
+  </tr></tbody></table>
+</div>
+<hr style="height:5px;">
+<div class="footer">
+  <div id="footerImg"><a href="http://www.w3schools.com/">
+    <img style="width:150px;height:28px;border:0" src="__STATIC_URL__/images/w3schoolscom_gray.gif" alt="W3Schools.com"></a>
+  </div>
+</div>
+</body></html>

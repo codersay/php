@@ -1,0 +1,160 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="/www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__PUBLIC__/admin/style/base.css" type="text/css" />
+<script type="text/javascript" language="javascript" src="__PUBLIC__/common/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/admin/js/common.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/admin/js/collist.js"></script>
+
+</head>
+<body leftmargin='15' topmargin='10' bgcolor="#FFFFFF">
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#111111" style="BORDER-COLLAPSE: collapse">
+  <tr>
+    <td width="100%" height="20" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="30"><IMG height=14 src="__PUBLIC__/admin/images/book1.gif" width=20>&nbsp;<a href="__GROUP__/Columns/index"><u>分类管理</u></a>&nbsp;&gt;&gt;&nbsp;增加分类(<font color="red">注：红色字为必填项</font>)</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td width="100%" height="0"></td>
+  </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+ 
+  <tr>
+  <form name="form1" action="__URL__/addsave" method="post">
+
+    <td height="95" align="center" bgcolor="#FFFFFF">
+    
+        <table width="100%" border="0"  id="needset" cellspacing="0" cellpadding="0" style="text-align:left;border:1px solid #cfcfcf;background:#ffffff;">
+          
+          <tr>
+            <td width="150" class='bline' height="26" style="padding-left:10px;">是否隐藏分类：</td>
+            <td class='bline'>
+                <input type='radio' name='isshow' value='1' class='np' checked="checked" />
+              显示　&nbsp;
+              <input type='radio' name='isshow' value='0' class='np' />
+              隐藏
+             </td>
+          </tr>
+          <tr>
+            <td class='bline' height="26" style="padding-left:10px;"><font color="red">内容模型：</font></td>
+            <td class='bline'>               
+           <select name="mid" id="channeltype" style="width:200px">
+             <?php echo ($mlist); ?>
+             </select>
+            </td>
+          </tr>
+          <tr>
+            <td class='bline' height="26" style="padding-left:10px;"><font color="red">父分类：</font></td>
+            <td class='bline'>
+                
+           <select name="pid" id="colgrade" style="width:200px" >
+           	 <option value='0' selected>作为顶级分类</option>
+             <?php echo ($collist); ?>
+             </select>
+            </td>
+          </tr>
+          <tr>
+            <td class='bline' height="26" style="padding-left:10px;"><font color="red">分类名称：</font></td>
+            <td class='bline'><input name="colname" type="text" id="typename" size="30" class="iptxt" /></td>
+          </tr>
+          
+          <tr>
+            <td class='bline' height="26" style="padding-left:10px;"> 排列顺序： </td>
+            <td class='bline'><input name="ord" size="6" type="text" value="50" class="pubinputs" style="width:60px" /></td>
+          </tr>
+          
+         
+          <tr >
+            <td height="80" bgcolor="#F3F7EA" style="padding-left:10px;">分类描述： </td>
+            <td bgcolor="#F3F7EA">
+             <textarea name="description" style="height:60px"  cols="60"></textarea>
+            </td>
+          </tr>     
+        </table>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="head1" style="margin-top:10px;">
+    <tr>
+      <td>
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="84" height="24" align="center" background="__PUBLIC__/admin/images/itemnote1.gif">&nbsp;<a href='javascript:ShowHideT("tpltable")'><u>更多设置↑</u></a></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  
+  <table width="100%"  border="0" align="center" cellpadding="2" cellspacing="2" id="tpltable" style="border:1px solid #cfcfcf;background:#ffffff;">
+  
+  <tr>
+      <td height="24" colspan="2" class="bline">
+      	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50">&nbsp;SEO标题：</td>
+          <td width="241">
+          	  <input type="text" name="seo" id="seoid" size="40" />                           
+				  </td>
+          
+        </tr>
+      </table></td>
+    </tr>
+    
+    <tr>
+      <td height="24" colspan="2" class="bline">
+      	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50">&nbsp;关键字：</td>
+          <td width="241">
+          	  <input type="text" name="keyword" id="keywordid" size="40"/>                           
+				  </td>
+          
+        </tr>
+      </table></td>
+    </tr>
+    
+    <!--<tr>
+      <td height="24" colspan="2" class="bline">
+      	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50">&nbsp;分类模板：</td>
+          <td width="241">
+          	  <input type="text" name="coltpl" id="coltpl" size="40" value="{tpl}/list_article.html"/>                           
+				  </td>
+          
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td height="24" colspan="2">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50">&nbsp;博文模板：</td>
+          <td width="241"><input type="text" name="arctpl" id="arctpl" size="40" value="{tpl}/article_article.html"/></td>
+          
+        </tr>
+      </table>
+      </td>
+  </tr>-->
+  </table>
+
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#F9FCEF" style="border:1px solid #cfcfcf;border-top:none;">
+          <tr>
+            <td width="1%" height="35"></td>
+            <td width="99%" valign="bottom" align="center">
+<input name="imageField" type="image" src="__PUBLIC__/admin/images/button_save.gif" width="60" height="22" border="0" class="np" />
+&nbsp;&nbsp;&nbsp;
+            <a href="__GROUP__/Columns/index"><img src="__PUBLIC__/admin/images/button_back.gif" width="60" height="22" border="0" /></a>
+            </td>
+          </tr>
+        </table></td>
+      </form>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加友情链接</title>
+<link href="__PUBLIC__/admin/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#url").formValidator({onshow:"请填写url",onfocus:"请填写url"}).inputValidator({min:1,max:50,onerror:"url不能为空"});
+	$("#name").formValidator({onshow:"站名不能为空",onfocus:"站名不能为空"}).inputValidator({min:1,max:50,onerror:"站名不能为空"});
+});
+</script>
+</head>
+
+<body>
+<div class="location">
+   <span>当前位置:模块管理&nbsp;>&nbsp;友情链接</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" >管理列表</a>|
+   <a href="__URL__/insert" target="main" title="添加链接" class="main_select"><span>添加链接</span></a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+    <form id="linktype" action="__URL__/insert" method="POST" >
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+       <tbody>
+             <tr>
+            <td width="100" align="right">链接类型：</td>
+            <td align="left">
+             
+     文字链接：<input type="radio" name="linktype" value="1" onclick="document.getElementById('linktype').submit()"  <if condition="$linktype eq 1"> checked </if> >
+     LOGO链接：<input type="radio" name="linktype" value="2" onclick="document.getElementById('linktype').submit()" <if condition="$linktype eq 2"> checked </if> >
+           <input  type="submit" style="display: none;" name='dosubmit' class="button" value="提交" />
+            </td>	
+            </tr>
+     </form>
+    <form name="myform" action="__URL__/add" method="POST" id="myform" enctype="multipart/form-data">
+            <tr>
+            <td width="100" align="right">站名：</td>
+            <td align="left">
+            <input type="text" name="name" id="name" class="required" size="30">
+            </td>	
+            </tr>
+            <tr>
+            <td width="100" align="right">网址：</td>
+            <td align="left">
+            <input type="text" name="url" id="url" size="30">
+            </td>	
+            </tr>
+            <if condition="$linktype eq 2">   
+            <tr>
+            <td width="50" align="right">LOGO：</td>
+            <td align="left">
+              <input  type="file" name="logo" id="thumb"/>
+            </td>	
+            </tr>
+            </if>
+            <tr>
+            <td width="100" align="right">网站联系人：</td>
+            <td align="left">
+            <input type="text" name="linkman" id="linkman"  size="30">
+            </td>	
+            </tr>
+            <tr>
+            <td width="50" align="right">备注：</td>
+            <td align="left">
+           <textarea name="introduce" rows="3" cols="60"></textarea>
+            </td>	
+            </tr>
+             
+       </tbody>
+    
+ </table>
+	<div class="btn" style="font-size:12px;">
+          <input type="submit" value="提交"  id="send" class="button" style="margin-left: 450px;">&nbsp;&nbsp;
+		 <input  type="button" onClick="history.back()" class="button" value="取 消" alt="取消" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

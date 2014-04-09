@@ -1,0 +1,38 @@
+<include file="Public:indexheader" />
+
+<body>
+<div class="location">
+   <span>当前位置：常用操用&nbsp;>&nbsp;模板管理 </span>
+ </div>
+<div>
+ <div style="margin:10px;height:10px">
+     <span style="font-size:12px;margin:10px;height:12px">  当前目录：{$tpl_dir}</span>
+     
+    </div>
+   
+</div>
+
+
+<div class="table-list">
+     <form name="myform" action="__URL__/act" id="myform" method="POST">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+			<th align="left">模块名称</th>							
+            </tr>
+        </thead>
+    <tbody> 
+       <volist name="tpldir" id="vo">
+	<tr>
+	<td align="left"><span style="float:left;"><img height="14" src="__PUBLIC__/admin/images/dir.gif" width="20" /></span><span style="float:left;margin-left:10px;"><a  href="__URL__/tpl/dir/{$vo['tplname']}" >{$vo['tplname']}</a></span></td>
+		
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<include file="Public:indexheader" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#name").formValidator({onshow:"应用名不能为空",onfocus:"应用名不能为空"}).inputValidator({min:1,max:50,onerror:"应用名不能为空"});
+	$("#pid").formValidator({onshow:"请选择所属节点",onfocus:"请选择所属节点"}).inputValidator({min:1,max:50,onerror:"请选择所属节点"});
+	$("#level").formValidator({onshow:"请选择应用",onfocus:"请选择应用"}).inputValidator({min:1,max:50,onerror:"请选择应用"});
+});
+</script>
+<body>
+<div class="location">
+   <span>当前位置:用户管理&nbsp;>&nbsp;节点管理</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="节点管理" >节点管理</a>|
+   <a href="__URL__/insert" target="main" title="添加节点" class="main_select"><span>添加节点</span></a>
+   <div class="line"/></div>
+<div class="table-list">
+     <form action="__URL__/add" method="POST" id="myform">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+       <tbody>
+            
+            <td width="400" align="right">应用名：</td>
+            <td align="left">
+           <input type="text" name="name" id="name" >
+            </td>	
+            </tr>
+            <tr>
+            <td width="50" align="right">显示名：</td>
+            <td align="left">
+           <input type="text" name="title" id="title">
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">应用类型：</td>
+            <td align="left">
+           <select name="level" id="level">
+             <option value="0">选择应用</option>
+            <option value="1">项目</option>
+            <option value="2">模块</option>
+            <option value="3">操作</option>
+            
+           </select>
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">选择节点：</td>
+            <td align="left">
+           <select name="pid" id="pid">
+             <option value="0">所属节点</option>
+             <option value="0">顶级</option>
+             <volist name="nodelist" id="vo">
+            <option value="{$vo['id']}">{$vo['title']}</option>
+             </volist>	
+           </select>
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">备注：</td>
+            <td align="left">
+           <input type="text" name="remark" id="remark">
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="right">排序：</td>
+            <td align="left">
+             
+            
+            <input type="text" name="sort" id="sort" size="5">
+            
+
+            </td>	
+            </tr> 
+       </tbody>
+    
+ </table>
+	<div class="btn" style="font-size:12px;">
+          <input type="submit" value="提交" id="send" class="button" style="margin-left: 450px;">&nbsp;&nbsp;
+		 <input  type="button" onClick="history.back()" class="button" value="取 消" alt="取消" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

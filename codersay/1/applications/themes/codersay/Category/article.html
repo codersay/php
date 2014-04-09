@@ -1,0 +1,86 @@
+<include file="Public:header" />
+<div id="page">
+	<div id="leftcol">
+		<h3 style="margin-top:0px;">HTML/CSS</h3>
+		<a href="http://www.w3schools.com/html/default.asp" target="_top">Learn HTML</a><br>
+		<a href="http://www.w3schools.com/html/html5_intro.asp" target="_top">Learn HTML5</a><br>				
+		<a href="http://www.w3schools.com/css/default.asp" target="_top">Learn CSS</a><br>
+		<a href="http://www.w3schools.com/css/css3_intro.asp" target="_top">Learn CSS3</a><br>
+		<h3>JavaScript</h3>
+		<a href="http://www.w3schools.com/js/default.asp" target="_top">Learn JavaScript</a><br>
+		<a href="http://www.w3schools.com/jquery/default.asp" target="_top">Learn jQuery</a><br>
+		<a href="http://www.w3schools.com/jquerymobile/default.asp" target="_top">Learn jQueryMobile</a><br>				
+		<a href="http://www.w3schools.com/ajax/default.asp" target="_top">Learn Ajax</a><br>
+		<a href="http://www.w3schools.com/json/default.asp" target="_top">Learn JSON</a><br>
+		<a href="http://www.w3schools.com/googleAPI/default.asp" target="_top">Learn Google Maps</a><br>
+		<h3>Server Side</h3>
+		<a href="http://www.w3schools.com/sql/default.asp" target="_top">Learn SQL</a><br>
+		<a href="http://www.w3schools.com/php/default.asp" target="_top">Learn PHP</a><br>
+		<a href="http://www.w3schools.com/asp/default.asp" target="_top">Learn ASP</a><br>
+		<a href="http://www.w3schools.com/ado/default.asp" target="_top">Learn ADO</a><br>					
+		<a href="http://www.w3schools.com/aspnet/default.asp" target="_top">Learn ASP.NET</a><br>
+		<a href="http://www.w3schools.com/vbscript/default.asp" target="_top">Learn VBScript</a><br>
+		<a href="http://www.w3schools.com/appml/default.asp" target="_top">Learn AppML</a><br>					
+		<h3>XML Tutorials</h3>
+		<a href="http://www.w3schools.com/xml/default.asp" target="_top">Learn XML</a><br>					
+		<a href="http://www.w3schools.com/dom/default.asp" target="_top">Learn XML DOM</a><br>
+		<a href="http://www.w3schools.com/dtd/default.asp" target="_top">Learn DTD</a><br>					
+		<a href="http://www.w3schools.com/xsl/default.asp" target="_top">Learn XSLT</a><br>					
+		<a href="http://www.w3schools.com/xpath/default.asp" target="_top">Learn XPath</a><br>
+		<a href="http://www.w3schools.com/xquery/default.asp" target="_top">Learn XQuery</a><br>					
+		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XLink</a><br>										
+		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XPointer</a><br>														
+		<a href="http://www.w3schools.com/xslfo/default.asp" target="_top">Learn XSL-FO</a><br>															
+		<a href="http://www.w3schools.com/schema/default.asp" target="_top">Learn Schema</a><br>
+		<a href="http://www.w3schools.com/svg/default.asp" target="_top">Learn SVG</a><br>					
+		<a href="http://www.w3schools.com/rss/default.asp" target="_top">Learn RSS</a><br>										
+		<a href="http://www.w3schools.com/webservices/default.asp" target="_top">Learn WSDL</a><br>
+		<h3>WEB Building</h3>
+		<a href="http://www.w3schools.com/web/default.asp" target="_top">Web Primer</a><br>					
+		<a href="http://www.w3schools.com/website/default.asp" target="_top">Web Building</a><br>
+		<a href="http://www.w3schools.com/browsers/default.asp" target="_top">Web Statistics</a><br>					
+		<a href="http://www.w3schools.com/website/web_validate.asp" target="_top">Web Validation</a><br>							
+		<a href="http://www.w3schools.com/cert/default.asp" target="_top">Web Certificates</a><br>							
+	</div>
+	<div id="maincol">
+		        <div id="content">
+                <ul class="list">
+					<if condition="$list neq ''">
+                    <volist name="list" id="vo">
+                    <li class="li<?php if(($i%2) == 0){ ?> even<?php } ?>">
+                        <dl class="dl">
+                            <dt class="dt">
+                            	<div class="avatar"><img src="{$vo.author|getAuthorAvatar}" /></div>
+                            	<div class="title_i">
+	                            	<a href="<?php if(!empty($vo['url_name'])){ echo U('/'.$vo['url_name']); } elseif(!empty($vo['outurl'])){echo $vo['outurl'];} else{ echo U('/views/'.$vo['id']); } ?>" class="title" target="_blank">{$vo.title}</a>
+	                            	<p class="info">
+	                            		<span class="time" title="发布日期">{$vo.create_time|date=C('DEFAULT_DATE_FORMAT'),###}</span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="author" title="作者">{$vo.author|getAuthorName}</span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="click" title="围观">{$vo.click}</span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="comment" title="评论">{$vo.count}</span>
+	                            		<span class="d_line">/</span>
+	                            		<span class="category" title="目录类别">{$vo.cid|getCategoryName}</span>
+	                            	</p>
+	                            </div>
+	                            <div class="clear"></div>
+                            </dt>
+                            <dd class="dd">{$vo.summary}</dd>
+                            <if condition="$vo['tags'] neq ''">
+                            <dd class="dd tags">TAG: {$vo.tags|getGeneralTags}</dd>
+                            </if>
+                        </dl>
+                    </li>
+                    </volist>
+					<else/>
+					<li>该分类下暂无内容</li>
+					</if>
+                </ul>
+                <div class="page">{$page}</div>
+            </div>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<include file="Public:footer" />

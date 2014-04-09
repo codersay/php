@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="/www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__PUBLIC__/admin/style/base.css" type="text/css" />
+<script type="text/javascript" language="javascript" src="__PUBLIC__/common/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/admin/js/common.js"></script>
+</head>
+<body background='__PUBLIC__/admin/images/allbg.gif' leftmargin='8' topmargin='8'>
+<table width="98%" border="0" align="center" cellspacing="1" cellpadding="1" bgcolor="#D6D6D6">
+  <tr>
+    <td height="19" background="__PUBLIC__/admin/images/tbg.gif" bgcolor="#E7E7E7"> 
+      <table width="96%" border="0" cellspacing="0" cellpadding="1">
+        <tr> 
+          <td width="24%" style="padding-left:10px;"><b><strong>新增角色</strong></b> </td>
+          <td width="76%" align="right"><strong><a href="__GROUP__/Role/index"><u>管理角色</u></a></strong></td>
+        </tr>
+      </table></td>
+</tr>
+<tr>
+    <td height="215" align="center" valign="top" bgcolor="#FFFFFF">
+	<form name="form1" action="__URL__/addsave" method="post">
+  <table width="100%" border="0" cellspacing="1" cellpadding="1">
+  <input name="pid" value="0" type="hidden"/>
+          <tr> 
+            <td width="16%" height="30" align="center">角色名称：</td>
+            <td width="84%"  style="text-align:left;"><input name="name" type="text" id="rname" size="16" style="width:200px" /></td>
+          </tr>
+          <tr bgcolor="#F9FAF3"> 
+            <td height="30" align="center" >角色状态：</td>
+            <td style="text-align:left;">
+			   <input type="radio" name="status" value="1" checked="checked"/>启用
+               <input type="radio" name="status" value="0">禁用
+            </td>
+          </tr>
+          <tr> 
+            <td height="30" align="center" >备注</td>
+            <td style="text-align:left;"><textarea name="remark" style="width:300px;height:100px"></textarea></td>
+          </tr>
+          <tr> 
+            <td height="30">&nbsp;</td>
+            <td><input type="submit" name="Submit" value=" 提交 " class="coolbg np" />&nbsp;<input type="button" name="back" onclick="location='__GROUP__/Role/index'" value=" 返回 " class="coolbg np" /></td>
+          </tr>
+        </table>
+      </form>
+	  </td>
+</tr>
+</table>
+</body>
+</html>

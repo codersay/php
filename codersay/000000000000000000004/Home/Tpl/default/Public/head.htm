@@ -1,0 +1,25 @@
+
+<!-- BEGIN #header -->
+<div id="header">	
+			
+			<!-- BEGIN .inner -->
+			<div class="inner">
+			
+				<p class="welcome-message"><{$Think.config.CFG_SUBTITLE}></p>
+                
+                <div id="top-nav">
+                
+					<div class="menu-menu-container"><ul id="menu-menu" class="menu"><li><a href="<{:U('Index/index')}>">首页</a></li>
+<volist name="collist" id="data">
+<li><a href="<{$data.url}>" ><{$data.colname}></a><{$data.submenu}></li>
+</volist>
+<li><a href="http://pan.baidu.com/share/link?shareid=548956950&uk=1846304022" target='_blank'>软件下载</a></li>
+<li><a href="<{:U('Feedback/index')}>">给我留言</a></li>
+</ul></div>                                    
+				</div>
+                
+			<!-- END .inner -->
+			</div>
+		<div class="clear"></div> 
+		<!--END #header-->
+		</div>

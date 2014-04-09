@@ -1,0 +1,92 @@
+<include file="Public:header"/>
+<div class="container"><!--container-begin -->
+  <div class="pagebody">
+    <!--pagebody-begin -->
+    <div class="leftpage">
+      <!--leftpage-begin -->
+      <div class="ance"> <!-- anoun-begin -->      
+        公告 :
+        <if condition="$ance.url neq  ''">
+        <a title="{$ance['title']}" href="{$ance['url']}">{$ance['title']}</a> 
+        <else />
+         {$ance['title']} 
+        </if>      
+        </div>
+      <!-- anoun-end -->
+	  <volist name="info" id="info">
+      <div class="info">
+        <!-- info-begin -->
+        <div class="postinfo">
+          <div class="date">
+            <!-- date-begin -->
+            <div class="t">{$info.inputtime|date="m",###}月</div>
+            <div class="d"><strong>{$info.inputtime|date="d",###}</strong></div>
+          </div>
+          <!-- date-end -->
+          <div class="title"><strong><a title="{$info.title}" href="{:U('/read/'.$info['id'])}">{$info.title}</a></strong></div>
+		  <div class="tinfo">
+          <div class="author">作者:w3note</div>
+          <div class="cat">分类:<a title="{$info.colTitle}" href="{:U('/cat/'.$info['catid'])}">{$info.colTitle}</a></div>
+          <div class="brownum">浏览{$info.hits}</div>
+          <div class="comnum"><a href="#">{$info.Comment|count}人评论</a></div>
+		  </div><!--tinfo end-->
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+        <div class="post">{$info.description}...</div>
+        <div class="tag">tags:<a title="{$info.keywords}" href="{$Think.config.rooturl}read/tag/name/{$info.keywords|urlencode}">{$info.keywords|webTags}</a></div>
+        <div class="comnum">评论人数{$info.Comment|count}<a href="{:U('/read/'.$info['id'])}#comment">【我来说两句】</a></div>
+      </div>
+      <!-- info-end -->
+	  </volist>
+      <div class="pages"><div class="page">{$page}</div></div>
+    </div>
+    <!--leftpage-end -->
+    <div class="rightpage">
+      <div class="search">
+        <include file="Public:search"/>
+       </div>
+		<div class="banner"><!--banner -->
+	     <li>
+		   <span>
+		   
+		   </span>	   
+		 </li>
+		
+	  </div><!--endbanner -->
+      <!--search-end -->
+      <div class="l_tit">归档</div>
+      <div class="month">
+        <ul>
+         {:W('Date')}
+        </ul>
+      </div>
+      <div class="barnner"> </div><!--barnner-end -->
+	   <div class="l_tit">站点分类</div>
+      <div class="catlist">
+        <ul>
+		{:W('Cate')}
+        </ul>
+      </div>
+      <div class="l_tit">微博最新文章</div>
+      <div class="month">
+        <ul>
+        <volist name="newslist" id="news">
+          <li>  <a title="{$news.title}" href="{:U('/blog/'.$news['id'])}">{$news.title}</a></li>
+         </volist>
+        </ul>
+      </div>
+	  <div class="l_tit">分类标签【<a title="更多分类标签" href="{:U('/web','tag=name')}">更多</a>】</div>
+      <div class="tags">
+        <ul>
+         {:W('Tags')}
+        </ul>
+      </div>
+      
+      
+    </div><!--rightpage-end -->
+  </div> <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+ 
+</div><!--container-end -->
+ <include file="Public:footer"/>

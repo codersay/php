@@ -1,0 +1,53 @@
+<include file="Public:indexheader" />
+<div class="location">
+  <span>当前位置:系统管理&nbsp;>&nbsp;数据备份</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="数据库备份" >数据库备份</a>|
+   <a href="__URL__/import" target="main" title="数据库还原" class="main_select"><span>数据库还原</span></a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+			<th align="center">ID</th>
+			<th align="center">文件名</th>	
+            <th align="center">备份时间</th>    
+             <th align="center">卷号</th>       
+			<th align="center">导入</th>			
+            </tr>
+        </thead>
+    <tbody> 
+      <form name="myform" id="myform" method="post" action="__URL__/del">
+       <volist name="bfns" id="data">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$data['bfn']}" id="id" /></td>	
+	<td align="center">{$data['id']}</td>
+	<td align="center">{$data['bfn']}</td>
+    <td align="center">
+       {$data['ct']}                  
+    </td>
+    <td align="center">
+       {$data['part']}      
+    </td>
+    <td align="center"><a href="__URL__/recovery/fn/{$data['bfn']}" onClick="return confirm('确定要还原数据?')"">导入</a></td>
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+        <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label> &nbsp;&nbsp;      
+      <input class="btn2" type="submit" name="sub" value="删除备份" onClick="return confirm('确定删除该备份吗?')")" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

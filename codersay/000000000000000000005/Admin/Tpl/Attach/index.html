@@ -1,0 +1,111 @@
+<include file="Public:header" />
+<script language="Javascript">
+function delet()
+{
+  if(confirm("确定删除该记录吗?")){
+    return document.myform.action='?m=Attach&a=act&action=delete';
+	
+  }else{
+   return false;
+  }
+} 
+</script>
+<body>
+<div class="location">
+   <span>当前位置:常用操作&nbsp;>&nbsp;
+  <if condition="$modules eq 'News'"> 
+         附件管理&nbsp;>&nbsp;文章图片
+        <elseif condition="$modules eq 'Download'"/>
+        附件管理&nbsp;>&nbsp;下载附件
+        <else />
+          >>上传附件
+        </if> 
+   </span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" class="main_select"><span>管理列表</span></a>|
+   <a href="{:U('/Attach/add/',array('module'=>$modules,'id'=>$recordId))}" target="main" title="添加图片"><if condition="($modules eq 'News') and ($recordId neq '0')">添加图片
+   <elseif condition="($modules eq 'Download') and ($recordId neq '0')"/>添加附件</if></a>
+   <div class="line"/></div>
+</div>
+<div id="search">
+   <table width="100%" cellspacing="0" class="search-form">
+    <tbody>
+	  <tr>
+		<td>
+		<div class="search">
+		<form action="__URL__/index" method="POST">
+             所属模型:
+            <select name="module" onChange="document.all.dosubmit.click()">
+			<option value="p">请选择模型</option>
+			<volist name="Modelist" id="mo">
+			<if condition="$modules eq $mo['module']"> 
+			<option value="{$mo['module']}" selected>
+				{$mo['module']}
+			</option>
+			<else />
+			
+            <option value="{$mo['module']}">
+				{$mo['module']}
+			</option>
+			</if>
+			</volist>
+		  </select>	
+		
+          <input  type="submit"  name='dosubmit' class="button" value="搜索" />
+           </form>
+		</div>
+		</td>
+	 </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-list">
+    <form name="myform"  id="myform" method="POST">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+			
+			<th align="center">ID</th>
+            <th align="center">附件名称</th>
+			<th align="center">保存名称</th>
+			<th  align="center">所属文章</th>	
+			<th  align="center">附件大小</th>												
+			<th align="center">所属模型</th>
+			<th  align="center">上传时间</th>	
+            </tr>
+        </thead>
+    <tbody> 
+       <volist name="Attachlist" id="vo">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" id="id"></td>	
+	<td align="center">{$vo['id']}</td>
+	<td align="center">{$vo['name']}</td>
+	<td align="center"><a href="__PUBLIC__/Uploads/File/{$vo['savename']}">{$vo['savename']}</a></td>
+	<td align="center">{$vo['title']}</td>		
+	<td align="center">{$vo['size']|sizecount}</td>
+    <td align="center">{$vo['module']}</td>
+	<td align="center">{$vo['uploadTime']|date="Y-m-d H:i:s",###}</td>	
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+    <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label>  &nbsp;&nbsp;     
+        <input type="submit" name="act" value="删除" class="coolbg" onClick="delet()"/>&nbsp;
+        <input  type="button" onClick="history.back()" class="button" style="margin-left: 400px;" value="返回" alt="返回" />	
+        &nbsp;&nbsp;
+	   </div>
+</form>
+</div>
+<div id="pages"> {$page}</div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="__JS__/NDlogpublic.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				$('form').submit(function(){
+					var title = $('input[name="name"]').val();
+					var type = $('select[name="type"]').val();
+					if ( $.trim( title ) == '' ){
+						NDlog._showErrorInfo($('input[name="name"]'),'分类名称必须填写！');
+						return false;
+					}
+					if ( type == '' ){
+						NDlog._showErrorInfo($('select[name="type"]'),'请选择分类类型！');
+						return false;
+					}else{
+						var url = $('input[name="url"]');
+						var url_val = $.trim( url.val() );
+						if ( type == 'url' ){
+							var exp = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+							var objExp = new RegExp(exp);
+							if ( url_val == '' ){
+								NDlog._showErrorInfo(url,'分类类型为转向链接此项必填。');
+								return false;
+							}
+							if( objExp.test(url_val) === false ){
+								NDlog._showErrorInfo(url,'无效的链接地址，请正确填写！');
+								return false;
+							}
+							
+						}
+					}
+				});
+				NDlog._checkErrorInput($('.error_input'));
+			});
+		</script>
+		<style type="text/css">
+			.t_input		{ padding: 6px; }
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+						<form id="addCatForm" action="{:U('update')}" method="post">
+						<input type="hidden" name="id" value="{$vo.id}" />
+						<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td><input type="text" name="name" class="t_input w280" value="{$vo.name}" /><p class="remark">分类名称，必填。</p></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="pid" class="t_input">
+				                		<option value="0">选择上级分类</option>
+				                		{$option}
+				                	</select>
+				                	<p class="remark">非必选项，不选择时为根分类。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="type" class="t_input">
+										{$typeOption}
+										<option value="url">转向链接(url)</option>
+									</select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                	<input type="radio" name="nav" value="nav" <eq name="vo.nav" value="nav">checked="checked"</eq> /> 主导航 &nbsp;&nbsp;&nbsp; 
+                    				<input type="radio" name="nav" value="top" <eq name="vo.nav" value="top">checked="checked"</eq> /> 顶部导航 &nbsp;&nbsp;&nbsp; 
+                    				<input type="radio" name="nav" value="bottom" <eq name="vo.nav" value="bottom">checked="checked"</eq> /> 尾部导航 &nbsp;&nbsp;&nbsp; 
+                                </td>
+                            </tr>
+                            <?php if( !empty( $vo['url'] ) ){ ?>
+                            <tr>
+                                <td><input type="text" name="url" class="t_input w480" value="{$vo.url}" /><p class="remark">自定义链接，用于分类直接单向链接某地址，当类型为转向链接时必填。</p></td>
+                            </tr>
+                            <?php } ?>
+                            <tr>
+                                <td><input type="text" name="channel" class="t_input w480" value="{$vo.channel}" /><p class="remark">此项可定制你的URL名称，非必填。</p></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="keyword" id="keyword" class="t_input w480" value="{$vo.keyword}"><p class="remark">分类关键字，SEO相关，用于页面的 meta keywords，非必填。</p></td>
+                            </tr>
+                            <tr>
+                                <td><textarea name="description" id="description" class="t_input w480" style="height:160px;">{$vo.description}</textarea><p class="remark">分类说明，SEO相关，用于页面的 meta description，非必填。</p></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                	<input type="submit" class="submit" value="提交表单" />
+				                	&nbsp;&nbsp;&nbsp;
+				                	<input type="button" class="submit" value="返回" onclick="window.location.href='{:U('index',array('node'=>$_GET['node']))}';" />
+                                </td>
+                            </tr>
+                    	</table>
+						</form>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

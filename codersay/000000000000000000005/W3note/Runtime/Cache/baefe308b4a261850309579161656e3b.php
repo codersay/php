@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit(); if(is_array($date)): $i = 0; $__LIST__ = $date;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$m): $mod = ($i % 2 );++$i;?><li>  <a title="<?php echo ($m['Time']); ?>" href="<?php echo U('/date/'.$m['Time']);?>"><?php echo (date("Y年-m月",$m['t'])); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>

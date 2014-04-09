@@ -1,0 +1,108 @@
+ <include file="Public:header"/>
+<!--<div class="container">container-begin -->
+  <div class="pagebody"> <!--pagebody-begin -->
+    <div class="leftpage"> <!--leftpage-begin -->
+      <div class="ance"> <!-- anoun-begin -->      
+        <if condition="$ance['url'] neq  ''">
+        <a title="{$ance['title']}" href="{$ance['url']}">{$ance['title']}</a> 
+        <else />
+         {$ance['title']} 
+        </if>      
+        </div> <!-- anoun-end -->
+	  <volist name="info" id="info">
+      <div class="info"> <!-- info-begin -->
+        <div class="postinfo">
+          <div class="date"> <!-- date-begin -->
+            <div class="t">{$info['inputtime']|date="m",###}月</div>
+            <div class="d"><strong>{$info['inputtime']|date="d",###}</strong></div>
+          </div> <!-- date-end -->
+          <div class="title"><strong><a title="{$info['title']}" href="{:U('/'.$urlname.'/'.$info['id'])}">{$info['title']}</a></strong></div>
+		  <div class="tinfo">
+          <div class="author">作者:{$info['author']}</div>
+          <div class="cat">分类:<a title="{$info['colTitle']}" href="{:U('/cat/'.$info['catid'])}">{$info['colTitle']}</a></div>
+          <div class="brownum">浏览{$info['hits']}</div>
+          <div class="comnum"><a href="#">{$info['Comment']|count}人评论</a></div>
+		  </div><!--tinfo end-->
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+        <div class="post">{$info['description']}...</div>
+        <div class="tag">tags:{$info['keywords']|webTags}</div>
+        <div class="comnum">评论人数{$info['Comment']|count}<a href="{:U('/web/'.$info['id'])}#comment">【我来说两句】</a></div>
+      </div>
+      <!-- info-end -->
+	  </volist>
+      <div class="pages"><div class="page">{$page}</div></div>
+    </div>
+    <!--leftpage-end -->
+    <div class="rightpage">
+     <div class="l_tit"><a href="http://www.w3note.com/Feed" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_sub_c1s16.gif" alt="feedsky" vspace="2"  style="margin-bottom:3px" ></a></div>
+    <div class="about"> 什么是RSS订阅？<a href="http://baike.baidu.com/view/736401.htm" target="_blank">查看解释</a><br/>订阅到您的在线阅读器
+
+     </div>
+     <div class="share">
+      <!-- Feedsky FEED发布代码开始 -->
+      <!-- FEED自动发现标记开始 -->
+     <link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/w3note" rel="alternate" />
+     <!-- FEED自动发现标记结束 -->
+
+     <a href="http://www.zhuaxia.com/add_channel.php?url=http://feed.feedsky.com/w3note" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_zhuaxia.gif" alt="抓虾" vspace="2" style="margin-bottom:3px" ></a>    
+     <a href="http://fusion.google.com/add?feedurl=http://feed.feedsky.com/w3note" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_google.gif" alt="google reader" vspace="2" style="margin-bottom:3px" ></a><br />
+     <a href="http://add.my.yahoo.com/rss?url=http://feed.feedsky.com/w3note" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_yahoo.gif" alt="my yahoo" vspace="2" style="margin-bottom:3px" ></a>    
+     <a href="http://www.xianguo.com/subscribe.php?url=http://feed.feedsky.com/w3note" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_xianguo.gif" alt="鲜果" vspace="2" style="margin-bottom:3px" ></a><br />
+     <a href="http://inezha.com/add?url=http://feed.feedsky.com/w3note" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_nazha.gif" alt="哪吒" vspace="2" style="margin-bottom:3px" ></a>    
+     <a href="http://mail.qq.com/cgi-bin/feed?u=http://feed.feedsky.com/w3note" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_qq.gif" alt="QQ邮箱" vspace="2" style="margin-bottom:3px" ></a><br />
+     <!-- Feedsky FEED发布代码结束 -->
+      </div>
+      <div class="search">
+        <include file="Public:search"/>
+       </div>
+      <!--search-end -->
+	  <div class="share">
+	    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <span class="bds_more">分享到：</span>
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+		<a class="shareCount"></a>
+    </div>
+     <script type="text/javascript" id="bdshare_js" data="type=tools&mini=1" ></script>
+     <script type="text/javascript" id="bdshell_js"></script>
+     <script type="text/javascript">
+	    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+     </script>
+   <!-- Baidu Button END -->
+	  </div>
+	   <div class="l_tit">主博客分类</div>
+      <div class="catlist">
+        <ul>
+		{:W('Cate')}
+        </ul>
+      </div>
+      <div class="l_tit">微博最新文章</div>
+      <div class="month">
+        <ul>
+        <volist name="newslist" id="news">
+          <li>  <a title="{$news.title}" href="{:U('/blog/'.$news['id'])}">{$news['title']}</a></li>
+         </volist>
+        </ul>
+      </div>
+      
+      <div class="l_tit">随机推荐</div>
+      <div class="rand">
+        <ul>
+		{:W('Rand')}
+        </ul>
+      </div>
+	  <div class="l_tit">分类标签【<a title="更多分类标签" href="{:U('/read','tag=name')}">更多</a>】</div>
+      <div class="tags">
+        <ul>
+        {:W('Tags')}
+        </ul>
+      </div>
+    </div><!--rightpage-end -->
+  </div> <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+ <include file="Public:footer"/>

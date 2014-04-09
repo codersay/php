@@ -1,0 +1,30 @@
+<?php
+	/*
+		Widget Name: NewGuestBook
+		Widget URI: http://www.ndlog.com/
+		Remark: 最新留言，条目及字符数可定制。
+		Title: 侧边栏最新留言
+		Author: NickDraw
+		Version: 1.0
+		Author URI: http://www.ndlog.com/
+		Position: sidebar
+		Param: {"total":"10","strlen":"12","title":"最新留言"}
+	*/
+	class NewGuestBookWidget extends Widget{
+		public function render($data) {
+			$model = M('Guestbook');
+			$list = $model
+				->where("status=1 AND pid=0")
+				->order('id DESC')
+				->limit($data['total'])
+				->select();
+			$var['data'] = $list;
+			$var['len'] = $data['strlen'];
+			$var['title'] = $data['title'];
+			$var = array_merge($var,$data);
+			// 渲染模版
+	        $content = $this->renderFile('list', $var);
+	        // 输出数据
+	        return $content;
+		}
+	}

@@ -1,0 +1,37 @@
+BODY {
+	FONT-FAMILY: "Î¢ÈíÑÅºÚ"; BACKGROUND: url(./images/login_bg.jpg); FONT-SIZE: 13px;margin:0px;
+	overflow-y:hidden;
+}
+IMG {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; BORDER-TOP: medium none; BORDER-RIGHT: medium none
+}
+a:link { font-size: 10pt; color: #666; text-decoration: none; font-family: ""ËÎÌå""; }
+a:visited{ font-size: 10pt; color: #666; text-decoration: none; font-family: ""ËÎÌå""; }
+a:hover {color: #F60; font-family: ""ËÎÌå"";}
+input{ 
+	border-width: 1px; 
+	margin-bottom: 10px;
+	padding: 3px 3px;
+	color:#999;
+}
+input[disabled]{ border: 1px solid #ccc ;} /* FF 2 Fix */
+
+#dosubmit { width: 60px;margin: 0 0 0 100px ; color:#666666;background-color: #EEEEEE;padding-top:5px;}
+
+#wrap {
+	 padding-top:0px;MARGIN: 0px auto; WIDTH: 436px; BACKGROUND: url(./images/wrap.png) no-repeat; height: 685px; 
+}
+.logo{margin-left:118px;margin-right:118px;padding-top:50px;width:200px}
+.login{margin-left:88px;margin-right:88px;margin-top:30px;width:260px;height:150px;color:#666;}
+.uli{width:55px;height:20px;padding-top:5px;float:left;list-style:none;text-align:right;padding-right:5px;}
+.ulp{width:200px;float:left;list-style:none;}
+.liv{width:80px;float:left;list-style:none;}
+.nmu{margin-right:20px;width:80px;float:left;list-style:none;}
+.username{}
+.password{margin-top:5px;}
+.submit{margin-top:20px;width:260px;float:left;}
+.bottom{margin-left:89px;margin-right:89px;margin-top:30px;width:267px;height:13px; BACKGROUND: url(./images/bottom.png) no-repeat;}
+.desc{text-align:center;margin-left:89px;margin-right:89px;margin-top:10px;width:267px;height:16px; }
+.input_ul LI {
+	MARGIN: 0px 0px 0px 85px;
+}

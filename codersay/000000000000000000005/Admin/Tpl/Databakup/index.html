@@ -1,0 +1,55 @@
+<include file="Public:indexheader" />
+<body>
+<div class="location">
+    <span>当前位置:系统管理&nbsp;>&nbsp;数据备份</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="数据库备份" class="main_select"><span>数据库备份</span></a>|
+   <a href="__URL__/import" target="main" title="数据库还原">数据库还原</a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+			<th align="center">ID</th>
+			<th align="center">数据表</th>	
+            <th align="center">大小</th>	
+            <th align="center">编码类型</th>
+            <th align="center">引擎类型</th>		
+            <th align="center">创建时间</th>		
+            </tr>
+        </thead>
+    <tbody> 
+      <form name="myform" id="myform" method="post" action="__URL__/export">
+       
+       <volist name="tbs" id="tb">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$tb['name']}" id="id"></td>	
+	<td align="center">{$tb['id']}</td>
+	<td align="center">{$tb['name']}</td>
+    <td align="center">{$tb['data_length']}</td>
+    <td align="center">{$tb['collation']}</td>
+    <td align="center">{$tb['engine']}</td>
+     <td align="center">{$tb['create_time']}</td>
+    
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+     <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label> &nbsp;&nbsp;   
+       <input class="button" type="submit" name="sub" value="备份" onClick="return Sub(this.form)" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>
+

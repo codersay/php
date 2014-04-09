@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="__JS__/NDlogpublic.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<include file="Public:editor" />
+		<include file="Public:dialog" />
+		<include file="Public:swfupload" />
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				editor = KindEditor.create("#textarea",{
+					items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'link']
+				});
+
+                var $type = true;
+                $('select[name="cid"]').find('option').each(function(){
+                    if ( $(this).attr('disabled') !== undefined ){ $type = false; }
+                });
+
+                if( $type === false ){
+                    $('input[name="type"]').after('<h3 style="padding-left:10px; color:red;">提示：还没有 picture 类型的分类，请先添加分类。</h1>');
+                }
+                
+                $('form').submit(function() {
+                	var _eltit = $('input[name="title"]');
+                    var _title = $.trim( _eltit.val() );
+                    var _pic = $('#pics_upload_list').find('input').length;
+                    var _thumb = $('#setDivThumb');
+
+                    if ( $('select[name="cid"]').find('option:selected').attr('disabled') ){
+                        var $html = '<h3>没有对应的分类，请先增加对应类型的分类。</h3>\
+                                    <input type="text" class="t_input w280 mt" id="catalog_name" />\
+                                    <input type="hidden" id="catalog_type" value="picture" />\
+                                    <input type="submit" id="catalog_submit" class="submit" value="提交" />';
+                        var $dialog = $.dialog({
+                            title : '增加分类',
+                            content : $html
+                        });
+
+                        $('#catalog_submit').live('click',function(){
+                            $.ajax({
+                                url : '{:U("insertOneCatalog")}',
+                                data : {
+                                    name : $('#catalog_name').val(),
+                                    type : $('#catalog_type').val()
+                                },
+                                cache : false,
+                                type : 'POST',
+                                success : function( $result ){
+                                    if ( $result.status == 0 ){
+                                        $.alert( $result.data ); return false;
+                                    }else{
+                                        $('input[name="type"]').next('h3').remove();
+                                        $('select[name="cid"]').append('<option value="'+$result.data.id+'" selected="selected">'+$result.data.name+'</option>');
+                                        $dialog.close();
+                                    }
+                                },
+                                dataType : 'json'
+                            });
+                        });
+                        return false;
+                    }
+                    
+                    if ( _title == '' ){
+                        NDlog._showErrorInfo( _eltit, '文档标题必须填写！' );
+                        return false;
+                    }
+                    
+                    if ( _pic == 0 ){
+                        $.alert('还没有上传任何图片！');
+                        return false;
+                    }
+                    
+                    if ( _thumb.html() == '' ){
+                        $.alert('请选择一个缩略图！' );
+                        return false;
+                    }
+                });
+                $('.more_title').click(function(){
+					if ( $(this).hasClass('more_open') === false ){
+						$(this).addClass('more_open').next('#more_option').slideDown();
+					}else{
+						$(this).removeClass('more_open').next('#more_option').slideUp();
+					}
+				});
+				//-- 设置缩略图
+                $('.setThumb').live('click',function(){
+                	var _path = $(this).attr('rel');
+                	var _key = $(this).attr('vkey');
+                	$('#setDivThumb').html('<input type="hidden" name="thumb" value="'+_path+'" />');
+                	
+                	$('.setThumb').removeClass('setThumbOK');
+                	$('.dlist img').removeClass('imgSelect').removeAttr('style');
+                	$(this).addClass('setThumbOK');
+                	$('#img_'+_key).addClass('imgSelect').css({
+                		'width' : $('#img_'+_key).width() - 4,
+                		'height' : $('#img_'+_key).height() - 4
+                	});
+                });
+                $('.dlist img').live('click',function(){
+                	var pic_path = $(this).attr('views');
+                	$.dialog({
+                		title : '预览：'+pic_path,
+                		content : '<img src="'+pic_path+'" />',
+                		padding : 10
+                	});
+                });
+                NDlog._checkErrorInput($('.error_input'));
+                picslist();
+			});
+		</script>
+		<style type="text/css">
+			.swfupload {
+				position: absolute;
+				z-index: 888;
+				width: 70px;
+				height:27px;
+			}
+			.t_input				{ padding: 6px; }
+			.updone					{ margin-top: -10px; }
+			.updone li				{ float: left; margin-right:17px; margin-top:17px; position: relative; }
+			.updone li.dlist a		{ display: block; position: absolute; width:12px; height:12px; background:#000088; }
+			.updone .dlist .setThumb{ top:-5px; left:-5px; background:url(../Public/images/icons.png) -24px 0px no-repeat; }
+			.updone .dlist .deluppic{ top:-5px; left:12px; background:url(../Public/images/icons.png) -12px 0px no-repeat; }
+			.updone .dlist .setThumbOK	{ background:url(../Public/images/icons_1.png) -24px 0px no-repeat; }
+			.updone .dlist .imgSelect{ border:2px solid #c20000; }
+			.updone li img			{ float: left; cursor: pointer; }
+			.updone .delall			{ height:26px; line-height:26px; margin:20px 0px 0px 0px; }
+			.updone .delall a		{ display: block; float:left; text-decoration:none; color:#c20000; height:26px; padding:0 15px; border:1px solid #bbb; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+						<form action="{:U('insert')}" method="post">
+						<input type="hidden" name="type" value="picture" />
+						<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td><input type="text" name="title" id="title" class="t_input w480" /><p class="remark">*图集标题，必须填写</p></td>
+                            </tr>
+                            <tr>
+                            	<td>
+                            		<div style="position: relative">
+										<span id="spanButtonPlaceholder"></span>
+										<input type="button" class="submit" id="btnUpload" value="批量选择" /> &nbsp;&nbsp; 
+										<input type="button" disabled="disabled" class="submit" id="btnCancel" value="  中止上传  " />
+									</div>
+									<div style="margin-top:10px;" id="divLoadingContent" class="content" style="display: none;">上传组件正在加载中...</div>
+									<div style="margin-top:10px;" style="margin-top:10px;" id="divLongLoading" class="content" style="display: none;">上传组件加载超时!请确保浏览器支持FLASH 10!</div>
+									<div style="margin-top:10px;" id="divAlternateContent" class="content" style="display: none;">上传组件加载失败!请确保浏览器支持FLASH 10!</div>  
+									<div style="margin-top:10px;" class="fieldset flash" id="fsUploadProgress"></div>
+									<p style="margin-top:10px;" id="divStatus">提示: 可以按 Ctrl 或 Shift 键多选.</p>
+                            	</td>
+                            </tr>
+                            <tr>
+                            	<td id="pics_upload_list"><img src="../Public/images/loading.gif" align="absmiddle"> 列表加载中...</td>
+                            </tr>
+                    	</table>
+                    	<div style="display: none;" id="setDivThumb"></div>
+                    	<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                            	<td><textarea name="content" class="input_text" id="textarea" style="width:100%; height: 260px;"></textarea></td>
+                            </tr>
+                    	</table>
+                    	<h4 class="more_title">更多选项</h4>
+                    	<div id="more_option">
+                    	<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    		<tr>
+                                <td>
+									<select name="cid" class="t_input">
+										{$option}
+									</select><p class="remark">选择分类，不选择将默认记录文档类型，而不归类。</p>
+                                </td>
+                            </tr>
+							<tr>
+                                <td>
+									<lable class="option_lable"><input type="checkbox" class="checkbox" class="checkbox" id="set_top" name="set_top" value="1" /> 置顶</lable>
+									<lable class="option_lable"><input type="checkbox" class="checkbox" id="recommend" name="recommend" value="1" /> 推荐</lable>
+									<lable class="option_lable"><input type="checkbox" class="checkbox" id="createFix" value="create" /> 生成瀑布流格式缩略图</lable>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+									<input type="text" name="tags" class="t_input w480" /><p class="remark">tags，多个可用空格分开。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+									<input type="text" name="url_name" class="t_input w480" /><p class="remark">自定义文档的URL名称，用于URL优化，可不填写。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="keyword" id="keyword" class="t_input w480"><p class="remark">分类关键字，SEO相关，用于页面的 meta keywords，非必填。</p></td>
+                            </tr>
+                            <tr>
+                                <td><textarea name="description" id="description" class="t_input w480" style="height:160px;"></textarea><p class="remark">分类说明，SEO相关，用于页面的 meta description，非必填。</p></td>
+                            </tr>
+                    	</table>
+                    	</div>
+                    	<table class="table_form" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    		<tr>
+                                <td>
+                                	<input type="submit" class="submit" value="提交表单" />
+				                	&nbsp;&nbsp;&nbsp;
+				                	<input type="button" class="submit" value="返回" onclick="window.location.href='{:U('index',array('node'=>$_GET['node']))}';" />
+                                </td>
+                            </tr>
+                    	</table>
+						</form>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

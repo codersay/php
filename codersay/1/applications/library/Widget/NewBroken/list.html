@@ -1,0 +1,6 @@
+<ul class="panel sidebar_broken">
+	<h4>{$title}</h4>
+	<volist name="data" id="value">
+	<li><a href="<?php if (!empty($value['url_name'])) { echo U('/'.$value['url_name']); } else { echo U('/views/'.$value['id']); } ?>">{:ndsubstr($value['content'],0,$len)}</a>  <em style="margin-left:5px; color:#999; font-size:11px;">{:toDate($value['create_time'],C('DEFAULT_DATE_FORMAT'))}</em></li>
+	</volist>
+</ul>

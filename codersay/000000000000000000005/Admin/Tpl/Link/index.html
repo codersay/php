@@ -1,0 +1,74 @@
+<include file="Public:indexheader" />
+ <script language="Javascript">
+function delet()
+{
+  if(confirm("确定删除该记录吗?")){
+    return document.myform.action='?m=Link&a=act&action=delete';
+	
+  }else{
+   return false;
+  }
+} 
+</script>
+<body>
+<div class="location">
+    <span>当前位置:模块管理&nbsp;>&nbsp;友情链接</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" class="main_select"><span>管理列表</span></a>|
+   <a href="__URL__/insert" target="main" title="添加链接">添加链接</a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            <th width="50" align="center">选取</th>
+			<th align="center">排序</th>
+			<th align="center">ID</th>
+			<th align="center">名称</th>
+            <th align="center">url</th>
+			<th  align="center">审核状态</th>	
+			<th align="center">发布人</th>											
+			<th  align="center">更新时间</th>
+			<th  align="center">管理操作</th>			
+			
+            </tr>
+        </thead>
+    <tbody> 
+     <form  method="POST" name="myform"  id="myform">
+      <volist name="lists" id="vo">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" id="id"></td>	
+	<td align="center"><input type=hidden name="ids[]" value="{$vo['id']}"><input type="text" name="ord[]" size="1" value="{$vo['ord']}"></td>
+	<td align="center">{$vo['id']}</td>
+	<td align="center">{$vo['name']}</td>
+     <td  align="center">{$vo['url']}</td>
+	<td align="center"><if condition="($vo['status'] eq 1)"><span style="color:green">√</span><else />ㄨ</if></td>		
+	<td align="center">{$vo['username']}</td>
+	<td align="center">{$vo['inputtime']|date="Y-m-d H:i:s",###}</td>
+	<td align="center"> 
+     <a href="__URL__/edit/id/{$vo['id']}">修改</a>
+	 
+    </td>	
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+     <label for="check_box" id ="CheckedRev">
+    <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	<a href="javascript:noSelAll()" class="coolbg">取消</a> 
+    </label> &nbsp;&nbsp;      
+        <input type="submit" name="act" value="删除" class="coolbg" onClick="delet()"/>&nbsp;
+		<input type="submit" name="act" value="审核" class="coolbg" onClick="document.myform.action='?m=Link&a=act&action=check';"/>&nbsp;
+		<input type="submit" name="act" value="排序" class="coolbg" onClick="document.myform.action='?m=Link&a=act&action=order';"/>
+        &nbsp;&nbsp;
+	   </div>
+</form>
+</div>
+<div id="pages"> {$page}</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>『wblog博客管理平台』{$Think.version}</title>
+<link href="__PUBLIC__/admin/style.css" rel="stylesheet" type="text/css" />
+
+ <script language="javascript">
+
+function selAll()
+{
+	for(i=0;i<document.myform.id.length;i++)
+	{
+		if(!document.myform.id[i].checked)
+		{
+			document.myform.id[i].checked=true;
+		}
+	}
+}
+function noSelAll()
+{
+	for(i=0;i<document.myform.id.length;i++)
+	{
+		if(document.myform.id[i].checked)
+		{
+			document.myform.id[i].checked=false;
+		}
+	}
+}
+</script>
+</head>

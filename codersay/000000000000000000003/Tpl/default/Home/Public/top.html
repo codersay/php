@@ -1,0 +1,14 @@
+ <!--header start-->
+  <DIV id=header>
+    <DIV id=headerimg>
+      <H1><A href="http://wordpress/">PHP博客-专注于PHP技术</A></H1>
+      <DIV class=description>php学习交流博客phpboke.com</DIV>
+    </DIV>
+    <UL id=nav>
+      <LI class=page_item><A href="/">Home</A> </LI>
+  <volist name="pagelist" id="vo">
+      <LI class="page_item page-item-170"><A title={$vo.name} href="/Home/Page/Content/id/{$vo.id}">{$vo.name}</A> </LI>
+  </volist>
+    </UL>
+  </DIV>
+  <!--/header end-->

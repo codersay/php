@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="__JS__/NDlogpublic.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				NDlog._setTableStyle( 'input[name="all"]', 'input[name="ids[]"]', '.rows_style' );
+				$('.esort').dblclick(function(){
+					var id = $(this).attr('rel');
+					var ovalue = $(this).text();
+					$(this).html('<input type="text" name="sort_one" id="edit_'+id+'" class="t_input" style="width:24px;" value="'+ovalue+'" />');
+					$('#edit_'+id).focus().live('blur',function(){
+						var value = $(this).val();
+						if ( !/^\d+$/.test(value) ){
+							alert('排序必须为正整数！');
+							return false;
+						}else{
+							$(this).parent().html(value);
+							if ( ovalue != value ){
+								$.post('{:U("updateOneSort")}',{id:id,sort:value,model:'CatFlink'});
+							}
+						}
+					});
+				});
+			});
+		</script>
+		<style type="text/css" media="all">
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+			            <table width="100%" cellpadding="0" cellspacing="0" border="0" class="table_list">
+			                <tr>
+			                	<th align="center" width="40">排序</th>
+			                	<th align="center" width="40">ID</th>
+			                    <th align="center" class="left_text">名称</th>
+			                    <th width="60" align="center">状态</th>
+			                    <th width="160" align="center" class="left_text">操作</th>
+			                </tr>
+			                <volist id="vo" name="list">
+			                <tr rel="{$vo['id']}" class="rows_style"<?php if( ( $i % 2 ) == 0 ){ ?> bgcolor="#f9f9f9"<?php }else{ ?> bgcolor="#ffffff"<?php } ?>>
+			                	<td align="center" rel="{$vo.id}" class="esort">{$vo.sort}</td>
+			                	<td align="center">{$vo['id']}</td>
+			                    <td align="center">{$vo.name}</td>
+			                    <td align="center">{$vo['status']|getStatus}</td>
+			                    <td align="center">
+			                        {$vo['status']|showStatus=$vo['id'],'navTabAjaxMenu'}<span class="c_line">|</span><a href="{:U('edit',array('id' => $vo['id'],'type' => $_GET['type'], 'node' => $_GET['node'], 'type'=>$type))}" class="edit">编辑</a><span class="c_line">|</span><a href="{:U('delete',array('id' => $vo['id'],'type' => $_GET['type'], 'node' => $_GET['node'], 'type'=>$type))}" class="del_flinktype" rel="{$vo.id}">删除</a>
+			                    </td>
+			                </tr>
+			                </volist>
+			            </table>
+						<div class="page">{$page}</div>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

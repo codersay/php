@@ -1,0 +1,68 @@
+<include file="Public:header" />
+<body>
+<div>
+ <div>
+    <div style="background:#EEF5DE;height:20px;padding-top: 5px;">
+   <span style="margin-right:5px;margin-left:5px;font-size:12px;">当前位置:单页>添加</span>
+    </div>
+   
+</div>
+<div style="border:1px solid #C8DAA3;">
+ <div>
+    <div style="background:#FFFFFF;height:20px;margin-bottom:5px;"><p>
+   <span style="margin-right:5px;margin-left:10px;font-size:12px;">
+   <a href="__URL__/index" style="text-decoration:none;" target="main" title="管理列表">管理列表</a></span>|
+   <a href="__URL__/insert"  target="main" title="添加单页" style="text-decoration:none;">
+   <span style="margin-right:5px;margin-top:5px;padding: 3px;font-size:12px;background-color:#618d01;color:#fff;">
+   添加单页</span></a>
+   <span style="margin-right:5px;margin-left:10px;font-size:12px;">
+   <a href="__APP__/Attach/index/module/Page" style="text-decoration:none;" target="main" title="管理附件">管理附件</a></span>
+    </div>
+   <hr style="margin-right:10px;margin-left:10px;color:#EEEEEE;"/>
+</div>
+<div class="table-list">
+     <form action="__URL__/add" method="POST" id="myform">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+       <tbody>
+            <tr>
+            <td width="50" align="center">栏目名称：</td>
+            <td align="left">
+            <input type="text" name="title" id="title" class="required" size="50">
+            </td>	
+            </tr>
+            <tr>
+            <td width="50" align="center">关键词：</td>
+            <td align="left">
+           <input type="text" name="keywords" size="50">
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="center">缩略图：</td>
+            <td align="left">
+           <input type="text" name="thumb" id="thumb" value="" size="50"/>  &nbsp;<input type="button" id="image" value="上传图片" />
+            </td>	
+            </tr>
+             <tr>
+            <td width="50" align="center">描述：</td>
+            <td align="left">
+           <textarea name="description" rows="3" cols="60"></textarea>
+            </td>	
+            </tr>
+             
+       </tbody>
+    
+ </table>
+	<div class="btn" style="font-size:12px;">
+     <input type=hidden name="colPid" value="0">
+     <input type=hidden name="languageid" value="1">
+     <input type=hidden name="modelid" value="5">
+          <input type="submit" value="提交" id="send" class="button" style="margin-left: 450px;">&nbsp;&nbsp;
+		 <input  type="button" onClick="history.back()" class="button" value="取 消" alt="取消" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>
+

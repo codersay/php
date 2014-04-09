@@ -1,0 +1,49 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="/www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__PUBLIC__/admin/style/base.css" type="text/css" />
+<script type="text/javascript" language="javascript" src="__PUBLIC__/common/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/admin/js/common.js"></script>
+<script type="text/javascript" language="javascript">
+//显示或隐藏
+function showHide(objname,tid)
+{
+	if($Id(objname).style.display=="none")
+	{
+		$Id(tid).innerHTML = "收起";
+		$Id(objname).style.display = "";
+	} else {
+		$Id(tid).innerHTML = "展开";
+		$Id(objname).style.display="none";
+	}
+}
+</script>
+</head>
+<body background='__PUBLIC__/admin/images/allbg.gif' leftmargin='8' topmargin='8' onLoad="">
+<form name='form1' method='post'>
+<table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#cfcfcf" align="center">
+<tr>
+   <td height="28" background='__PUBLIC__/admin/images/tbg.gif' style="padding-left:10px;">
+   <div style="float:left">
+    	<strong>分类管理 </strong>
+   </div>
+   <div style="float:right;padding-right:6px;">
+   	<a href='__GROUP__/Columns/add' class='np coolbg'>增加分类</a>
+    <input type="submit" name="sb1" value="更新排序" style="width:70px" class="coolbt" onClick="document.form1.action='__URL__/updateord'" />
+    </div>
+   </td>
+</tr>
+
+
+<tr>
+<td height="80" bgcolor="#FFFFFF" valign="top">
+<?php echo ($datalist); ?>
+</td>
+</tr>
+
+</table>
+</form>
+</body>
+</html>

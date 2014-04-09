@@ -1,0 +1,6 @@
+<ul class="panel sidebar_guestbook">
+	<h4>{$title}</h4>
+	<volist name="data" id="value">
+		<li><b>{$value.username}</b> {$value.create_time|toDate=C('DEFAULT_DATE_FORMAT')} 留言：<a href="{:U('/guestbook')}">{$value.content|ndsubstr=0,36}...</a></li>
+	</volist>
+</ul>

@@ -1,0 +1,208 @@
+<include file="Public:header"/>
+<script type="text/javascript" src="{$Think.config.jsurl}jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="{$Think.config.jsurl}jquery.form.js"></script>
+<script language="javascript" type="text/javascript" src="{$Think.config.jsurl}chekform.js" charset="UTF-8"></script>
+<!--代码高亮显示调试-->
+<script type="text/javascript" src="{$Think.config.rooturl}Public/SyntaxHighlighter/scripts/shCore.js"></script>
+<link rel="stylesheet" href="{$Think.config.rooturl}Public/SyntaxHighlighter/style/shCore.css" />	
+   <!--代码高亮显示调试--> 
+<!--<div class="container">container-begin -->
+  <div class="pagebody"><!--pagebody-begin -->
+    
+    <div class="leftpage"> <!--leftpage-begin -->
+     
+      <div class="updow">  <!-- updow-begin -->
+      
+        <div class="down"><if condition="$pagedown['id'] neq  ''"><a title="{$pagedown['title']}" href="{:U('/read/'.$pagedown['id'])}">{$pagedown['title']}&nbsp;»</a></if></div>
+		<div class="up"><if condition="$pageup['id'] neq  ''"><a title="{$pageup['title']}" href="{:U('/read/'.$pageup['id'])}">«&nbsp;{$pageup['title']}</a></if></div>
+
+		</div>
+      <!-- updow-end -->
+     <div class="info">
+        <!-- info-begin -->
+        <div class="postinfo">
+          <div class="date">
+            <!-- date-begin -->
+            <div class="t"><strong>{$vo['inputtime']|date="m",###}月</strong></div>
+            <div class="d"><strong>{$vo['inputtime']|date="d",###}</strong></div>
+          </div>
+          <!-- date-end -->
+          <div class="title"><strong><a title="{$vo['title']}" href="{:U('/read/'.$vo['id'])}">{$vo['title']}</a></strong></div>
+		  <div class="tinfo">
+          <!--<div class="author">作者:</div>-->
+          <div class="cat">分类:<a title="{$vo['colTitle']}" href="{:U('/cat/'.$vo['catid'])}">{$vo['colTitle']}</a></div>
+          <div class="brownum">浏览:{$vo['hits']}</div>
+          <div class="comnum">
+           <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <span class="bds_more">分享到：</span>
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+		<a class="shareCount"></a>
+    </div>
+     <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1" ></script>
+     <script type="text/javascript" id="bdshell_js"></script>
+     <script type="text/javascript">
+	    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+     </script>
+   <!-- Baidu Button END -->
+          </div>
+		  </div>
+          <div class="line"></div>
+        </div>
+        <!-- postinfo-end -->
+        <div class="post">{$vo['content']}</div>
+        <div class="tag">标签:{$vo['keywords']|webTags}</div>
+        <div class"comnum"><!--<a href="#comment">【已有人发表了看法，你呢？】</a>--></div>
+      </div>
+      <!-- info-end -->
+      <!-- rela- -->
+      <div class="rela">
+      <div class="title"><strong>相关阅读</strong></div>
+      
+      <div class="relainfo">
+      <volist name="relalist" id="r">
+      <li><a title="{$r['title']}" href="{:U('/read/'.$r['id'])}">{$r['title']}</a></li>
+      </volist>
+      </div>
+      
+      </div>
+      <div class="comtit">〖评论〗</div>
+      <volist name="ctlist" id="ct">
+      
+	  <if condition="$ct['tousername'] eq ''">
+ <div class="comment">
+	   <div class="line10"></div>
+           <div class="cominfo">
+           
+            <span style="font-size:30px;color:#D64700;"><img src="{$Think.config.rooturl}Public/Images/visitor.png" title="visitor" alt="wblog" width="32" height="32" border="0"/></span>
+        <if condition="$ct['url'] neq  ''"> <a href="{$Think.config.rooturl}tourl/id/{$ct['id']}/url/{$ct['url']|tourl}"> <else /> <a href="{:U('/read/'.$vo['id'])}#cmt{$ct['id']}"> </if>{$ct['id']}楼&nbsp;&nbsp;{$ct['username']} </a>
+       
+       <span class="ly"><a href='#postComment' onclick='getPid({$ct['id']})' title='回复'>回复该留言</a></span>
+       
+      </div>
+	  <div class="cominfo">
+        Post:{$ct['inputtime']|date="Y-m-d H:i:s",###}
+      </div>
+	  <div class="cominfo">
+        {$ct['content']}
+      </div>
+       <div class="cominfo">
+     
+      </div>
+      <div class="line10"></div>
+	  </div><!-- comment-end -->
+<else />
+<div class="rcomment">
+	   <div class="line10"></div>
+           <div class="cominfo">
+           
+            <span class="reply"></span>
+        <if condition="$ct['url'] neq  ''"> <a href="{$Think.config.rooturl}tourl/id/{$ct['id']}/url/{$ct['url']|tourl}"> <else /> <a href="{:U('/read/'.$vo['id'])}#cmt{$ct['id']}"> </if>&nbsp;&nbsp;{$ct['username']} </a><span style="margin-left: 5px;margin-right: 5px;">于</span>{$ct['inputtime']|date="Y-m-d H:i:s",###}<span style="margin-left: 5px;margin-right: 5px;">回复</span>{$ct['tousername']}      
+      </div>
+	  <div class="cominfo">
+      </div>
+	  <div class="rcominfo">
+        {$ct['content']}
+      </div>
+       <div class="cominfo">
+      </div>
+      <div class="line10"></div>
+	  </div><!-- comment-end -->
+</if>
+	  
+	  </volist> 
+      <div class="pages"><div class="page">{$page}</div></div>   
+	   <div class="comment">
+      <div id="form">
+     <a name="postComment"></a>
+	<form method="post" action="{:U('/read/add')}" id="form1" name="form1" onsubmit="return regs('click')">
+		<p>&nbsp;</p>
+		<div class="fieldset">
+			<span class="legend">发表评论</span>
+            <div id="result" class="none result" style="font-family:微软雅黑,Tahoma;margin-bottom: 10px;font-size:18px;color:green;text-align:center"></div>
+			<table style="vertical-align:top;">
+				<tr>
+					<td><label for="lastname">昵称(必填项):</label></td>
+					<td><input name="username" value="" id="username" type="text" style="width: 250px" /></td>
+				</tr>
+				<tr>
+					<td><label for="firstname">Emial:</label></td>
+					<td><input name="email" value="" id="email" type="text" style="width: 250px" /></td>
+				</tr>	
+                <tr>
+					<td><label for="firstname">个人主页:</label></td>
+					<td><input name="url" value="" id="url" type="text" style="width: 250px" /></td>
+				</tr>	
+                 <tr>
+					<td><label for="references">评论内容:</label></td>
+					<td><textarea name="content" id="content" cols="0" rows="0" style="width: 450px; height: 100px;"></textarea></td>
+				</tr>
+			</table>
+			<br />
+             <input type="hidden" name="pid" value="" id="pid">
+             <input type="hidden" name="nid" value="{$vo.id}" id="nid" />
+			<input type="submit" name="dosubmit" id="dosubmit" value="发表"  />
+		</div>
+	</form>
+</div>
+	   </div>
+      
+   <div class="line10"></div>
+    </div><!--leftpage-end -->
+    <div class="rightpage">
+      <div class="search">
+        <include file="Public:search"/>
+        </div>
+      <!--search-end -->
+      <div class="barnner"> 
+	  <li>
+	  
+	  </li> 
+	  </div><!--barnner-end -->
+      <div class="l_tit">RSS订阅w3网记博客</div>
+      <div class="about"><a title="RSS订阅网记博客" href="{$Think.config.rooturl}Feed/index"><img src="{$Think.config.rooturl}Public/Images/RSS.gif" title="Green Solutions" alt="Green Solutions" width="163" height="48" border="0"/></a></div>
+      <!--about-end -->
+      <div class="l_tit">推荐相关阅读</div>
+      <div class="rand">
+        <ul>
+          <volist name="recommends" id="rs">
+          <li>&nbsp;&nbsp;<a title="{$rs['title']}" href="{:U('/read/'.$rs['id'])}">{$rs['title']|msubstr=0,30,'utf-8'}</a></li>
+         </volist>
+        </ul>
+      </div>
+      <div class="l_tit">热点文章</div>
+      <div class="rand">
+        <ul>
+          {:W('Hot')}
+        </ul>
+      </div>
+      <div class="l_tit">站点分类</div>
+      <div class="catlist">
+        <ul>
+		{:W('Cate')}
+        </ul>
+      </div>   
+    <div class="l_tit">分类标签【<a title="更多分类标签" href="{:U('/read','tag=name')}">更多</a>】</div>
+      <div class="tags">
+        <ul>
+         {:W('Tags')}
+        </ul>
+      </div><!--tags-end -->
+  </div>
+  <!--pagebody-end -->
+  <!-- <div class="clear"></div>-->
+</div><!--container-end -->
+<script type="text/javascript">
+		SyntaxHighlighter.config.clipboardSwf = '{$Think.config.rooturl}Public/SyntaxHighlighter/scripts/clipboard.swf';
+		SyntaxHighlighter.all();
+</script>
+ <include file="Public:footer"/>
+<script>
+function getPid(i){
+	pid=document.getElementById('pid');
+	pid.value=i;
+}
+</script>

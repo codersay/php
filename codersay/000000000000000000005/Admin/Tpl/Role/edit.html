@@ -1,0 +1,85 @@
+<include file="Public:indexheader" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/formvalidator.js" charset="UTF-8"></script>
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#name").formValidator({onshow:"应用名不能为空",onfocus:"应用名不能为空"}).inputValidator({min:1,max:50,onerror:"应用名不能为空"});
+	$("#pid").formValidator({onshow:"请选择所属节点",onfocus:"请选择所属节点"}).inputValidator({min:1,max:50,onerror:"请选择所属节点"});
+});
+</script>
+<body>
+<div class="location">
+   <span>当前位置:用户管理&nbsp;>&nbsp;角色管理</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理角色" >管理角色</a>|
+   <a href="__URL__/insert" target="main" title="添加角色" class="main_select">添加角色</a>|
+   <a href="#" target="main" title="修改角色" class="main_select"><span>修改角色</span></a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+     <form action="__URL__/update" method="POST" id="myform">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+       <tbody>
+            
+            <td width="400" align="right">角色名：</td>
+            <td align="left">
+           <input type="text" name="name" id="name" value="{$vo['name']}">
+            </td>	
+            </tr>
+            <tr>
+            <td width="50" align="right">所属分类：</td>
+            <td align="left">
+           <select name="pid" id="pid">
+             <option value="0">请选择分类</option>
+             <option value="0">作为顶级分类</option>
+             <volist name="rolelist" id="rid">
+             <if condition="($vo['pid'] eq $rid['id']) OR ($vo['pid'] eq 0)"> 
+            <option value="{$rid['id']}" selected>{$rid['name']}</option>
+             <else /> 
+             <option value="{$rid['id']}">{$rid['name']}</option> 
+              </if>
+             </volist>	
+           </select>
+            </td>	
+            </tr>
+            <td width="50" align="right">备注：</td>
+            <td align="left">
+           <input type="text" name="remark" id="remark" value="{$vo['remark']}">
+            </td>	
+            </tr>
+             
+             <tr>
+            <td width="50" align="right">状态：</td>
+            <td align="left">
+             
+             <if condition="$vo['status'] eq 1"> 
+             <input type="radio" name="status" value="1" checked>启用
+             <input type="radio" name="status" value="0">禁用
+             <elseif condition="$vo['status'] eq 0"/>
+             <input type="radio" name="status" value="1" >启用
+             <input type="radio" name="status" value="0" checked>禁用
+             <else />
+             <input type="radio" name="status" value="1" >启用
+             <input type="radio" name="status" value="0">禁用
+             </if>
+
+            </td>	
+            </tr>
+             
+       </tbody>
+    
+ </table>
+	<div class="btn" style="font-size:12px;">
+          <input type=hidden name="id" value="{$vo['id']}">
+          <input type="submit" value="修改" id="send" class="button" style="margin-left: 450px;">&nbsp;&nbsp;
+		 <input  type="button" onClick="history.back()" class="button" value="取 消" alt="取消" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

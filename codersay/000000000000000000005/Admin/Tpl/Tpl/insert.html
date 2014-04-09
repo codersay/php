@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>『WBlog博客管理平台』{$Think.version}</title>
+<link href="__PUBLIC__/admin/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="location">
+   <span>当前位置:常用操作&nbsp;>&nbsp;模板管理&nbsp;>&nbsp;修改模板</span>
+ </div>
+ <div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="模板管理" ><span>模板管理</span></a>|
+   <a href="#" target="main" title="修改模板" class="main_select"><span>修改模板</span></a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+     <form action="__URL__/update" method="POST" id="myform">
+    <table width="98%" cellspacing="0" style="font-size:12px;">
+       <tbody>
+            
+            <tr>
+            <td  align="center">模板名称：
+            <input type="text" name="tplname" id="title" class="required" size="10" value="{$tplname}">.html
+            </td>	
+            </tr>
+             <tr>
+            <td align="center">
+           <textarea name="content"   style="width:100%;height:450px;" class="required">{$content}</textarea>
+            </td>	
+            </tr>
+            
+       </tbody>
+    
+ </table>
+	<div class="btn" style="font-size:12px;margin-top: 15px;">
+     <input type=hidden name="tpldir" value="{$tpldir}">
+          <input type="submit" value="提交" id="send" class="button" style="margin-left: 450px;">&nbsp;&nbsp;
+		 <input  type="button" onClick="history.back()" class="button" value="取 消" alt="取消" />
+	   </div>
+</form>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+

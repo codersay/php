@@ -1,0 +1,131 @@
+<include file="Public:common_head" />    
+    <!-- Title -->
+	<title>给我留言 | <{$Think.config.CFG_WEBNAME}></title>
+    <meta name="description" content="<{$Think.config.CFG_DESCRIPTION}>" />
+	<meta name="keywords" content="<{$Think.config.CFG_KEYWORDS}>" />
+    <link rel="stylesheet" href="__CSS__/embed.css" type="text/css" />
+    <link rel="canonical" href="/" />
+<!-- END head -->
+</head>
+
+<!-- BEGIN body -->
+<body class="page page-id-98 page-template page-template-guestbook-php ie layout-2cl">
+
+	<!-- BEGIN #container -->
+	<div id="container">
+	
+		<include file="Public:head" />
+
+		<!--BEGIN #content -->
+		<div id="content" class="clearfix">
+		
+			<!-- BEGIN #content-wrap -->
+			<div id="content-wrap" class="clearfix">
+			
+				<div id="content-top">&nbsp;</div>
+			
+			<!--BEGIN #primary .hfeed-->
+			<div id="primary" class="hfeed">
+			
+				<!--BEGIN .hentry-->
+				<div class="hentry" >
+					<h1 class="entry-title">给我留言</h1>
+
+					<!--BEGIN .entry-content -->
+					<div class="entry-content">
+																	<!--END .entry-content -->
+					</div>
+
+				<!--END .hentry-->
+				</div>
+				
+<a name="comments"></a>
+  
+  <div class="ds-thread" id="ds-thread">
+   <div id="ds-reset">
+    <div class="ds-replybox">
+
+     <div class="ds-avatars">昵　　称：</div>
+     <div class="ds-avatars" style="top:30px">邮　　箱：</div>
+     <div class="ds-avatars" style="top:60px">留言内容：</div>
+     <div class="ds-avatars" style="top:140px">验 证 码：</div>
+     <form action="__URL__/saveFeedback" method="post" name="myform">
+    
+	 <div class="ds-textarea-wrapper ds-rounded-top ds-rounded-bottom" style="margin-bottom:5px;width:200px;height:20px">	
+       <input type="text"  style="width:220px;padding:5px 10px 0px 10px" name="writer" id="writer"/>
+      </div>
+      
+      <div class="ds-textarea-wrapper ds-rounded" style="margin-bottom:5px;width:200px;height:20px">	
+       <input type="text"  style="width:220px;padding:5px 10px 0px 10px" name="email" id="email"/>
+      </div>
+     
+      
+      
+      <div class="ds-textarea-wrapper ds-rounded" style="margin-bottom:5px">	
+       <textarea name="content"  id="msg"></textarea>
+      </div>
+      
+	  <div style='float:right'>可用[code][/code]插入代码</div>
+	  
+      <div class="ds-textarea-wrapper ds-rounded" style="margin-bottom:5px;width:100px;height:20px">	
+       <input type="text"  style="width:120px;padding:5px 10px 0px 10px" name="verify" id="verify"/>
+      </div>
+      <span><img id="verifyImg" src="__GROUP__/Public/verify/" onClick="show(this);" alt="点击刷新验证码" title="点击刷新验证码" style=" cursor:pointer;position:absolute;left:190px;bottom:37px"/></span>
+      <button class="ds-post-button" type="submit">发布</button>
+      
+     </form>
+    </div>
+    <script language="JavaScript">
+
+		function show(obj){
+		obj.src="__GROUP__/Public/verify/random/"+Math.random();
+		}
+		
+		$(document).ready(function(){
+			var i = 0;
+			loadContent('__APP__/Feedback/getFeedback',0,i);
+			$(window).scroll(function(){
+				if ($(document).height() - $(this).scrollTop() - $(this).height()<100){
+					if($('#rui-prompt').text() == ''){
+						loadContent('__APP__/Feedback/getFeedback',0,++i);
+					}
+				}
+			});
+		});
+	</script>
+
+    
+    <ul class="ds-comments" id="rui-comments"></ul>
+    
+    <div class="ds-paginator" style=" text-align:center; font-size:20px;display:none" id="rui-prompt"></div>
+    
+    
+   </div>
+  </div>
+
+
+							
+			<!--END #primary .hfeed-->
+			</div>
+			
+			<div id="content-btm">&nbsp;</div>
+			
+			<!-- END #content-wrap -->
+			</div>
+			
+		<include file="Public:left" />
+		<!-- END #content -->
+		</div>
+			
+		<include file="Public:footer" />
+		
+	<!-- END #container -->
+	</div> 
+		
+	<!-- Theme Hook -->
+	<div style="display:none;"></div>			
+<!--END body-->
+
+</body>
+<!--END html-->
+</html>

@@ -1,0 +1,58 @@
+<include file="Public:indexheader" />
+<body>
+<div class="location">
+   <span>当前位置:常用操作&nbsp;>&nbsp;标签管理</span>
+ </div>
+<div class="main">
+ <div class="tags">
+    <a href="__URL__/index"  target="main" title="管理列表" class="main_select"><span>管理列表</span></a>
+   <div class="line"/></div>
+</div>
+<div class="table-list">
+     <form name="myform" action="__URL__/act" id="myform" method="POST">
+    <table width="100%" cellspacing="0" style="font-size:12px;">
+        <thead>
+            <tr>
+            
+			<th width="50" align="center">选取</th>
+			<th align="center">ID</th>
+            <th align="center">标签名称</th>
+													
+			<th align="center">所属模型</th>
+			
+			<th  align="center">管理操作</th>			
+			
+            </tr>
+        </thead>
+    <tbody> 
+       <volist name="lists" id="vo">
+	<tr>
+	<td align="center"><input type="checkbox" name="id[]" value="{$vo['id']}" id="id"></td>	
+	<td align="center">{$vo['id']}</td>
+	<td align="center"><a href="{$Think.config.rooturl}web/tag/name/{$vo['name']|urlencode}"><span style="font-size:{16|getTitleSize};color:{$vo['id']|rand_color}">&nbsp;&nbsp;{$vo['name']}[{$vo['count']}]</span></a></td>
+
+    <td align="center">{$vo['module']}</td>
+
+	<td align="center"> 
+    <a  href="__URL__/del/id/{$vo['id']}" onClick="return confirm('确定删除该标签吗?')">删除</a>   
+      
+    </td>	
+	</tr>
+	 </volist>	
+  </tbody>
+ </table>
+	<div class="btn" style="font-size:12px;">
+      <label for="check_box" id ="CheckedRev">
+       <a href="javascript:selAll()" class="coolbg">全选</a>&nbsp;
+	   <a href="javascript:noSelAll()" class="coolbg">取消</a> 
+       </label> &nbsp;&nbsp;
+     <input type="submit" name="act" value="删除" class="coolbg" onClick="return confirm('确定删除该记录吗?')"/>
+	   
+</form>
+</div>
+</div>
+<div id="pages"> {$page}</div>
+</div>
+</body>
+</html>
+

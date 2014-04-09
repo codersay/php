@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				
+			});
+		</script>
+		<style type="text/css" media="all">
+			.t_input			{ padding: 6px; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+						<form action="{:U('sqlruning')}" method="post">
+							<textarea class="t_input" name="sqltext" style="width:98%; height:410px;"></textarea>
+							<p class="remark">运行SQL语句非常危险，确保你的数据已经备份，并且熟悉SQL语法。表名请使用__来匹配，例如：__category__</p>
+							<br />
+							<br />
+							<input type="submit" value="运行SQL语句" onclick="return confirm('你确定要执行当前SQL语句吗？');" class="submit" />
+						</form>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

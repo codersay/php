@@ -1,0 +1,14 @@
+<?php if ( !empty( $category ) ) { ?>
+	<ul class="panel category">
+		<h4>{$title}</h4>
+		<volist name="category" id="category">
+		<li>
+			<if condition="( $category['type'] == 'url' ) && ( $category['level'] != '' )">
+            <a href="{$category.url}" target="_blank">{$level1.name}</a>
+            <else />
+            <a href="{:URL($category['id'],$category['channel'],'category')}">{$category.name}</a>
+            </if>
+		</li>
+		</volist>
+	</ul>
+<?php } ?>

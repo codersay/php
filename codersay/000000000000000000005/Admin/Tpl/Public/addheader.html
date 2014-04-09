@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>『wblog博客管理平台』{$Think.version}</title>
+<link href="__PUBLIC__/admin/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery-1.4.3.min.js"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/formvalidator.js" charset="UTF-8"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/formvalidatorregex.js" charset="UTF-8"></script>
+<!--//kindeditor-4.1.1-->
+<script charset="UTF-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script charset="UTF-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/kindeditor/themes/default/default.css" />
+
+
+<script>
+	var editor;
+	KindEditor.ready(function(K) {
+	editor = K.create('textarea[name="content"]', {
+					allowFileManager : true
+				});
+				K('#image').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							imageUrl : K('#thumb').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#thumb').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+            });
+</script>
+
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#modelid").formValidator({onshow:"请选择模型",onfocus:"请选择模型"}).inputValidator({min:1,max:50,onerror:"请选择模型"});
+	$("#catid").formValidator({onshow:"请选择栏目",onfocus:"请选择栏目"}).inputValidator({min:1,max:50,onerror:"请选择栏目"});
+	$("#title").formValidator({onshow:"标题不能为空",onfocus:"标题不能为空"}).inputValidator({min:1,max:50,onerror:"标题不能为空"});
+	
+	
+});
+</script>
+</head>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="/www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="__PUBLIC__/admin/style/base.css" type="text/css" />
+</head>
+<body background='__PUBLIC__/admin/images/allbg.gif' leftmargin='8' topmargin='8'>
+<table width="98%" border="0" align="center" cellpadding="2" cellspacing="1" bgcolor="#D6D6D6">
+  <tr>
+    <td height="27" colspan="7" background="__PUBLIC__/admin/images/tbg.gif" bgcolor="#E7E7E7">
+    	<table width="96%" border="0" cellspacing="1" cellpadding="1">
+        <tr>
+          <td width="24%" style="padding-left:10px;"><b>管理员帐号</b> </td>
+          <td width="76%" align="right"><b>
+          	<a href="__GROUP__/Users/add"><u>增加管理员</u></a>
+          	|
+          	<a href="__GROUP__/Role/index"><u>角色管理</u></a>
+          	</b>
+          </td>
+        </tr>
+      </table>
+     </td>
+  </tr>
+  <tr bgcolor="#FBFCE2">
+    <td width="10%" height="24" align="center">登录ID</td>
+    <td width="8%" align="center">角色</td>
+    <td width="15%" align="center">创建时间</td>
+    <td width="15%" align="center">最后登录时间</td>
+    <td width="10%" align="center">登陆IP</td>
+    <td width="5%" align="center">状态</td>
+    <td width="25%" align="center">操作项</td>
+  </tr>
+  <volist name="list" id="data">
+  <tr bgcolor="#FFFFFF" align="center" onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';">
+    <td >{$data.username}</td>
+    <td ><eq name="data.role" value="">未分配<else/>{$data.role}</eq></td>
+    <td>{$data.createtime|date="Y-m-d H:i:s",###}</td>
+    <td><eq name='data.logintime' value='0'>暂无<else/>{$data.logintime|date="Y-m-d H:i:s",###}</eq></td>
+    <td><eq name='data.loginip' value=''>暂无<else/>{$data.loginip}</eq></td>
+    <td><eq name="data.status" value="1"><img src="__PUBLIC__/admin/images/ok.png"/><else/><img src="__PUBLIC__/admin/images/no.png"/></eq></td>
+   <td>
+	   <if condition='$data.uid neq 1'><a href='__URL__/edit/uid/{$data.uid}'><u>编辑</u></a> |</if>
+       <if condition='$data.uid neq 1'><if condition="$data.status eq 1"><a href='__URL__/updown/uid/{$data.uid}/isup/0'><u>禁用</u></a><else/><a href='__URL__/updown/uid/{$data.uid}/isup/1'><u>启用</u></a></if> |</if>
+     <if condition='$data.uid neq 1'><a href='__URL__/del/uid/{$data.uid}'><u>删除</u></a> |</if>
+     <a href='__GROUP__/Article/index/username/{$data.username}'><u>博文[{$data.arcnum}]</u></a>　
+    </td>
+  </tr>
+  </volist>
+  <tr bgcolor="#F9FCEF">
+    <td height="24" colspan="7" align="center" valign="top" id="pages">
+    	{$page}
+    </td>
+  </tr>
+</table>
+</body>
+</html>

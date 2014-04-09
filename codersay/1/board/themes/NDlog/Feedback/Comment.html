@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{:C('SITE_TITLE')}</title>
+		<meta charset="utf-8" />
+		<include file="Public:commonjs" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/layout.css" />
+		<script type="text/javascript" src="__JS__/jQuery/jquery.js"></script>
+		<script type="text/javascript" src="__JS__/jQuery/plugin/cookie.js"></script>
+		<script type="text/javascript" src="__JS__/NDlogpublic.js"></script>
+		<script type="text/javascript" src="../Public/js/common.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				NDlog._setTableStyle( 'input[name="all"]', 'input[name="ids[]"]', '.rows_style' );
+			});
+		</script>
+		<style type="text/css" media="all">
+			input{ vertical-align: middle; }
+			dl.reply                    { border : 1px solid #e1e7f4; background:#f0f5ff; margin:5px; padding : 10px 15px; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<include file="Public:header" />
+			<div id="container">
+				<div id="sidebar_switch"></div>
+				<div id="content">
+					<div id="c_warp">
+			            <form action="{:U('actBatch')}" method="post">
+		                <input type="hidden" name="type" value="{$type}" />
+		                <div class="button" style="margin-bottom:15px;">
+		                    <input type="submit" value="批量屏蔽" name="Disable" class="submit raction" style="margin-right: 15px;" />
+		                    <input type="submit" value="批量恢复" name="Enabled" class="submit raction" style="margin-right: 15px;" />
+		                    <input type="submit" value="批量删除" name="Delete" class="submit raction" />
+		                </div>
+		                <table width="100%" cellpadding="0" cellspacing="0" border="0" class="table_list">
+		                    <tr>
+		                        <th align="center" width="20"><input type="checkbox" name="all" /></th>
+		                        <th width="90" align="center">评论人</th>
+		                        <th align="center">评论内容</th>
+		                        <th width="100" align="center">评论时间</th>
+		                        <th width="40" align="center">操作</th>
+		                    </tr>
+		                    <volist id="vo" name="list">
+		                    <tr rel="{$vo['id']}" class="rows_style"<?php if( ( $i % 2 ) == 0 ){ ?> bgcolor="#f9f9f9"<?php }else{ ?> bgcolor="#ffffff"<?php } ?>>
+		                        <td align="center"><input type="checkbox" name="ids[]" value="{$vo.id}" /></td>
+		                        <td align="center">{$vo.username}</td>
+		                        <td>
+		                            {$vo.msg}
+		                            <?php
+		                                $reply_list = $model->where("pid='".$vo['id']."'")->select();
+		                                foreach($reply_list as $key => $val){
+		                            ?>
+		                            <dl class="reply">
+		                                <dt>{$val.username} 于 {$val.dtime|date=C('DEFAULT_DATE_FORMAT'),###} 回复 {$vo.username}</dt>
+		                                <dd>{$val.msg}</dd>
+		                            </dl>
+		                            <?php
+		                                }
+		                            ?>
+		                            
+		                        </td>
+		                        <td align="center">{$vo.dtime|date=C('DEFAULT_DATE_FORMAT'),###}</td>
+		                        <td align="center"><a href="{:U('delete',array('id' => $vo['id'], 'cid' => $vo['cid'], 'node' => $_GET['node'], 'type' => $type))}" class="del_node" rel="{$vo.id}">删除</a></td>
+		                    </tr>
+		                    </volist>
+		                </table>
+		                </form>
+						<div class="page">{$page}</div>
+					</div>
+				</div>
+				<include file="Public:sidebar" />
+			</div>
+		</div>
+	</body>
+</html>

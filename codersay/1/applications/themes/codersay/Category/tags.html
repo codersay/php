@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TAGS > {:C('SITE_TITLE')}</title>
+        <meta name="keywords" content="{:C('SITE_KEYWORDS')}" />
+        <meta name="description" content="{:C('SITE_DESCRIPTION')}" />
+        <meta name="robots" content="all" />
+        <meta name="author" content="{:C('SITE_DP_AUTHOR')}" />
+        <link href="../Public/style/common.css" type="text/css" rel="stylesheet" />
+        <link href="__PUBLIC__/editor/plugins/code/prettify.css" type="text/css" rel="stylesheet" />
+        <script src="__PUBLIC__/editor/plugins/code/prettify.js"></script>
+    </head>
+    <body>
+        
+        <include file="Public:header" />
+        
+        <div id="position">{$position}</div>
+        
+        <div id="body">
+            <div id="content">
+                <ul class="list">
+                    <volist name="list" id="vo">
+                    <li class="li<?php if(($i%2) == 0){ ?> even<?php } ?>">
+                        <dl class="dl">
+                            <dt class="dt">
+                                <div class="avatar"><img src="{$vo.author|getAuthorAvatar}" /></div>
+                                <div class="title_i">
+                                    <a href="<?php if(!empty($vo['url_name'])){ echo U('/'.$vo['url_name']); }else{ echo U('/views/'.$vo['id']); } ?>" class="title">{$vo.title}</a>
+                                    <p class="info">
+                                        <span class="time" title="发布日期">{$vo.create_time|date=C('DEFAULT_DATE_FORMAT'),###}</span>
+                                        <span class="d_line">/</span>
+                                        <span class="author" title="作者">{$vo.author|getAuthorName}</span>
+                                        <span class="d_line">/</span>
+                                        <span class="click" title="围观">{$vo.click}</span>
+                                        <span class="d_line">/</span>
+                                        <span class="comment" title="评论">{$vo.count}</span>
+                                        <span class="d_line">/</span>
+                                        <span class="category" title="目录类别">{$vo.cid|getCategoryName}</span>
+                                    </p>
+                                </div>
+                                <div class="clear"></div>
+                            </dt>
+                            <dd class="dd">
+                                <switch name="vo.type">
+                                    <case value="music"><div class="music"><embed src="{$vo.music}" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed></div></case>
+                                    <case value="video"><div class="video"><embed src="{$vo.video}" type="application/x-shockwave-flash" width="650" height="450" wmode="transparent"></embed></div></case>
+                                </switch>
+                                {$vo.summary}
+                            </dd>
+                            <dd class="dd tags">TAG: {$vo.tags|getGeneralTags}</dd>
+                        </dl>
+                    </li>
+                    </volist>
+                </ul>
+                <div class="page">{$page}</div>
+            </div>
+            
+            <div id="slidebar">
+                <include file="Public:slidebar" />
+            </div>
+            
+            <div class="clear"></div>
+        </div>
+        
+        <include file="Public:footer" />
+        
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>数据库备份</title>
+<link href="__APP__/Public/admin/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__APP__/Public/Js/jquery-1.4.3.min.js"></script>
+</head>
+
+<script language="JavaScript">
+ <!--
+$(document).ready(function(){   
+   $("#CheckedRev").click(function(){
+		  $("[name='id[]']:checkbox").each(function(){
+			this.checked=!this.checked;
+		  });
+	 });
+  
+});
+
+
+ //-->
+ </script>
+
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border:1px solid #0C89A9">
+
+  <tr>
+    <td height="30">      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="62" background="__APP__/Public/Css/Admin/images/nav04.gif">
+
+		   <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                      
+		    <tr>
+			  
+			 <td align="left"><a href="__URL__/index"  target="main" >数据库备份</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="__URL__/import"  target="main" >数据库还原</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 </td>
+			 <td align="right"><img src="__APP__/Public/Css/Admin/images/ico07.gif" width="20" height="18" /></td>
+		    </tr>
+                       
+          </table></td>
+        </tr>
+    </table></td></tr>
+  <tr>
+    <td><table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td height="40" class="font42">
+				<table width="100%" border="0" cellpadding="4" cellspacing="1" style="color:#000000" bgcolor="#CAE5F7" class="newfont03">
+				  <tr>
+                    <td height="22" colspan="8" align="center" style="font-size:12px;color:#0C89A9"><b>数据库备份</b></td>
+                  </tr>
+                  <tr bgcolor="#EEEEEE">
+				     <th align="center">选取</th>
+         
+                    <th align="center">Id</th>
+					<th align="center">数据表</th>
+					                 
+                  </tr>
+                  <form name="myform" method="post" action="__URL__/index">
+                  <php>
+                     $i = 0;
+                  </php>
+                  <volist name="tbs" id="tb">
+                  <tr bgcolor="#FFFFFF">
+                    <td bgcolor="#FFFFFF" align="center"> <input type="checkbox" name="id[]" value="{$tb}"></td>
+                    <td bgcolor="#FFFFFF" align="center"><php> echo $i; $i++; </php></td>                     
+                    
+                     <td bgcolor="#FFFFFF" align="center">{$tb}</td>
+                   
+					                             
+                  </tr>
+                  </volist>
+                  <tr>
+                     <td colspan="6" bgcolor="#FFFFFF">
+                     <input type="button" id ="CheckedRev" value="全选/反选" class="right-button01"/>
+                     <input class="btn2" type="submit" name="sub" value="备份" onclick="return Sub(this.form)" />
+					   </td><td colspan="6" bgcolor="#FFFFFF"></td>
+                  </tr>
+
+            </table>
+			</form>
+			</td>
+            </tr>
+      </table>
+  </td>
+  </tr>
+</table>
+ 
+</body>
+</html>
+
