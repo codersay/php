@@ -39,7 +39,8 @@
 			$account = trim( $_POST['account'] );
 			$password = trim( $_POST['password'] );
 			$verify = trim( $_POST['verify'] );
-			$subpass = substr( md5( $password ) , 5, 8 );
+			##$subpass = substr( md5( $password ) , 5, 8 );
+			$subpass = md5( $password );
 
 			$error = $resid = '';
 			if ( md5( $verify ) != $_SESSION['verify'] ){

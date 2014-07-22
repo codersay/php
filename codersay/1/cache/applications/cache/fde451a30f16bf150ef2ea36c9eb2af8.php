@@ -11,9 +11,10 @@
 <meta name="viewport" content="width=device-width"> 
 <link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/style/basic.css" />
 <link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/js/UEDTinkerShare.js" />
+<link rel="stylesheet" type="text/css" media="all" href="http://doc.codersay.net/php/syntaxhighlighter/styles/shCoreDefault.css" />
  </head>
  <body>
-  <div id="top"><div id="top_left"><a href="__SITE_URL__"><img width="280" height="32" style="border:0;" alt="W3Schools.com" src="__STATIC_URL__/images/w3logotest2.png"></a></div>
+  <div id="top"><div id="top_left"><a href="__SITE_URL__"><img style="border:0;" alt="W3Schools.com" src="__STATIC_URL__/images/logo.png"></a></div>
   <div id="top_right">  
   <?php if(is_array($category)): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$level1): $mod = ($i % 2 );++$i; if(( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )): if(( $level1['type'] == 'url' ) && ( $level1['level'] != '' )): ?><a href="<?php echo ($level1["url"]); ?>" target="_blank"><?php echo ($level1["name"]); ?></a>
                 <?php else: ?>
@@ -22,72 +23,39 @@
 </div>
 <div id="page">
 	<div id="leftcol">
-		<h3 style="margin-top:0px;">HTML/CSS</h3>
-		<a href="http://www.w3schools.com/html/default.asp" target="_top">Learn HTML</a><br>
-		<a href="http://www.w3schools.com/html/html5_intro.asp" target="_top">Learn HTML5</a><br>				
-		<a href="http://www.w3schools.com/css/default.asp" target="_top">Learn CSS</a><br>
-		<a href="http://www.w3schools.com/css/css3_intro.asp" target="_top">Learn CSS3</a><br>
-		<h3>JavaScript</h3>
-		<a href="http://www.w3schools.com/js/default.asp" target="_top">Learn JavaScript</a><br>
-		<a href="http://www.w3schools.com/jquery/default.asp" target="_top">Learn jQuery</a><br>
-		<a href="http://www.w3schools.com/jquerymobile/default.asp" target="_top">Learn jQueryMobile</a><br>				
-		<a href="http://www.w3schools.com/ajax/default.asp" target="_top">Learn Ajax</a><br>
-		<a href="http://www.w3schools.com/json/default.asp" target="_top">Learn JSON</a><br>
-		<a href="http://www.w3schools.com/googleAPI/default.asp" target="_top">Learn Google Maps</a><br>
-		<h3>Server Side</h3>
-		<a href="http://www.w3schools.com/sql/default.asp" target="_top">Learn SQL</a><br>
-		<a href="http://www.w3schools.com/php/default.asp" target="_top">Learn PHP</a><br>
-		<a href="http://www.w3schools.com/asp/default.asp" target="_top">Learn ASP</a><br>
-		<a href="http://www.w3schools.com/ado/default.asp" target="_top">Learn ADO</a><br>					
-		<a href="http://www.w3schools.com/aspnet/default.asp" target="_top">Learn ASP.NET</a><br>
-		<a href="http://www.w3schools.com/vbscript/default.asp" target="_top">Learn VBScript</a><br>
-		<a href="http://www.w3schools.com/appml/default.asp" target="_top">Learn AppML</a><br>					
-		<h3>XML Tutorials</h3>
-		<a href="http://www.w3schools.com/xml/default.asp" target="_top">Learn XML</a><br>					
-		<a href="http://www.w3schools.com/dom/default.asp" target="_top">Learn XML DOM</a><br>
-		<a href="http://www.w3schools.com/dtd/default.asp" target="_top">Learn DTD</a><br>					
-		<a href="http://www.w3schools.com/xsl/default.asp" target="_top">Learn XSLT</a><br>					
-		<a href="http://www.w3schools.com/xpath/default.asp" target="_top">Learn XPath</a><br>
-		<a href="http://www.w3schools.com/xquery/default.asp" target="_top">Learn XQuery</a><br>					
-		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XLink</a><br>										
-		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XPointer</a><br>														
-		<a href="http://www.w3schools.com/xslfo/default.asp" target="_top">Learn XSL-FO</a><br>															
-		<a href="http://www.w3schools.com/schema/default.asp" target="_top">Learn Schema</a><br>
-		<a href="http://www.w3schools.com/svg/default.asp" target="_top">Learn SVG</a><br>					
-		<a href="http://www.w3schools.com/rss/default.asp" target="_top">Learn RSS</a><br>										
-		<a href="http://www.w3schools.com/webservices/default.asp" target="_top">Learn WSDL</a><br>
-								
+	<?php if(is_array($category)): $key = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$level1): $mod = ($key % 2 );++$key; if( ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )): if(($level1['level'] == 1)): ?><h3><?php echo ($level1["name"]); ?></h3>
+				<?php $tmppid = $level1['id']; endif; ?>				
+				<?php if(($level1['level'] == 2) && ($level1['pid'] == $tmppid)): ?><a href="<?php echo ($level1["url"]); ?>" target="_blank"><?php echo ($level1["name"]); ?></a><br><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?>					
 	</div>
 	<div id="maincol">
-<?php if(is_array($category)): $key = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$level1): $mod = ($key % 2 );++$key; if(( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )): if(( $level1['type'] == 'url' ) && ( $level1['level'] != '' )): ?><div class="box1">
-			<a class="box" href="<?php echo ($level1["url"]); ?>" target="_top">
-				<div class="image color<?php echo ($key); ?>"></div>
-				<h1><?php echo ($level1["name"]); ?></h1>
-			</a>
-			<div style="clear:both;"></div>
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-1" target="_top"><?php echo ($level1["name"]); ?> 基础教程</a>
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-2" target="_top"><?php echo ($level1["name"]); ?> 进阶实例</a>			
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-3" target="_top"><?php echo ($level1["name"]); ?> 参考文档</a>			
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-4" target="_top"><?php echo ($level1["name"]); ?> 开源程序</a>			
-		</div>				
-		<?php else: ?>
-		<div class="box1">
-			<a class="box" href="<?php echo ($level1["url"]); ?>" target="_top">
-				<div class="image color<?php echo ($key); ?>"></div>
-				<h1><?php echo ($level1["name"]); ?></h1>
-			</a>
-			<div style="clear:both;"></div>
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-1" target="_top"><?php echo ($level1["name"]); ?> 基础教程</a>
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-2" target="_top"><?php echo ($level1["name"]); ?> 进阶实例</a>			
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-3" target="_top"><?php echo ($level1["name"]); ?> 参考文档</a>				
-			<a class="btn" href="<?php echo ($level1["url"]); ?>-4" target="_top"><?php echo ($level1["name"]); ?> 开源程序</a>				
-		</div><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?>
+		<?php if(is_array($category)): $key = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$level1): $mod = ($key % 2 );++$key; if(( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )): if(( $level1['type'] == 'url' ) && ( $level1['level'] != '' )): ?><div class="box1">
+					<a class="box" href="<?php echo ($level1["url"]); ?>" target="_blank">
+						<div class="image color<?php echo ($key); ?>"></div>
+						<h1><?php echo ($level1["name"]); ?></h1>
+					</a>
+					<div style="clear:both;"></div>
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-1" target="_blank"><?php echo ($level1["name"]); ?> 基础教程</a>
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-2" target="_blank"><?php echo ($level1["name"]); ?> 进阶实例</a>			
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-3" target="_blank"><?php echo ($level1["name"]); ?> 参考文档</a>			
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-4" target="_blank"><?php echo ($level1["name"]); ?> 开源程序</a>			
+				</div>				
+				<?php else: ?>
+				<div class="box1">
+					<a class="box" href="<?php echo ($level1["url"]); ?>" target="_blank">
+						<div class="image color<?php echo ($key); ?>"></div>
+						<h1><?php echo ($level1["name"]); ?></h1>
+					</a>
+					<div style="clear:both;"></div>
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-1" target="_blank"><?php echo ($level1["name"]); ?> 基础教程</a>
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-2" target="_blank"><?php echo ($level1["name"]); ?> 进阶实例</a>			
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-3" target="_blank"><?php echo ($level1["name"]); ?> 参考文档</a>				
+					<a class="btn" href="<?php echo ($level1["url"]); ?>-4" target="_blank"><?php echo ($level1["name"]); ?> 开源程序</a>				
+				</div><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?>
 
 		</div>
 		<div style="clear:both;"></div>
 	</div>
 	<div style="clear:both;"></div>
-</div>
 <div class="footer">
   <br>
   <table id="bottomlinks"><tbody><tr>
@@ -154,4 +122,20 @@
     <img style="width:150px;height:28px;border:0" src="__STATIC_URL__/images/w3schoolscom_gray.gif" alt="W3Schools.com"></a>
   </div>
 </div>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shCore.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushCSharp.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushJava.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushVb.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushSql.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushXml.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushDelphi.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushPython.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushRuby.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushCss.js"></script>
+<script class="javascript" src="http://doc.codersay.net/php/syntaxhighlighter/scripts/shBrushCpp.js"></script>
+<script class="javascript">
+dp.syntaxhighlighter.HighlightAll('code');
+</script>
 </body></html>

@@ -14,6 +14,7 @@
 		public function render($data) {
 			$model = M('Archives');
 			$list = $model->where("status=1 AND type='article'")->order('id DESC')->limit($data['total'])->select();
+			echo $model->getLastSql();
 			$var['data'] = $list;
 			$var['len'] = $data['strlen'];
 			$var['title'] = '最新博文';
