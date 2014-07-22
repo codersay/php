@@ -1,46 +1,17 @@
 <include file="Public:header" />
 <div id="page">
-	<div id="leftcol">
-		<h3 style="margin-top:0px;">HTML/CSS</h3>
-		<a href="http://www.w3schools.com/html/default.asp" target="_top">Learn HTML</a><br>
-		<a href="http://www.w3schools.com/html/html5_intro.asp" target="_top">Learn HTML5</a><br>				
-		<a href="http://www.w3schools.com/css/default.asp" target="_top">Learn CSS</a><br>
-		<a href="http://www.w3schools.com/css/css3_intro.asp" target="_top">Learn CSS3</a><br>
-		<h3>JavaScript</h3>
-		<a href="http://www.w3schools.com/js/default.asp" target="_top">Learn JavaScript</a><br>
-		<a href="http://www.w3schools.com/jquery/default.asp" target="_top">Learn jQuery</a><br>
-		<a href="http://www.w3schools.com/jquerymobile/default.asp" target="_top">Learn jQueryMobile</a><br>				
-		<a href="http://www.w3schools.com/ajax/default.asp" target="_top">Learn Ajax</a><br>
-		<a href="http://www.w3schools.com/json/default.asp" target="_top">Learn JSON</a><br>
-		<a href="http://www.w3schools.com/googleAPI/default.asp" target="_top">Learn Google Maps</a><br>
-		<h3>Server Side</h3>
-		<a href="http://www.w3schools.com/sql/default.asp" target="_top">Learn SQL</a><br>
-		<a href="http://www.w3schools.com/php/default.asp" target="_top">Learn PHP</a><br>
-		<a href="http://www.w3schools.com/asp/default.asp" target="_top">Learn ASP</a><br>
-		<a href="http://www.w3schools.com/ado/default.asp" target="_top">Learn ADO</a><br>					
-		<a href="http://www.w3schools.com/aspnet/default.asp" target="_top">Learn ASP.NET</a><br>
-		<a href="http://www.w3schools.com/vbscript/default.asp" target="_top">Learn VBScript</a><br>
-		<a href="http://www.w3schools.com/appml/default.asp" target="_top">Learn AppML</a><br>					
-		<h3>XML Tutorials</h3>
-		<a href="http://www.w3schools.com/xml/default.asp" target="_top">Learn XML</a><br>					
-		<a href="http://www.w3schools.com/dom/default.asp" target="_top">Learn XML DOM</a><br>
-		<a href="http://www.w3schools.com/dtd/default.asp" target="_top">Learn DTD</a><br>					
-		<a href="http://www.w3schools.com/xsl/default.asp" target="_top">Learn XSLT</a><br>					
-		<a href="http://www.w3schools.com/xpath/default.asp" target="_top">Learn XPath</a><br>
-		<a href="http://www.w3schools.com/xquery/default.asp" target="_top">Learn XQuery</a><br>					
-		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XLink</a><br>										
-		<a href="http://www.w3schools.com/xlink/default.asp" target="_top">Learn XPointer</a><br>														
-		<a href="http://www.w3schools.com/xslfo/default.asp" target="_top">Learn XSL-FO</a><br>															
-		<a href="http://www.w3schools.com/schema/default.asp" target="_top">Learn Schema</a><br>
-		<a href="http://www.w3schools.com/svg/default.asp" target="_top">Learn SVG</a><br>					
-		<a href="http://www.w3schools.com/rss/default.asp" target="_top">Learn RSS</a><br>										
-		<a href="http://www.w3schools.com/webservices/default.asp" target="_top">Learn WSDL</a><br>
-		<h3>WEB Building</h3>
-		<a href="http://www.w3schools.com/web/default.asp" target="_top">Web Primer</a><br>					
-		<a href="http://www.w3schools.com/website/default.asp" target="_top">Web Building</a><br>
-		<a href="http://www.w3schools.com/browsers/default.asp" target="_top">Web Statistics</a><br>					
-		<a href="http://www.w3schools.com/website/web_validate.asp" target="_top">Web Validation</a><br>							
-		<a href="http://www.w3schools.com/cert/default.asp" target="_top">Web Certificates</a><br>							
+	<div id="leftcol"> 
+			<volist name="category" id="level1" key="key">	
+				<if condition=" ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )">            
+						<if condition="($level1['level'] == 1)">
+						<h3>{$level1.name}</h3>
+						<?php $tmppid = $level1['id'];?>
+						</if>				
+						<if condition="($level1['level'] == 2) && ($level1['pid'] == $tmppid)">
+						<a href="{$level1.url}" target="_top">{$level1.name}</a><br>
+						</if>
+				</if>
+			</volist>						
 	</div>
 	<div id="maincol">		        
 		        <div id="content">

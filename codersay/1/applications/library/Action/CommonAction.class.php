@@ -23,7 +23,7 @@
 			
 			//get Navigation
 			$this->catCache = $nav_data = $this->getNavigation();		
-			$url_name = $_GET['_URL_'][0];
+		    $url_name = $_GET['_URL_'][0];
 			$utype = '';
 			$is_category = false;
 			if ( strtolower( $url_name ) == 'views' ){
@@ -42,13 +42,19 @@
 					if ( $value['channel'] == $url_name ) {
 						$is_category = true;
 						$utype = 'Category';
+						####
+						if($_GET['_URL_'][1]) {
+							$value['args'] = intval( $_GET['_URL_'][1] );							
+							$value['type'] = 'article_3';							
+						}
+						###
 						$this->category = $value;
 					}
 				}
 				unset( $key, $value );
 				$where['url_name'] = trim( $url_name );
 			}
-
+			
 			if ( !$is_category ){
 				if ( strtolower( MODULE_NAME ) != 'index' ){
 					$model = M('Archives');
@@ -65,15 +71,20 @@
 			}else{
 				$currentID = $this->category['id'];
 			}
- 
 			$_GET['catalog'] = $currentID; //当前分类ID
 			foreach ($nav_data as $key => $value) {
+				
+				####
+				if($_GET['_URL_'][1]) {
+					$value['args'] = intval( $_GET['_URL_'][1] );							
+					$value['type'] = 'article_3';							
+				}
+				###				
 				if ( $value['id'] == $currentID ) $this->category = $value;
 			}
 			if ( !empty( $this->category ) ){
 				$this->assign( 'class', $this->category );
 			}
-
 			$this->assign( 'ROOTID', $this->getRootID( $nav_data, $currentID ) ); //获取根ID并赋予模板
 			$position = '<a href="/">Home</a>';
 			if ( strtolower( MODULE_NAME ) != 'index' ){
@@ -85,7 +96,6 @@
 			$this->assign( 'position', '' . $position );
 
 			$this->itemType = $utype;
-
 			$this->setTplPlugin('sidebar');
 			$this->setTplPlugin('topbar');
 			$this->setTplPlugin('bottom');

@@ -29,7 +29,6 @@
 			}
 			$start_time = strtotime( $year . '-' . $month . '-' . $day . ' 00:00:00' );
 			$end_time = strtotime( $year . '-' . $end_month . '-' . $end_day . ' 23:59:59' );
-			
 			$model = M( 'Archives' );
 			$where = "create_time > '" . $start_time . "' AND create_time < '" . $end_time . "'";
 			$count = $model->where($where)->count();

@@ -11,14 +11,13 @@
 <meta name="viewport" content="width=device-width"> 
 <link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/style/basic.css" />
 <link rel="stylesheet" type="text/css" media="all" href="__STATIC_URL__/js/UEDTinkerShare.js" />
+<link rel="stylesheet" type="text/css" media="all" href="http://doc.codersay.net/php/syntaxhighlighter/styles/shCoreDefault.css" />
  </head>
  <body>
-  <div id="top"><div id="top_left"><a href="__SITE_URL__"><img width="280" height="32" style="border:0;" alt="W3Schools.com" src="__STATIC_URL__/images/w3logotest2.png"></a></div>
+  <div id="top"><div id="top_left"><a href="__SITE_URL__"><img style="border:0;" alt="W3Schools.com" src="__STATIC_URL__/images/logo.png"></a></div>
   <div id="top_right">  
   <volist name="category" id="level1">
-
-    		<if condition="( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )">
-            
+    		<if condition="( $level1['level'] == 1 ) && ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )">            
                 <if condition="( $level1['type'] == 'url' ) && ( $level1['level'] != '' )">
                 <a href="{$level1.url}" target="_blank">{$level1.name}</a>
                 <else />

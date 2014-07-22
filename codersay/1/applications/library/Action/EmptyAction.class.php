@@ -5,7 +5,6 @@
 			$this->_empty();
 		}
 		public function _empty(){
-			//print_r($_GET);
 			$classID = $_GET['catalog'];
 			$levelid = isset($_GET['_URL_'][1])?$_GET['_URL_'][1]:null;
 			$model = M('Archives');
@@ -31,9 +30,12 @@
 								$where['cid'] = $classID;
 							}else{
 								$where['cid'] = array( 'in', $IDlist );
-								//增加更多条件查询,自定义条件查询。	
-								if(isset($levelid)) $where['levelid'] = $levelid;
 							}
+							
+							####
+							//增加更多条件查询,自定义条件查询。	
+							if(isset($levelid)) $where['levelid'] = $levelid;
+							####	
 							import( 'ORG.Util.Page' );
 							$count = $model->where( $where )->count();
 			 				$p = new Page( $count, C('LIST_VIEW_NUMBER') );
@@ -42,7 +44,6 @@
 								->order('set_top DESC, recommend DESC, id DESC')
 								->limit($p->firstRow.','.$p->listRows)
 								->select();
-								//echo $model->getLastSql();
 							$this->assign('page',$p->show());
 							$this->assign('list',$list);
 							break;
