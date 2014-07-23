@@ -25,7 +25,7 @@
 	<div id="leftcol"> 
 		<?php if(is_array($category)): $key = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$level1): $mod = ($key % 2 );++$key; if( ( $level1['status'] == 1 ) && ( $level1['nav'] == 'nav' )): if(($level1['level'] == 1)): ?><h3><?php echo ($level1["name"]); ?></h3>
 					<?php $tmppid = $level1['id']; endif; ?>				
-					<?php if(($level1['level'] == 2) && ($level1['pid'] == $tmppid)): ?><a href="<?php echo ($level1["url"]); ?>" target="_top"><?php echo ($level1["name"]); ?></a><br><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?>								
+					<?php if(($level1['level'] == 2) && ($level1['pid'] == $tmppid)): ?><a href="<?php echo ($level1["url"]); ?>" target="_blank"><?php echo ($level1["name"]); ?></a><br><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?>								
 	</div>
 	<div id="maincol">
 		        <div id="content">
