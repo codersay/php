@@ -1,8 +1,0 @@
-<ul class="panel sidebar_album">
-	<h4>{$title}</h4>
-	<volist name="data" id="value">
-	<?php $thumb = str_replace( "thumb_" , "mini_", $value['thumb'] ); ?>
-	<li><a href="<?php if (!empty($value['url_name'])) { echo U('/'.$value['url_name']); } else { echo U('/views/'.$value['id']); } ?>" title="{:ndsubstr($value['title'],0,$len)}"><img src="__UPLOAD_ALBUM__/{$thumb}"></a></li>
-	</volist>
-	<div class="clear"></div>
-</ul>

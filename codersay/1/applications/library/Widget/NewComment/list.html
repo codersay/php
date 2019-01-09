@@ -1,6 +1,0 @@
-<ul class="panel sidebar_comment">
-	<h4>{$title}</h4>
-	<volist name="data" id="value">
-		<li><b>{$value.username}</b> 于 {$value.dtime|toDate=C('DEFAULT_DATE_FORMAT')} 对 <a href="{:U('/views/'.$value['cid'])}">{$value.arctitle}</a> 评论：<span style="color:#111;">{$value.msg}</span></li>
-	</volist>
-</ul>
